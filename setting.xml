@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<setting>
+  <PLC1_Name></PLC1_Name>
+  <PLC1_Parity>None</PLC1_Parity>
+  <PLC1_Databit>8</PLC1_Databit>
+  <PLC1_Stopbit>One</PLC1_Stopbit>
+  <PLC1_Baud>9600</PLC1_Baud>
+  <WindowStartupState>None</WindowStartupState>
+</setting>

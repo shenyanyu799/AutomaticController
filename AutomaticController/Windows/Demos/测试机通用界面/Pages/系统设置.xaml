@@ -1,0 +1,67 @@
+﻿<Page x:Class="AutomaticController.Windows.Demos.测试机通用界面.Pages.系统设置"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:root="clr-namespace:AutomaticController.Windows.Demos.测试机通用界面"
+      xmlns:local="clr-namespace:AutomaticController.Windows.Demos.测试机通用界面.Pages"
+      xmlns:ui="clr-namespace:AutomaticController.UI"
+      xmlns:system="clr-namespace:System;assembly=mscorlib"
+      xmlns:ports="clr-namespace:System.IO.Ports;assembly=System"
+      xmlns:ds="clr-namespace:AutomaticController.Windows.Demos.测试机通用界面.Datas" 
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="系统设置">
+
+    <Grid>
+        <TextBlock Text="系统设置" FontSize="35" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,5,0,0"/>
+        <TextBlock x:Name="DatetimeText" Text="当前时间" FontSize="35" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,5,10,0"/>
+        <Border Height="1" BorderBrush="#FF969191" Margin="3,50,3,0" BorderThickness="0,1,0,0" VerticalAlignment="Top" />
+        <StackPanel Margin="0,50,0,0">
+            <Grid>
+                <TextBlock Text="PLC通讯设置" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="30,5,0,0" FontSize="20"/>
+                <TextBlock Text="端口号：" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="30,40,0,0"/>
+                <ui:SerialPort_ComboBox SelectedItem="{Binding PLC1_Name, Mode=TwoWay, Source={x:Static ds:Setting.Instance}}" HorizontalAlignment="Left" Margin="90,37,0,0" VerticalAlignment="Top" Width="120"/>
+                <TextBlock Text="波特率：" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="255,40,0,0"/>
+                <ComboBox SelectedItem="{Binding PLC1_Baud, Mode=TwoWay, Source={x:Static ds:Setting.Instance}}" HorizontalAlignment="Left" Margin="315,37,0,0" VerticalAlignment="Top" Width="120" >
+                    <system:Int32 >2400</system:Int32>
+                    <system:Int32 >4800</system:Int32>
+                    <system:Int32 >9600</system:Int32>
+                    <system:Int32 >19200</system:Int32>
+                    <system:Int32 >22800</system:Int32>
+                    <system:Int32 >57600</system:Int32>
+                    <system:Int32 >115200</system:Int32>
+                </ComboBox>
+                <TextBlock Text="奇偶校验："  HorizontalAlignment="Left" VerticalAlignment="Top" Margin="480,40,0,0"/>
+                <ComboBox SelectedItem="{Binding PLC1_Parity, Mode=TwoWay, Source={x:Static ds:Setting.Instance}}" HorizontalAlignment="Left" Margin="555,37,0,0" VerticalAlignment="Top" Width="120" >
+                    <ports:Parity>None</ports:Parity>
+                    <ports:Parity>Odd</ports:Parity>
+                    <ports:Parity>Even</ports:Parity>
+                </ComboBox>
+                <TextBlock Text="数据位：" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="30,77,0,0"/>
+                <ComboBox SelectedItem="{Binding PLC1_Databit, Mode=TwoWay, Source={x:Static ds:Setting.Instance}}"  HorizontalAlignment="Left" Margin="90,74,0,0" VerticalAlignment="Top" Width="120" >
+                    <system:Int32 >7</system:Int32>
+                    <system:Int32 >8</system:Int32>
+                </ComboBox>
+                <TextBlock Text="停止位：" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="255,77,0,0"/>
+                <ComboBox SelectedItem="{Binding PLC1_Stopbit, Mode=TwoWay, Source={x:Static ds:Setting.Instance}}" HorizontalAlignment="Left" Margin="315,74,0,0" VerticalAlignment="Top" Width="120" >
+                    <ports:StopBits >None</ports:StopBits>
+                    <ports:StopBits >One</ports:StopBits>
+                    <ports:StopBits >Two</ports:StopBits>
+                </ComboBox>
+            </Grid>
+            <Border Height="1" BorderBrush="#FF969191" Margin="20,10,20,10" BorderThickness="0,1,0,0" />
+            <Grid>
+                <TextBlock Text="应用设置" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="30,5,0,0" FontSize="20"/>
+                <TextBlock Text="窗口启动状态："  HorizontalAlignment="Left" VerticalAlignment="Top" Margin="30,40,0,0"/>
+                <ComboBox SelectedItem="{Binding WindowStartupState, Mode=TwoWay, Source={x:Static ds:Setting.Instance}}" HorizontalAlignment="Left" Margin="117,37,0,0" VerticalAlignment="Top" Width="120" >
+                    <ds:WindowStartupState>None</ds:WindowStartupState>
+                    <ds:WindowStartupState>Full</ds:WindowStartupState>
+                    <ds:WindowStartupState>Max</ds:WindowStartupState>
+                </ComboBox>
+
+            </Grid>
+        </StackPanel>
+
+    </Grid>
+</Page>

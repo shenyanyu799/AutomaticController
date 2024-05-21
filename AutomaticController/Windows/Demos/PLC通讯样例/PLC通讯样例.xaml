@@ -1,0 +1,36 @@
+﻿<Window x:Class="AutomaticController.Windows.Demos.PLC通讯样例.PLC通讯样例"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AutomaticController.Windows.Demos.PLC通讯样例"
+        mc:Ignorable="d"
+        Title="PLC通讯样例" Height="450" Width="800">
+    <Grid>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Menu FontSize="16">
+                <MenuItem Header="选择COM端口" Name="ComSelect1" SubmenuOpened="ComSelect1_SubmenuOpened" Click="ComSelect1_Click" Background="#FF8ACAE0" Width="118">
+                    <MenuItem Header=""/>
+                </MenuItem>
+
+                <MenuItem Header="Page1" Click="MenuItem_Click"/>
+                <MenuItem Header="Page2" Click="MenuItem_Click"/>
+            </Menu>
+            <ScrollViewer Grid.Row="1"  HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" VerticalScrollBarVisibility="Disabled" IsManipulationEnabled="True" PanningMode="Both" >
+                <Frame x:Name="UserFrame" NavigationUIVisibility="Hidden">
+                </Frame>
+            </ScrollViewer>
+            <Border Grid.Row="2" BorderThickness="0,1,0,0" BorderBrush="#FFCCCCCC"  Margin="3,0,3,0">
+                <StackPanel>
+                    <TextBlock FontSize="12" x:Name="stateText" Margin="5,0,0,0" />
+                </StackPanel>
+            </Border>
+        </Grid>
+
+    </Grid>
+</Window>

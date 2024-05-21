@@ -1,0 +1,19 @@
+﻿<Page x:Class="AutomaticController.Windows.Demos.测试机通用界面.Pages.封面"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:root="clr-namespace:AutomaticController.Windows.Demos.测试机通用界面" 
+      xmlns:local="clr-namespace:AutomaticController.Windows.Demos.测试机通用界面.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="封面">
+    <Page.Resources>
+        <ResourceDictionary Source="/Windows/Demos/测试机通用界面/UIDictionary.xaml" />
+    </Page.Resources>
+    <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+        <TextBlock HorizontalAlignment="Center" FontSize="60" VerticalAlignment="Top" Margin="0,120,0,0" Text="{DynamicResource ProjectName}" Foreground="#FF2B2B2B"/>
+        <TextBlock HorizontalAlignment="Left" FontSize="26" VerticalAlignment="Top" Margin="120,280,0,0" Foreground="#FF4A4A4A"><Run Text="慈溪赛森塑料机械有限公司"/></TextBlock>
+        <TextBlock HorizontalAlignment="Left" FontSize="26" VerticalAlignment="Top" Margin="120,320,0,0" Foreground="#FF4A4A4A"><Run Text="联系方式：13586649527"/></TextBlock>
+    </Grid>
+</Page>

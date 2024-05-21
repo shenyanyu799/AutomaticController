@@ -1,0 +1,186 @@
+﻿<Page
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:AutomaticController.Windows.Demos.测试机通用界面.Pages"
+      xmlns:System="clr-namespace:System;assembly=mscorlib"
+      xmlns:ui="clr-namespace:AutomaticController.UI" 
+      xmlns:root="clr-namespace:AutomaticController.Windows.Demos.测试机通用界面" 
+      xmlns:ds="clr-namespace:AutomaticController.Windows.Demos.测试机通用界面.Datas" 
+xmlns:Linq="clr-namespace:Newtonsoft.Json.Linq;assembly=Newtonsoft.Json" 
+xmlns:LiteDB="clr-namespace:LiteDB;assembly=LiteDB" 
+x:Class="AutomaticController.Windows.Demos.测试机通用界面.Pages.运行监控"
+      mc:Ignorable="d" 
+      d:DesignHeight="800" d:DesignWidth="1000"
+      Title="运行监控">
+    <Grid>
+        <TextBlock Text="运行监控" FontSize="35" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,5,0,0"/>
+        <TextBlock x:Name="DatetimeText" Text="当前时间" FontSize="35" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,5,10,0"/>
+        <Border Height="1" BorderBrush="#FF969191" Margin="3,50,3,0" BorderThickness="0,1,0,0" VerticalAlignment="Top" />
+        <Grid Margin="5,55,5,5">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top" >
+                <TextBlock Text="OK数：" FontSize="20" Margin="5,0,0,0" VerticalAlignment="Center"/>
+                <ui:ULabel DataContext="{Binding Source={x:Static ds:PLC1.OK数}}" FontSize="20" BorderBrush="#FF8C8C8C" BorderThickness="1,1,1,1" Width="100"/>
+                <TextBlock Text="NG数：" FontSize="20" Margin="5,0,0,0" VerticalAlignment="Center"/>
+                <ui:ULabel DataContext="{Binding Source={x:Static ds:PLC1.NG数}}" FontSize="20" BorderBrush="#FF8C8C8C" BorderThickness="1,1,1,1" Width="100"/>
+                <TextBlock Text="生产总数：" FontSize="20" Margin="5,0,0,0" VerticalAlignment="Center"/>
+                <ui:ULabel DataContext="{Binding Source={x:Static ds:PLC1.生产总数}}" FontSize="20" BorderBrush="#FF8C8C8C" BorderThickness="1,1,1,1" Width="100"/>
+                <ui:UBitButton DataContext="{Binding Source={x:Static ds:PLC1.产量清零}}"  FontSize="20" OffContent=" 产量清零 " OnContent=" 产量清零 " OffBackground="#FFD4D3D3" OnBackground="#FFBFBFBF" PressModule="Set" Margin="10,0,10,0"/>
+            </StackPanel>
+            <Grid Height="500" VerticalAlignment="Center" Margin="20,0,20,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Label Grid.Row="0" Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="25" BorderBrush="DarkGray" BorderThickness="1,1,1,1" Background="#FFE4E4E4">
+                </Label>
+                <Label Grid.Row="0" Grid.Column="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="25" BorderBrush="DarkGray" BorderThickness="1,1,1,1" Background="#FFE4E4E4">
+                    工位1
+                </Label>
+                <Label Grid.Row="0" Grid.Column="2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="25" BorderBrush="DarkGray" BorderThickness="1,1,1,1" Background="#FFE4E4E4">
+                    工位2
+                </Label>
+                <Label Grid.Row="0" Grid.Column="3" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="25" BorderBrush="DarkGray" BorderThickness="1,1,1,1" Background="#FFE4E4E4">
+                    工位3
+                </Label>
+                <Label Grid.Row="1" Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="25" BorderBrush="DarkGray" BorderThickness="1,1,1,1" Background="#FFE4E4E4">
+                    瞬时流量 (ml/s)
+                </Label>
+                <Label Grid.Row="2" Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="25" BorderBrush="DarkGray" BorderThickness="1,1,1,1" Background="#FFE4E4E4">
+                    累计流量 (ml)
+                </Label>
+                <Label Grid.Row="3" Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="25" BorderBrush="DarkGray" BorderThickness="1,1,1,1" Background="#FFE4E4E4">
+                    工作时间 (s)
+                </Label>
+                <Label Grid.Row="4" Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="25" BorderBrush="DarkGray" BorderThickness="1,1,1,1" Background="#FFE4E4E4">
+                    测试流量 (ml/min)
+                </Label>
+                <Label Grid.Row="5" Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="25" BorderBrush="DarkGray" BorderThickness="1,1,1,1" Background="#FFE4E4E4">
+                    测试状态
+                </Label>
+                <ui:ULabel Grid.Row="1" Grid.Column="1" DataContext="{Binding Source={x:Static ds:PLC1.瞬时流量1}}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="25" BorderBrush="DarkGray" BorderThickness="1,1,1,1"/>
+                <ui:ULabel Grid.Row="1" Grid.Column="2" DataContext="{Binding Source={x:Static ds:PLC1.瞬时流量2}}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="25" BorderBrush="DarkGray" BorderThickness="1,1,1,1"/>
+                <ui:ULabel Grid.Row="1" Grid.Column="3" DataContext="{Binding Source={x:Static ds:PLC1.瞬时流量3}}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="25" BorderBrush="DarkGray" BorderThickness="1,1,1,1"/>
+                <ui:ULabel Grid.Row="2" Grid.Column="1" DataContext="{Binding Source={x:Static ds:PLC1.累计流量1}}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="25" BorderBrush="DarkGray" BorderThickness="1,1,1,1"/>
+                <ui:ULabel Grid.Row="2" Grid.Column="2" DataContext="{Binding Source={x:Static ds:PLC1.累计流量2}}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="25" BorderBrush="DarkGray" BorderThickness="1,1,1,1"/>
+                <ui:ULabel Grid.Row="2" Grid.Column="3" DataContext="{Binding Source={x:Static ds:PLC1.累计流量3}}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="25" BorderBrush="DarkGray" BorderThickness="1,1,1,1"/>
+                <ui:ULabel Grid.Row="3" Grid.Column="1" DataContext="{Binding Source={x:Static ds:PLC1.测试时间1}}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="25" BorderBrush="DarkGray" BorderThickness="1,1,1,1"/>
+                <ui:ULabel Grid.Row="3" Grid.Column="2" DataContext="{Binding Source={x:Static ds:PLC1.测试时间2}}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="25" BorderBrush="DarkGray" BorderThickness="1,1,1,1"/>
+                <ui:ULabel Grid.Row="3" Grid.Column="3" DataContext="{Binding Source={x:Static ds:PLC1.测试时间3}}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="25" BorderBrush="DarkGray" BorderThickness="1,1,1,1"/>
+                <ui:ULabel Grid.Row="4" Grid.Column="1" DataContext="{Binding Source={x:Static ds:PLC1.结果流量1}}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="25" BorderBrush="DarkGray" BorderThickness="1,1,1,1"/>
+                <ui:ULabel Grid.Row="4" Grid.Column="2" DataContext="{Binding Source={x:Static ds:PLC1.结果流量2}}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="25" BorderBrush="DarkGray" BorderThickness="1,1,1,1"/>
+                <ui:ULabel Grid.Row="4" Grid.Column="3" DataContext="{Binding Source={x:Static ds:PLC1.结果流量3}}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="25" BorderBrush="DarkGray" BorderThickness="1,1,1,1"/>
+                <ui:UNumLabel Grid.Row="5" Grid.Column="1" DataContext="{Binding Source={x:Static ds:PLC1.状态1}}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="25" BorderBrush="DarkGray" BorderThickness="1,1,1,1">
+                    <ui:UNumLabel.Backgrounds>
+                        <x:Array Type="{x:Type Brush}">
+                            <SolidColorBrush Color="#FF8ECDF5"/>
+                            <SolidColorBrush Color="#FF74FD1A"/>
+                            <SolidColorBrush Color="#FFF53131"/>
+                            <SolidColorBrush Color="Transparent"/>
+                            <SolidColorBrush Color="Transparent"/>
+                            <SolidColorBrush Color="Transparent"/>
+                            <SolidColorBrush Color="Transparent"/>
+                            <SolidColorBrush Color="Transparent"/>
+                            <SolidColorBrush Color="Transparent"/>
+                            <SolidColorBrush Color="Transparent"/>
+                            <SolidColorBrush Color="#FFF4F58E"/>
+                        </x:Array>
+                    </ui:UNumLabel.Backgrounds>
+                    <ui:UNumLabel.Contents>
+                        <x:Array Type="{x:Type System:Object}">
+                            <System:String>待机中</System:String>
+                            <System:String>检测OK</System:String>
+                            <System:String>检测NG</System:String>
+                            <System:String>待机中</System:String>
+                            <System:String>待机中</System:String>
+                            <System:String>待机中</System:String>
+                            <System:String>待机中</System:String>
+                            <System:String>待机中</System:String>
+                            <System:String>待机中</System:String>
+                            <System:String>待机中</System:String>
+                            <System:String>开始测试</System:String>
+                        </x:Array>
+                    </ui:UNumLabel.Contents>
+                </ui:UNumLabel>
+
+                <ui:UNumLabel Grid.Row="5" Grid.Column="2" DataContext="{Binding Source={x:Static ds:PLC1.状态2}}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="25" BorderBrush="DarkGray" BorderThickness="1,1,1,1">
+                    <ui:UNumLabel.Backgrounds>
+                        <x:Array Type="{x:Type Brush}">
+                            <SolidColorBrush Color="#FF8ECDF5"/>
+                            <SolidColorBrush Color="#FF74FD1A"/>
+                            <SolidColorBrush Color="#FFF53131"/>
+                            <SolidColorBrush Color="Transparent"/>
+                            <SolidColorBrush Color="Transparent"/>
+                            <SolidColorBrush Color="Transparent"/>
+                            <SolidColorBrush Color="Transparent"/>
+                            <SolidColorBrush Color="Transparent"/>
+                            <SolidColorBrush Color="Transparent"/>
+                            <SolidColorBrush Color="Transparent"/>
+                            <SolidColorBrush Color="#FFF4F58E"/>
+                        </x:Array>
+                    </ui:UNumLabel.Backgrounds>
+                    <ui:UNumLabel.Contents>
+                        <x:Array Type="{x:Type System:Object}">
+                            <System:String>待机中</System:String>
+                            <System:String>检测OK</System:String>
+                            <System:String>检测NG</System:String>
+                            <System:String>待机中</System:String>
+                            <System:String>待机中</System:String>
+                            <System:String>待机中</System:String>
+                            <System:String>待机中</System:String>
+                            <System:String>待机中</System:String>
+                            <System:String>待机中</System:String>
+                            <System:String>待机中</System:String>
+                            <System:String>开始测试</System:String>
+                        </x:Array>
+                    </ui:UNumLabel.Contents>
+                </ui:UNumLabel>
+
+                <ui:UNumLabel Grid.Row="5" Grid.Column="3" DataContext="{Binding Source={x:Static ds:PLC1.状态3}}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="25" BorderBrush="DarkGray" BorderThickness="1,1,1,1">
+                    <ui:UNumLabel.Backgrounds>
+                        <x:Array Type="{x:Type Brush}">
+                            <SolidColorBrush Color="#FF8ECDF5"/>
+                            <SolidColorBrush Color="#FF74FD1A"/>
+                            <SolidColorBrush Color="#FFF53131"/>
+                            <SolidColorBrush Color="Transparent"/>
+                            <SolidColorBrush Color="Transparent"/>
+                            <SolidColorBrush Color="Transparent"/>
+                            <SolidColorBrush Color="Transparent"/>
+                            <SolidColorBrush Color="Transparent"/>
+                            <SolidColorBrush Color="Transparent"/>
+                            <SolidColorBrush Color="Transparent"/>
+                            <SolidColorBrush Color="#FFF4F58E"/>
+                        </x:Array>
+                    </ui:UNumLabel.Backgrounds>
+                    <ui:UNumLabel.Contents>
+                        <x:Array Type="{x:Type System:Object}">
+                            <System:String>待机中</System:String>
+                            <System:String>检测OK</System:String>
+                            <System:String>检测NG</System:String>
+                            <System:String>待机中</System:String>
+                            <System:String>待机中</System:String>
+                            <System:String>待机中</System:String>
+                            <System:String>待机中</System:String>
+                            <System:String>待机中</System:String>
+                            <System:String>待机中</System:String>
+                            <System:String>待机中</System:String>
+                            <System:String>开始测试</System:String>
+                        </x:Array>
+                    </ui:UNumLabel.Contents>
+                </ui:UNumLabel>
+            </Grid>
+        </Grid>
+
+    </Grid>
+</Page>

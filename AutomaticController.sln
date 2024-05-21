@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34330.188
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutomaticController", "AutomaticController\AutomaticController.csproj", "{8D508340-0CE6-47D0-A256-E5C4F1685FBC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8D508340-0CE6-47D0-A256-E5C4F1685FBC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D508340-0CE6-47D0-A256-E5C4F1685FBC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D508340-0CE6-47D0-A256-E5C4F1685FBC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D508340-0CE6-47D0-A256-E5C4F1685FBC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F35FE024-0641-4E87-AF62-50B16D3EBE0F}
+	EndGlobalSection
+EndGlobal
