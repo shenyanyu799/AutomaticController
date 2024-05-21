@@ -1,5 +1,5 @@
 # AutomaticController
-用于自动化开发的简易框架包含以下功能:
+用于工控上位机开发的简易框架包含以下功能:
 1. 托管的modbus-rtu功能，实现IModbus_RTU_Unit对象创建后的自动绑定，后续可能添加更多通讯协议
 2. 一些关联PLC变量的控件，UBitButton、ULabel、UTextBox等，在后端创建变量后可以直接与前端控件绑定，示例如下：
     ```C#
