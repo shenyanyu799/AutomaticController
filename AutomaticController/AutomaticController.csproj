@@ -377,7 +377,6 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <None Include="README.md" />
     <EmbeddedResource Include="Windows\Demos\吸尘器空气性能测试\模板欧标.xlsx" />
     <EmbeddedResource Include="Windows\Demos\吸尘器空气性能测试\模板美标.xlsx" />
     <None Include="Windows\Demos\数据上传报表\README.md" />
