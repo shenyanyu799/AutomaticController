@@ -10,8 +10,6 @@ namespace AutomaticController.Windows.Demos.测试机通用界面.Datas
     public class PLC1
     {
         public static Modbus_RTU PLC { get; set; } = new Modbus_RTU(1);
-
-
         public static Modbus_RTU_Bit 检测OK1 { get; set; } = new Modbus_RTU_Bit(PLC, Modbus_EasyAddress.M(0));
         public static Modbus_RTU_Bit 检测NG1 { get; set; } = new Modbus_RTU_Bit(PLC, Modbus_EasyAddress.M(1));
         public static Modbus_RTU_Bit 检测OK2 { get; set; } = new Modbus_RTU_Bit(PLC, Modbus_EasyAddress.M(2));
