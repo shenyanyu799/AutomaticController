@@ -20,6 +20,7 @@
 
                 <MenuItem Header="Page1" Click="MenuItem_Click"/>
                 <MenuItem Header="Page2" Click="MenuItem_Click"/>
+                <MenuItem Header="Page2" Click="MenuItem_Click"/>
             </Menu>
             <ScrollViewer Grid.Row="1"  HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" VerticalScrollBarVisibility="Disabled" IsManipulationEnabled="True" PanningMode="Both" >
                 <Frame x:Name="UserFrame" NavigationUIVisibility="Hidden">

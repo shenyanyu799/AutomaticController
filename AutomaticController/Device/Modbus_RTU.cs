@@ -974,6 +974,32 @@ namespace AutomaticController.Device
 
             return states;
         }
+        /// <summary>
+        /// 获取报文
+        /// </summary>
+        /// <param name="serialPort"></param>
+        /// <param name="Address"></param>
+        /// <param name="dataAddress"></param>
+        /// <param name="dataCount"></param>
+        /// <returns></returns>
+        public static byte[] ReadData_Code(byte Address, ushort dataAddress, ushort dataCount)
+        {
+            byte[] code = new byte[8];
+
+            code[0] = Address;
+            code[1] = 0x03;
+            byte[] sa = BitConverter.GetBytes(dataAddress);
+            code[2] = sa[1];
+            code[3] = sa[0];
+            byte[] da = BitConverter.GetBytes(dataCount);
+            code[4] = da[1];
+            code[5] = da[0];
+            byte[] crc = CRC16(code, 6);
+            code[6] = crc[1];
+            code[7] = crc[0];
+
+            return code;
+        }
 
         /// <summary>
         /// CRC校验，参数data为byte数组
@@ -1404,6 +1430,15 @@ namespace AutomaticController.Device
         }
         public void ExecuteRead()
         {
+            ExecuteRead(RTU.ModbusAddress);
+        }
+        public void ExecuteWrite()
+        {
+            ExecuteWrite(RTU.ModbusAddress);
+        }
+
+        public void ExecuteRead(byte modbusAddress)
+        {
             int num = DataAddress * 2;
             ushort count = 1;
             switch (UnitType)
@@ -1414,7 +1449,7 @@ namespace AutomaticController.Device
                 case Modbus_RTU_Type.Float_LH:
                     count = 2; break;
             }
-            var rv = Modbus_RTU.ReadData(RTU.Serial, RTU.ModbusAddress, (ushort)DataAddress, count);
+            var rv = Modbus_RTU.ReadData(RTU.Serial, modbusAddress, (ushort)DataAddress, count);
             if (rv?.Length == 0) return;
             for (int i = 0; i < rv.Length; i++)
             {
@@ -1423,7 +1458,7 @@ namespace AutomaticController.Device
             LastTime = DateTime.Now;
             RequestRead = false;
         }
-        public void ExecuteWrite()
+        public void ExecuteWrite(byte modbusAddress)
         {
             int num = DataAddress * 2;
             switch (UnitType)
@@ -1431,13 +1466,13 @@ namespace AutomaticController.Device
 
                 case Modbus_RTU_Type.Word:
                 case Modbus_RTU_Type.Word_LH:
-                    Modbus_RTU.WriteData(RTU.Serial, RTU.ModbusAddress, (ushort)(DataAddress), RTU.Data1.Data[num], RTU.Data1.Data[num + 1]);
+                    Modbus_RTU.WriteData(RTU.Serial, modbusAddress, (ushort)(DataAddress), RTU.Data1.Data[num], RTU.Data1.Data[num + 1]);
                     break;
                 case Modbus_RTU_Type.DWord:
                 case Modbus_RTU_Type.DWord_LH:
                 case Modbus_RTU_Type.Float:
                 case Modbus_RTU_Type.Float_LH:
-                    Modbus_RTU.WriteDatas(RTU.Serial, RTU.ModbusAddress, (ushort)(DataAddress), RTU.Data1.Data, 4, num); 
+                    Modbus_RTU.WriteDatas(RTU.Serial, modbusAddress, (ushort)(DataAddress), RTU.Data1.Data, 4, num);
                     break;
             }
 

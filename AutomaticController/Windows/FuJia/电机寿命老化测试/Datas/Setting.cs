@@ -2,21 +2,25 @@
 using AutomaticController.Properties;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Newtonsoft.Json.Schema;
 using Newtonsoft.Json.Serialization;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.IO.Ports;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using System.Windows.Input;
 using System.Xml.Linq;
-using static AutomaticController.Windows.Demos.测试机通用界面.Datas.Enums;
+using static AutomaticController.Windows.FuJia.电机寿命老化测试.Datas.Enums;
 
-namespace AutomaticController.Windows.Demos.测试机通用界面.Datas
+namespace AutomaticController.Windows.FuJia.电机寿命老化测试.Datas
 {
     /// <summary>
     /// 存储一些参数
@@ -30,13 +34,18 @@ namespace AutomaticController.Windows.Demos.测试机通用界面.Datas
 
         public string UserKey { get => GetValue("UserKey", "888888"); set => SetValue("UserKey", value); }
         public WindowStartupState WindowStartupState { get => GetValue("WindowStartupState", WindowStartupState.None); set => SetValue("WindowStartupState", value); }
-        public string PLC1_Name { get => GetValue("PLC1_Name", "COM1"); set => SetValue("PLC1_Name", value); }
-        public int PLC1_Baud { get => GetValue("PLC1_Baud", 9600); set => SetValue("PLC1_Baud", value); }
-        public Parity PLC1_Parity { get => GetValue("PLC1_Parity", Parity.None); set => SetValue("PLC1_Parity", value); }
-        public int PLC1_Databit { get => GetValue("PLC1_Databit", 8); set => SetValue("PLC1_Databit", value); }
-        public StopBits PLC1_Stopbit { get => GetValue("PLC1_Stopbit", StopBits.One); set => SetValue("PLC1_Stopbit", value); }
+        public string DO_Name { get => GetValue("DO_Name", "COM1"); set => SetValue("DO_Name", value); }
+        public int DO_Baud { get => GetValue("DO_Baud", 9600); set => SetValue("DO_Baud", value); }
+        public Parity DO_Parity { get => GetValue("DO_Parity", Parity.None); set => SetValue("DO_Parity", value); }
+        public int DO_Databit { get => GetValue("DO_Databit", 8); set => SetValue("DO_Databit", value); }
+        public StopBits DO_Stopbit { get => GetValue("DO_Stopbit", StopBits.One); set => SetValue("DO_Stopbit", value); }
 
 
+        public string AI_Name { get => GetValue("AI_Name", "COM1"); set => SetValue("AI_Name", value); }
+        public int AI_Baud { get => GetValue("AI_Baud", 19200); set => SetValue("AI_Baud", value); }
+        public Parity AI_Parity { get => GetValue("AI_Parity", Parity.None); set => SetValue("AI_Parity", value); }
+        public int AI_Databit { get => GetValue("AI_Databit", 8); set => SetValue("AI_Databit", value); }
+        public StopBits AI_Stopbit { get => GetValue("AI_Stopbit", StopBits.One); set => SetValue("AI_Stopbit", value); }
 
     }
 
@@ -245,7 +254,7 @@ namespace AutomaticController.Windows.Demos.测试机通用界面.Datas
                     return defaultValue;
                 }
             }
-
+           
             try
             {
                 result = JsonConvert.DeserializeObject<T>(t);
@@ -259,7 +268,7 @@ namespace AutomaticController.Windows.Demos.测试机通用界面.Datas
                     return defaultValue;
                 }
             }
-            catch (Exception ex)
+            catch(Exception ex)
             {
                 Console.WriteLine(ex);
                 _savevalue(key, defaultValue);
@@ -399,7 +408,7 @@ namespace AutomaticController.Windows.Demos.测试机通用界面.Datas
         bool settingvalue;
         public void SetValue(string key, object value)
         {
-            if (value is string)
+            if(value is string)
             {
                 setValue(key, value.ToString());
                 return;
@@ -439,7 +448,7 @@ namespace AutomaticController.Windows.Demos.测试机通用界面.Datas
                     Document = XDocument.Load(Path);
                 }
             }
-            if (value == null)
+            if(value == null)
             {
                 value = "";
             }

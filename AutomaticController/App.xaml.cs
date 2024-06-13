@@ -50,8 +50,8 @@ namespace AutomaticController
 
 
             //启动初始窗口...........................................
-            //this.MainWindow = new Windows.Demos.测试机通用界面.MainWindow();//创建一个新窗体
-            this.MainWindow = new Windows.Demos.吸尘器空气性能测试.StartWindow();//创建一个新窗体
+            //this.MainWindow = new Windows.FuJia.电机寿命老化测试.MainWindow();//创建一个新窗体
+            this.MainWindow = new Windows.Demos.测试机通用界面.MainWindow();//创建一个新窗体
             //this.MainWindow = new Windows.SanSheng.数据库扫码查重项目.MainWindow1();//创建一个新窗体
 
 

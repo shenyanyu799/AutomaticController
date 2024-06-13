@@ -129,6 +129,9 @@
     <Compile Include="UI\UTextBox.xaml.cs">
       <DependentUpon>UTextBox.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Windows\Demos\PLC通讯样例\Pages\Page3.xaml.cs">
+      <DependentUpon>Page3.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\Demos\PLC通讯样例\Pages\Page2.xaml.cs">
       <DependentUpon>Page2.xaml</DependentUpon>
     </Compile>
@@ -197,6 +200,38 @@
     </Compile>
     <Compile Include="Windows\Demos\测试机通用界面\Datas\PLC1.cs" />
     <Compile Include="Windows\Demos\测试机通用界面\Datas\Setting.cs" />
+    <Compile Include="Windows\FuJia\电机寿命老化测试\Datas\Enums.cs" />
+    <Compile Include="Windows\FuJia\电机寿命老化测试\Datas\PLC1.cs" />
+    <Compile Include="Windows\FuJia\电机寿命老化测试\Datas\Setting.cs" />
+    <Compile Include="Windows\FuJia\电机寿命老化测试\Datas\Parameters.cs" />
+    <Compile Include="Windows\FuJia\电机寿命老化测试\MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\FuJia\电机寿命老化测试\Pages\IO监控.xaml.cs">
+      <DependentUpon>IO监控.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\FuJia\电机寿命老化测试\Pages\PageManage.cs" />
+    <Compile Include="Windows\FuJia\电机寿命老化测试\Pages\参数设置.xaml.cs">
+      <DependentUpon>参数设置.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\FuJia\电机寿命老化测试\Pages\口令验证.xaml.cs">
+      <DependentUpon>口令验证.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\FuJia\电机寿命老化测试\Pages\封面.xaml.cs">
+      <DependentUpon>封面.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\FuJia\电机寿命老化测试\Pages\手动界面.xaml.cs">
+      <DependentUpon>手动界面.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\FuJia\电机寿命老化测试\Pages\数据查询.xaml.cs">
+      <DependentUpon>数据查询.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\FuJia\电机寿命老化测试\Pages\系统设置.xaml.cs">
+      <DependentUpon>系统设置.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\FuJia\电机寿命老化测试\Pages\运行监控.xaml.cs">
+      <DependentUpon>运行监控.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\SanSheng\数据库扫码查重项目\Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
     </Compile>
@@ -256,6 +291,10 @@
     <Page Include="Windows\Demos\PLC通讯样例\Pages\Page1.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\Demos\PLC通讯样例\Pages\Page3.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Windows\Demos\PLC通讯样例\Pages\Page2.xaml">
       <SubType>Designer</SubType>
@@ -328,6 +367,46 @@
     <Page Include="Windows\Demos\测试机通用界面\UIDictionary.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\FuJia\电机寿命老化测试\MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\FuJia\电机寿命老化测试\Pages\IO监控.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\FuJia\电机寿命老化测试\Pages\参数设置.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\FuJia\电机寿命老化测试\Pages\口令验证.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\FuJia\电机寿命老化测试\Pages\封面.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\FuJia\电机寿命老化测试\Pages\手动界面.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\FuJia\电机寿命老化测试\Pages\数据查询.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\FuJia\电机寿命老化测试\Pages\系统设置.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\FuJia\电机寿命老化测试\Pages\运行监控.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\FuJia\电机寿命老化测试\UIDictionary.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Windows\SanSheng\数据库扫码查重项目\Dictionary1.xaml">
       <SubType>Designer</SubType>

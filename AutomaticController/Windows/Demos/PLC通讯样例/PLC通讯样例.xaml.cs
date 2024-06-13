@@ -37,7 +37,8 @@ namespace AutomaticController.Windows.Demos.PLC通讯样例
 
             pages.Add("Page1", new Page1());//添加页面到字典方便查
             pages.Add("Page2", new Page2());//添加页面到字典方便查
-            UserFrame.Navigate(pages["Page1"]);//加载首页面
+            pages.Add("Page3", new Page3());//添加页面到字典方便查
+            UserFrame.Navigate(pages["Page3"]);//加载首页面
         }
         //画面渲染事件
         private void CompositionTarget_Rendering(object sender, EventArgs e)

@@ -1,13 +1,13 @@
-﻿<Window x:Class="AutomaticController.Windows.Demos.测试机通用界面.MainWindow"
+﻿<Window x:Class="AutomaticController.Windows.FuJia.电机寿命老化测试.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:AutomaticController.Windows.Demos.测试机通用界面"
+        xmlns:local="clr-namespace:AutomaticController.Windows.FuJia.电机寿命老化测试"
         mc:Ignorable="d"
-        Title="{DynamicResource ProjectName}" Height="750" Width="1024" WindowStartupLocation="CenterScreen" PreviewGotKeyboardFocus="Window_PreviewGotKeyboardFocus"   >
+        Title="{DynamicResource ProjectName}" Height="900" Width="1500" WindowStartupLocation="CenterScreen" PreviewGotKeyboardFocus="Window_PreviewGotKeyboardFocus"   >
     <Window.Resources>
-        <ResourceDictionary Source="/Windows/Demos/测试机通用界面/UIDictionary.xaml" />
+        <ResourceDictionary Source="/Windows/FuJia/电机寿命老化测试/UIDictionary.xaml" />
     </Window.Resources>
     <Grid x:Name="mainGrid">
         <Grid>
@@ -48,18 +48,22 @@
 
                 </Border>
                 <ScrollViewer Grid.Column="1" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" VerticalScrollBarVisibility="Disabled" IsManipulationEnabled="True" PanningMode="Both" Margin="2,0,0,0" >
-                    <Frame x:Name="UserFrame" NavigationUIVisibility="Hidden" Source="/Windows/Demos/测试机通用界面/Pages/封面.xaml" />
+                    <Frame x:Name="UserFrame" NavigationUIVisibility="Hidden" Source="/Windows/FuJia/电机寿命老化测试/Pages/封面.xaml" />
                 </ScrollViewer>
             </Grid>
             <Border  Grid.Row="1" Background="#CCEFEFEF" BorderThickness="0,1,0,0">
                 <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Margin="5,0,5,0" >
-                    <TextBlock Text="框架版本：V2.1_D240613"  FontSize="12"/>
+                    <TextBlock Text="框架版本：V2.0_D240513"  FontSize="12"/>
                     <Border Width="1" Background="#FFBDBDBD" Margin="5,0,5,0"/>
                     <TextBlock Text="项目名："  FontSize="12"/>
                     <TextBlock Text="{DynamicResource ProjectName}"  FontSize="12"/>
                     <Border Width="1" Background="#FFBDBDBD" Margin="5,0,5,0"/>
-                    <TextBlock Text="PLC连接状态："  FontSize="12"/>
-                    <TextBlock x:Name="plcState"  FontSize="12"/>
+                    <TextBlock Text="DO模块："  FontSize="12"/>
+                    <TextBlock x:Name="doState"  FontSize="12" Width="160"/>
+                    <Border Width="1" Background="#FFBDBDBD" Margin="5,0,5,0"/>
+                    <TextBlock Text="AI模块："  FontSize="12"/>
+                    <TextBlock x:Name="aiState"  FontSize="12"  Width="160"/>
+
                 </StackPanel>
             </Border>
         </Grid>

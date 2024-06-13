@@ -5,14 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 
-namespace AutomaticController.Windows.Demos.测试机通用界面.Pages
+namespace AutomaticController.Windows.FuJia.电机寿命老化测试.Pages
 {
     public class PageManage
     {
         /// <summary>
         /// 至少成功切换过一次页面()
         /// </summary>
-        public bool IsNext { get; private set; }
+        public bool IsNext{  get; private set; }
         Dictionary<string, Page> Pages = new Dictionary<string, Page>();
         Frame theFrame;
         string pageName;
@@ -58,7 +58,7 @@ namespace AutomaticController.Windows.Demos.测试机通用界面.Pages
                 pageName = name;
                 if (theFrame.Content != page && keyPage != null)
                 {
-                    if (key == null || key.Length == 0)
+                    if(key == null ||  key.Length == 0)
                     {
                         theFrame.Navigate(page);
                         return;

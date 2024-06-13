@@ -171,5 +171,27 @@ namespace AutomaticController.Function
         {
             return Enum.GetValues(typeof(T)).OfType<T>();
         }
+        public static string ToStringH(this byte[] data,string separator =" ")
+        {
+            
+            string t = "";
+            int len = data.Length;
+            for (int i = 0; i < len; i++)
+            {
+                t += data[i].ToString("X2") + separator;
+            }
+            return t.Trim();
+        }
+        public static string ToStringH(this byte[] data, int startIndex, int length, string separator = " ")
+        {
+
+            string t = "";
+            int len = length + startIndex;
+            for (int i = startIndex; i < len; i++)
+            {
+                t += data[i].ToString("X2") + separator;
+            }
+            return t.Trim();
+        }
     }
 }
