@@ -1,4 +1,5 @@
-﻿using AutomaticController.Function;
+﻿#define CCDEnable
+using AutomaticController.Function;
 using AutomaticController.UI;
 using AutomaticController.Windows.Demos.测试机通用界面.Datas;
 using AutomaticController.Windows.Demos.测试机通用界面.Pages;
@@ -19,15 +20,16 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using static System.Windows.Forms.AxHost;
 
 namespace AutomaticController.Windows.Demos.测试机通用界面
 {
+
     /// <summary>
     /// MainWindow.xaml 的交互逻辑
     /// </summary>
     public partial class MainWindow : Window
     {
+
         public static Grid MainGrid { get; set; }
         public static PageManage Pages { get; set; }
         public bool Started;
@@ -37,6 +39,7 @@ namespace AutomaticController.Windows.Demos.测试机通用界面
             MainGrid = this.mainGrid;
             //WindowStyle = WindowStyle.None;
             //WindowState = WindowState.Maximized;
+            //窗口初始状态
             switch (Setting.Instance.WindowStartupState)
             {
                 case WindowStartupState.None:
@@ -54,18 +57,33 @@ namespace AutomaticController.Windows.Demos.测试机通用界面
 
             CompositionTarget.Rendering += CompositionTarget_Rendering;
 
-            
+            //用户参数初始化
+            if (Parameters_XMLFile.SelectItem == null)
+            {
+                Parameters_XMLFile.Select("Default");
+            }
 
             Pages = new PageManage(UserFrame);
             //添加页面
             Pages.SetKeyPage(new 口令验证());
+#if CCDEnable
+            Pages.Add("CCD编辑", new CCD编辑());
+            Pages.Add("运行监控", new 运行监控_CCD());
+            this.Closed += (s, e) =>
+            {
+                CCD编辑.CloseCCD();
+            };
+#else
             Pages.Add("运行监控", new 运行监控());
+#endif
             Pages.Add("IO监控", new IO监控());
             Pages.Add("参数设置", new 参数设置());
             Pages.Add("封面", new 封面());
             Pages.Add("手动界面", new 手动界面());
             Pages.Add("数据查询", new 数据查询());
             Pages.Add("系统设置", new 系统设置());
+
+
             Task.Delay(3000).ContinueWith(t => App.Current.Dispatcher.Invoke(() =>
             {
                 if (Pages.IsNext == false)
@@ -200,7 +218,16 @@ namespace AutomaticController.Windows.Demos.测试机通用界面
                     plcState.Text = "PLC关闭";
                     plcState.Foreground = new SolidColorBrush(Colors.Red);
                 }
-
+            }
+            if (Pages.IsUnlock(Setting.Instance.UserKey))
+            {
+                keyState.SetValue(Border.BackgroundProperty, this.Resources["unlockImg"]);
+                keyState.ToolTip = $"将在{((int)Pages.RemainingLockTime)}秒后自动登出";
+            }
+            else
+            {
+                keyState.SetValue(Border.BackgroundProperty, this.Resources["lockImg"]);
+                keyState.ToolTip = $"口令未登录";
             }
         }
 

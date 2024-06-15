@@ -4,11 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace AutomaticController.Windows.Demos.测试机通用界面.Pages
 {
     public class PageManage
     {
+        /// <summary>
+        /// 口令有效时间
+        /// </summary>
+        public double UnockTime = 300;
         /// <summary>
         /// 至少成功切换过一次页面()
         /// </summary>
@@ -16,6 +21,9 @@ namespace AutomaticController.Windows.Demos.测试机通用界面.Pages
         Dictionary<string, Page> Pages = new Dictionary<string, Page>();
         Frame theFrame;
         string pageName;
+        //上次输入密码的时间
+        DateTime lastkeyTime;
+        public double RemainingLockTime => UnockTime - (DateTime.Now - lastkeyTime).TotalSeconds;
         public PageManage(Frame frame)
         {
             theFrame = frame;
@@ -44,6 +52,7 @@ namespace AutomaticController.Windows.Demos.测试机通用界面.Pages
             }
         }
         public bool IsPage(string name) => name == pageName;
+        public bool IsUnlock(string key) => (key == null || key.Length == 0 || (DateTime.Now - lastkeyTime).TotalSeconds <= UnockTime);
         /// <summary>
         /// 
         /// </summary>
@@ -58,7 +67,7 @@ namespace AutomaticController.Windows.Demos.测试机通用界面.Pages
                 pageName = name;
                 if (theFrame.Content != page && keyPage != null)
                 {
-                    if (key == null || key.Length == 0)
+                    if (IsUnlock(key))
                     {
                         theFrame.Navigate(page);
                         return;
@@ -68,6 +77,7 @@ namespace AutomaticController.Windows.Demos.测试机通用界面.Pages
                         if (k == key)
                         {
                             theFrame.Navigate(page);
+                            lastkeyTime = DateTime.Now;
                         }
                     };
 

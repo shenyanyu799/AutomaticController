@@ -35,8 +35,7 @@ namespace AutomaticController.Windows.Demos.测试机通用界面.Datas
         public Parity PLC1_Parity { get => GetValue("PLC1_Parity", Parity.None); set => SetValue("PLC1_Parity", value); }
         public int PLC1_Databit { get => GetValue("PLC1_Databit", 8); set => SetValue("PLC1_Databit", value); }
         public StopBits PLC1_Stopbit { get => GetValue("PLC1_Stopbit", StopBits.One); set => SetValue("PLC1_Stopbit", value); }
-
-
+        public string ParametersSelectName { get => GetValue("ParametersSelectName", "Default"); set => SetValue("ParametersSelectName", value); }
 
     }
 
@@ -45,7 +44,10 @@ namespace AutomaticController.Windows.Demos.测试机通用界面.Datas
     /// </summary>
     public class XMLFile : INotifyPropertyChanged
     {
-        public string Path { get; set; }
+        /// <summary>
+        /// XML文件存储路径
+        /// </summary>
+        public string XMLFilePath { get; set; }
 
         private XDocument Document;
 
@@ -56,7 +58,7 @@ namespace AutomaticController.Windows.Demos.测试机通用界面.Datas
         }
         public XMLFile(string path)
         {
-            Path = path;
+            XMLFilePath = path;
         }
 
         protected internal virtual void OnPropertyChanged(string propertyName)
@@ -82,11 +84,11 @@ namespace AutomaticController.Windows.Demos.测试机通用界面.Datas
             if (Document == null)
             {
                 bool isnew = false;
-                if (File.Exists(Path))
+                if (File.Exists(XMLFilePath))
                 {
                     try
                     {
-                        Document = XDocument.Load(Path);
+                        Document = XDocument.Load(XMLFilePath);
                     }
                     catch
                     {
@@ -100,18 +102,20 @@ namespace AutomaticController.Windows.Demos.测试机通用界面.Datas
 
                 if (isnew)
                 {
-                    new XElement(Path).Save(Path);
-                    Document = XDocument.Load(Path);
+                    new XElement(XMLFilePath).Save(XMLFilePath);
+                    Document = XDocument.Load(XMLFilePath);
                 }
             }
 
             //获取根节点
             XElement root = Document.Root;
+           
             //查找数据
             var v = root.Element(key);
             if (v != null)
             {
                 v.Remove();
+                
                 Task.Run(() =>
                 {
                     if (settingvalue)
@@ -122,20 +126,20 @@ namespace AutomaticController.Windows.Demos.测试机通用界面.Datas
                     Task.Delay(100).Wait();
                     settingvalue = false;
 
-                    Document.Root.Save(Path);
+                    Document.Root.Save(XMLFilePath);
                 });
             }
         }
-        public string[] GetNames()
+        public void Rekey(string key,string newKey)
         {
             if (Document == null)
             {
                 bool isnew = false;
-                if (File.Exists(Path))
+                if (File.Exists(XMLFilePath))
                 {
                     try
                     {
-                        Document = XDocument.Load(Path);
+                        Document = XDocument.Load(XMLFilePath);
                     }
                     catch
                     {
@@ -149,8 +153,59 @@ namespace AutomaticController.Windows.Demos.测试机通用界面.Datas
 
                 if (isnew)
                 {
-                    new XElement(Path).Save(Path);
-                    Document = XDocument.Load(Path);
+                    new XElement(XMLFilePath).Save(XMLFilePath);
+                    Document = XDocument.Load(XMLFilePath);
+                }
+            }
+
+            //获取根节点
+            XElement root = Document.Root;
+
+            //查找数据
+            var v = root.Element(key);
+            if (v != null)
+            {
+                v.Name = newKey;
+                Console.WriteLine(v);
+                Task.Run(() =>
+                {
+                    if (settingvalue)
+                    {
+                        return;
+                    }
+                    settingvalue = true;
+                    Task.Delay(100).Wait();
+                    settingvalue = false;
+
+                    Document.Root.Save(XMLFilePath);
+                });
+            }
+        }
+        public string[] GetNames()
+        {
+            if (Document == null)
+            {
+                bool isnew = false;
+                if (File.Exists(XMLFilePath))
+                {
+                    try
+                    {
+                        Document = XDocument.Load(XMLFilePath);
+                    }
+                    catch
+                    {
+                        isnew = true;
+                    }
+                }
+                else
+                {
+                    isnew = true;
+                }
+
+                if (isnew)
+                {
+                    new XElement(XMLFilePath).Save(XMLFilePath);
+                    Document = XDocument.Load(XMLFilePath);
                 }
             }
             //获取根节点
@@ -173,11 +228,11 @@ namespace AutomaticController.Windows.Demos.测试机通用界面.Datas
             if (Document == null)
             {
                 bool isnew = false;
-                if (File.Exists(Path))
+                if (File.Exists(XMLFilePath))
                 {
                     try
                     {
-                        Document = XDocument.Load(Path);
+                        Document = XDocument.Load(XMLFilePath);
                     }
                     catch
                     {
@@ -191,8 +246,8 @@ namespace AutomaticController.Windows.Demos.测试机通用界面.Datas
 
                 if (isnew)
                 {
-                    new XElement(Path).Save(Path);
-                    Document = XDocument.Load(Path);
+                    new XElement(XMLFilePath).Save(XMLFilePath);
+                    Document = XDocument.Load(XMLFilePath);
                 }
             }
 
@@ -417,11 +472,11 @@ namespace AutomaticController.Windows.Demos.测试机通用界面.Datas
             if (Document == null)
             {
                 bool isnew = false;
-                if (File.Exists(Path))
+                if (File.Exists(XMLFilePath))
                 {
                     try
                     {
-                        Document = XDocument.Load(Path);
+                        Document = XDocument.Load(XMLFilePath);
                     }
                     catch
                     {
@@ -435,8 +490,8 @@ namespace AutomaticController.Windows.Demos.测试机通用界面.Datas
 
                 if (isnew)
                 {
-                    new XElement(Path).Save(Path);
-                    Document = XDocument.Load(Path);
+                    new XElement(XMLFilePath).Save(XMLFilePath);
+                    Document = XDocument.Load(XMLFilePath);
                 }
             }
             if (value == null)
@@ -469,7 +524,7 @@ namespace AutomaticController.Windows.Demos.测试机通用界面.Datas
                 Task.Delay(100).Wait();
                 settingvalue = false;
 
-                Document.Root.Save(Path);
+                Document.Root.Save(XMLFilePath);
             });
         }
     }

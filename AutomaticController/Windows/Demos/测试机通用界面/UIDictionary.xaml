@@ -13,6 +13,8 @@
 
 
 
+    <ImageBrush x:Key="lockImg" ImageSource="/Resources/Img/lock.png" />
+    <ImageBrush x:Key="unlockImg" ImageSource="/Resources/Img/unlock.png" />
 
 
 

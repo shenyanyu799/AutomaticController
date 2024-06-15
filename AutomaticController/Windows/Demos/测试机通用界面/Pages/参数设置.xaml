@@ -9,35 +9,64 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="参数设置">
-
+    <Page.Resources>
+        <ResourceDictionary Source="/Windows/Demos/测试机通用界面/UIDictionary.xaml" />
+    </Page.Resources>
     <Grid>
-        <TextBlock Text="参数设置" FontSize="35" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,5,0,0"/>
+        <TextBlock x:Name="PageTitle" Text="参数设置" FontSize="35" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,5,0,0"/>
         <TextBlock x:Name="DatetimeText" Text="当前时间" FontSize="35" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,5,10,0"/>
         <Border Height="1" BorderBrush="#FF969191" Margin="3,50,3,0" BorderThickness="0,1,0,0" VerticalAlignment="Top" />
         <Grid Margin="5,55,5,5">
-            <StackPanel Margin="40,40,0,0" HorizontalAlignment="Left" VerticalAlignment="Top">
-                <StackPanel Orientation="Horizontal" Margin="0,5,0,5" VerticalAlignment="Top" HorizontalAlignment="Right">
-                    <TextBlock Text="产品启动时间（s）：" FontSize="25" />
-                    <ui:UTextBox  DataContext="{Binding Source={x:Static ds:PLC1.产品启动时间}}"  Width="120" FontSize="25" TextAlignment="Center"/>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="120"/>
+            </Grid.ColumnDefinitions>
+            <ScrollViewer>
+                <StackPanel>
+                    <StackPanel Margin="40,40,0,0" HorizontalAlignment="Left" VerticalAlignment="Top">
+                        <StackPanel Orientation="Horizontal" Margin="0,5,0,5" VerticalAlignment="Top" HorizontalAlignment="Right">
+                            <TextBlock Text="产品启动时间（s）：" FontSize="25" />
+                            <ui:UTextBox  DataContext="{Binding Source={x:Static ds:PLC1.产品启动时间}}"  Width="120" FontSize="25" TextAlignment="Center"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,5,0,5" HorizontalAlignment="Right" VerticalAlignment="Top">
+                            <TextBlock Text="检测时间（s）：" FontSize="25" />
+                            <ui:UTextBox  DataContext="{Binding Source={x:Static ds:PLC1.检测时间}}" Width="120" FontSize="25" TextAlignment="Center"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,5,0,5" HorizontalAlignment="Right" VerticalAlignment="Top">
+                            <TextBlock Text="流量上限（ml/min）：" FontSize="25" />
+                            <ui:UTextBox  DataContext="{Binding Source={x:Static ds:PLC1.流量上限}}" Width="120" FontSize="25" TextAlignment="Center"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,5,0,5" HorizontalAlignment="Right" VerticalAlignment="Top">
+                            <TextBlock Text="流量下限（ml/min）：" FontSize="25" />
+                            <ui:UTextBox  DataContext="{Binding Source={x:Static ds:PLC1.流量下限}}" Width="120" FontSize="25" TextAlignment="Center"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,5,0,5" HorizontalAlignment="Right" VerticalAlignment="Top">
+                            <TextBlock Text="流量系数：" FontSize="25" />
+                            <ui:UTextBox  DataContext="{Binding Source={x:Static ds:PLC1.流量系数}}" Width="120" FontSize="25" TextAlignment="Center"/>
+                        </StackPanel>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="40,20,0,5" HorizontalAlignment="Left" VerticalAlignment="Top">
+                        <TextBlock Text="CCD程序路径：" FontSize="25" />
+                        <TextBox x:Name="VmPathText" Width="300" FontSize="12" IsReadOnly="True" VerticalContentAlignment="Center"/>
+                        <Button Content="Open" Margin="5,0,0,0" Click="Button_Click" Template="{DynamicResource ButtonTemplate1}" />
+                    </StackPanel>
                 </StackPanel>
-                <StackPanel Orientation="Horizontal" Margin="0,5,0,5" HorizontalAlignment="Right" VerticalAlignment="Top">
-                    <TextBlock Text="检测时间（s）：" FontSize="25" />
-                    <ui:UTextBox  DataContext="{Binding Source={x:Static ds:PLC1.检测时间}}" Width="120" FontSize="25" TextAlignment="Center"/>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal" Margin="0,5,0,5" HorizontalAlignment="Right" VerticalAlignment="Top">
-                    <TextBlock Text="流量上限（ml/min）：" FontSize="25" />
-                    <ui:UTextBox  DataContext="{Binding Source={x:Static ds:PLC1.流量上限}}" Width="120" FontSize="25" TextAlignment="Center"/>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal" Margin="0,5,0,5" HorizontalAlignment="Right" VerticalAlignment="Top">
-                    <TextBlock Text="流量下限（ml/min）：" FontSize="25" />
-                    <ui:UTextBox  DataContext="{Binding Source={x:Static ds:PLC1.流量下限}}" Width="120" FontSize="25" TextAlignment="Center"/>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal" Margin="0,5,0,5" HorizontalAlignment="Right" VerticalAlignment="Top">
-                    <TextBlock Text="流量系数：" FontSize="25" />
-                    <ui:UTextBox  DataContext="{Binding Source={x:Static ds:PLC1.流量系数}}" Width="120" FontSize="25" TextAlignment="Center"/>
-                </StackPanel>
-            </StackPanel>
-
+            </ScrollViewer>
+            <Grid  Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                </Grid.RowDefinitions>
+                <ListView x:Name="paramListView"/>
+                <Button Grid.Row="1" x:Name="saveParamButton" Content="保存参数" CommandParameter="save" Template="{DynamicResource ButtonTemplate1}" Click="ParamButton_Click" Background="#FFEDEDED" />
+                <Button Grid.Row="2" x:Name="newParamButton" Content="另存新参数" CommandParameter="new" Template="{DynamicResource ButtonTemplate1}" Click="ParamButton_Click" Background="#FFEDEDED" />
+                <Button Grid.Row="3" x:Name="renameParamButton" Content="重命名" CommandParameter="rename" Template="{DynamicResource ButtonTemplate1}" IsEnabled="False" Click="ParamButton_Click" Background="#FFEDEDED"/>
+                <Button Grid.Row="4" x:Name="deleteParamButton" Content="删除" CommandParameter="delete" Template="{DynamicResource ButtonTemplate1}" IsEnabled="False" Click="ParamButton_Click" Background="#FFEDEDED"/>
+            </Grid>
+            
         </Grid>
     </Grid>
 </Page>
