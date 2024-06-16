@@ -4,18 +4,92 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:AutomaticController.Windows.Demos.测试机通用界面.Pages"
-      xmlns:Release="clr-namespace:VMControls.WPF.Release;assembly=VMControls.WPF.Release" 
+            xmlns:root="clr-namespace:AutomaticController.Windows.Demos.测试机通用界面" 
+      xmlns:ds="clr-namespace:AutomaticController.Windows.Demos.测试机通用界面.Datas" 
+      xmlns:Release="clr-namespace:VMControls.WPF.Release;assembly=VMControls.WPF.Release" xmlns:ui="clr-namespace:AutomaticController.UI" xmlns:System="clr-namespace:System;assembly=mscorlib"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="700" d:DesignWidth="1000"
       Title="运行监控">
-
+    <Page.Resources>
+        <ResourceDictionary Source="/Windows/Demos/测试机通用界面/UIDictionary.xaml"/>
+    </Page.Resources>
     <Grid>
         <TextBlock Text="运行监控" FontSize="35" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,5,0,0"/>
         <TextBlock x:Name="DatetimeText" Text="当前时间" FontSize="35" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,5,10,0"/>
         <Border Height="1" BorderBrush="#FF969191" Margin="3,50,3,0" BorderThickness="0,1,0,0" VerticalAlignment="Top" />
-        <Release:VmRenderControl x:Name="VmRenderControl1" Margin="35,64,0,64" HorizontalAlignment="Left" Width="660"/>
-        <Button Content="执行" HorizontalAlignment="Left" Margin="782,124,0,0" VerticalAlignment="Top" Click="Button_Click"/>
-        <Button Content="编辑" HorizontalAlignment="Left" Margin="784,161,0,0" VerticalAlignment="Top" Click="Button_Click_1"/>
-        <ComboBox x:Name="ParamSelest_ComboBox" HorizontalAlignment="Left" Margin="99,440,0,0" VerticalAlignment="Bottom" Width="120" DropDownOpened="ComboBox_DropDownOpened" DropDownClosed="ComboBox_DropDownClosed"/>
+        <Grid Margin="20,60,0,0"  VerticalAlignment="Top"  HorizontalAlignment="Left" >
+            <Release:VmRenderControl x:Name="VmRenderControl1" Width="650" Height="550"/>
+            <Button Content="执行" HorizontalAlignment="Right" Margin="0,6,240,0" VerticalAlignment="Top" Click="Button_Click" Background="#FF5B5B5B" Width="60" Height="28" Template="{DynamicResource ButtonTemplate2}" Foreground="#FFE0E0E0"/>
+            <Button Content="编辑" HorizontalAlignment="Right" Margin="0,6,160,0" VerticalAlignment="Top" Click="Button_Click_1" Background="#FF5B5B5B" Width="60" Height="28" Template="{DynamicResource ButtonTemplate2}" Foreground="#FFE0E0E0"/>
+        </Grid>
+        <StackPanel VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="35,0,0,25" Orientation="Horizontal">
+            <TextBlock Text="参数选择：" FontSize="25" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+            <ComboBox x:Name="ParamSelest_ComboBox" FontSize="25" HorizontalAlignment="Left" Width="350" DropDownOpened="ComboBox_DropDownOpened" DropDownClosed="ComboBox_DropDownClosed" VerticalAlignment="Center" />
+        </StackPanel>
+        <StackPanel HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,60,10,0">
+            <Border BorderBrush="Black" Background="#FFEBF589" BorderThickness="1,1,1,1" Height="80">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,5,0">
+                    <TextBlock Text="实时重量:"  FontSize="25"/>
+                    <ui:UTextBlock Width="120"  FontSize="25" DataContext="{Binding Source={x:Static ds:PLC1.实时重量}}" SuffixText="g" VerticalAlignment="Top"/>
+                </StackPanel>
+            </Border>
+            <Border BorderBrush="Black" Background="#FFBFF383" BorderThickness="1,1,1,1" Height="80">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,5,0">
+                    <TextBlock Text="检测重量:"  FontSize="25"/>
+                    <ui:UTextBlock Width="120"  FontSize="25" DataContext="{Binding Source={x:Static ds:PLC1.检测重量}}" SuffixText="g" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                </StackPanel>
+            </Border>
+            <ui:UBitButton DataContext="{Binding Source={x:Static ds:PLC1.重量校准}}"  FontSize="25" Grid.Column="0" Grid.Row="3" OnContent="重量校准" OffContent="重量校准" PressModule="PressOn" OffBackground="#FFB3B2B2" OnBackground="#FFDDDDDD"  Value="False" Height="45"/>
+            <Border  Grid.Row="1"  BorderThickness="1,1,1,1" Height="200" BorderBrush="#FF313131" Background="White" HorizontalAlignment="Right">
+                <Grid Margin="5,0,0,5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock  Grid.Column="0" Grid.Row="0" Text="OK数：" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="25" />
+                    <TextBlock  Grid.Column="0" Grid.Row="1" Text="NG数：" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="25" />
+                    <TextBlock  Grid.Column="0" Grid.Row="2" Text="生产总数：" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="25" />
+                    <ui:UTextBlock Grid.Column="1" Grid.Row="0" DataContext="{Binding Source={x:Static ds:PLC1.OK数}}" FontSize="25" VerticalAlignment="Center" MinWidth="120"/>
+                    <ui:UTextBlock Grid.Column="1" Grid.Row="1"  DataContext="{Binding Source={x:Static ds:PLC1.NG数}}" FontSize="25" VerticalAlignment="Center" MinWidth="120"/>
+                    <ui:UTextBlock Grid.Column="1" Grid.Row="2"  DataContext="{Binding Source={x:Static ds:PLC1.生产总数}}" FontSize="25" VerticalAlignment="Center" MinWidth="120"/>
+                    <ui:UBitButton DataContext="{Binding Source={x:Static ds:PLC1.产量清零}}"   FontSize="25" Grid.Column="0" Grid.Row="3" OnContent="产量清零" OffContent="产量清零" PressModule="PressOn" OffBackground="#FFB3B2B2" OnBackground="#FFDDDDDD"  Value="False" Height="45" Width="120"/>
+                </Grid>
+            </Border>
+        
+        </StackPanel>
+        <StackPanel   HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,10,25">
+            <TextBlock Text="检测结果" FontSize="25"/>
+            <ui:UNumLabel DataContext="{Binding Source={x:Static ds:PLC1.检测结果}}" Width="250" Height="80" FontSize="25" BorderBrush="DarkGray" BorderThickness="1,1,1,1" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" >
+                <ui:UNumLabel.Backgrounds>
+                    <x:Array Type="{x:Type Brush}">
+                        <SolidColorBrush Color="#FF8ECDF5"/>
+                        <SolidColorBrush Color="#FF74FD1A"/>
+                        <SolidColorBrush Color="#FFF53131"/>
+                        <SolidColorBrush Color="#FFF53131"/>
+                        <SolidColorBrush Color="#FFF53131"/>
+                        <SolidColorBrush Color="#FFF53131"/>
+                        <SolidColorBrush Color="#FFF53131"/>
+                    </x:Array>
+                </ui:UNumLabel.Backgrounds>
+                <ui:UNumLabel.Contents>
+                    <x:Array Type="{x:Type System:Object}">
+                        <System:String>未检测</System:String>
+                        <System:String>检测OK</System:String>
+                        <System:String>扫码超时</System:String>
+                        <System:String>重量NG</System:String>
+                        <System:String>拍照NG</System:String>
+                        <System:String>条码前缀NG</System:String>
+                        <System:String>重码NG</System:String>
+                    </x:Array>
+                </ui:UNumLabel.Contents>
+            </ui:UNumLabel>
+
+        </StackPanel>
     </Grid>
 </Page>

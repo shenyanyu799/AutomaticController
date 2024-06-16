@@ -34,10 +34,14 @@ namespace AutomaticController.Windows.Demos.测试机通用界面.Pages
             this.Unloaded += (s, e) => {
                 CompositionTarget.Rendering -= CompositionTarget_Rendering;
             };
+            //加载参数
             Parameters_XMLFile.Instance.LoadParamEvent += param =>
             {
                 PageTitle.Text = $"参数设置【{param.FileName}】";
+                //初始化显示
                 VmPathText.Text = param.CCDPath;
+                sncodePrefixText.Text = param.SN码前缀;
+                sncodeDuplicateButton.Value = param.重码检测;
                 //更新参数后重置列表选择项
                 for (int i = 0; i < paramListView.Items.Count; i++)
                 {
@@ -47,6 +51,13 @@ namespace AutomaticController.Windows.Demos.测试机通用界面.Pages
                         paramSelectedIndex = i;
                     }
                 }
+            };
+            //保存参数
+            Parameters_XMLFile.Instance.SaveParamEvent += param =>
+            {
+                param.CCDPath = VmPathText.Text;
+                param.SN码前缀 = sncodePrefixText.Text;
+                param.重码检测 = sncodeDuplicateButton.Value;
             };
         }
 
@@ -115,12 +126,26 @@ namespace AutomaticController.Windows.Demos.测试机通用界面.Pages
                 {
                     par.CCDPath = openFile.FileName;
 
-                    par.Save();
+                    //par.Save();
                 }
             };
             openFile.ShowDialog();
         }
-        //新建参数
+        /// <summary>
+        /// SNCode前缀输入框失去焦点自动保存
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void sncodePrefixText_LostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
+        {
+            var par = Parameters_XMLFile.SelectItem;
+            if (sncodePrefixText.Text != par.SN码前缀)
+            {
+                par.SN码前缀 = sncodePrefixText.Text;
+                //par.Save();
+            }
+        }
+        //参数列表按钮
         private void ParamButton_Click(object sender, RoutedEventArgs e)
         {
             Button button = (Button)sender;
@@ -190,5 +215,11 @@ namespace AutomaticController.Windows.Demos.测试机通用界面.Pages
             }
         }
 
+        private void sncodeEnabledButton_Click(object sender, RoutedEventArgs e)
+        {
+            var par = Parameters_XMLFile.SelectItem;
+            par.重码检测 = sncodeDuplicateButton.Value;
+            //sncodeEnabledButton.Value = par.重码检测;
+        }
     }
 }

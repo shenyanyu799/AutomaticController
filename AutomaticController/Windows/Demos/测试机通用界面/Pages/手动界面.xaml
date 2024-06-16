@@ -18,9 +18,9 @@
         <TextBlock x:Name="DatetimeText" Text="当前时间" FontSize="35" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,5,10,0"/>
         <Border Height="1" BorderBrush="#FF969191" Margin="3,50,3,0" BorderThickness="0,1,0,0" VerticalAlignment="Top" />
         <Grid Margin="5,55,5,5" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <ui:UBitButton DataContext="{Binding Source={x:Static ds:PLC1.启动继电器1}}"  FontSize="20" OffContent=" 启动继电器1 " OnContent=" 启动继电器1 " OffBackground="#FFD4D3D3" OnBackground="#FF9ED878" PressModule="Invert" Margin="10,0,10,0" HorizontalAlignment="Left" VerticalAlignment="Top" CornerRadius="3" Height="45"/>
-            <ui:UBitButton DataContext="{Binding Source={x:Static ds:PLC1.启动继电器2}}"  FontSize="20" OffContent=" 启动继电器2 " OnContent=" 启动继电器2 " OffBackground="#FFD4D3D3" OnBackground="#FF9ED878" PressModule="Invert" Margin="200,0,10,0" HorizontalAlignment="Left" VerticalAlignment="Top" CornerRadius="3" Height="45"/>
-            <ui:UBitButton DataContext="{Binding Source={x:Static ds:PLC1.启动继电器3}}"  FontSize="20" OffContent=" 启动继电器3 " OnContent=" 启动继电器3 " OffBackground="#FFD4D3D3" OnBackground="#FF9ED878" PressModule="Invert" Margin="400,0,10,0" HorizontalAlignment="Left" VerticalAlignment="Top" CornerRadius="3" Height="45"/>
+            <ui:UBitButton DataContext="{Binding Source={x:Static ds:PLC1.升降气缸}}"  FontSize="20" OffContent=" 气缸手动抬升 " OnContent=" 气缸手动下降 " OffBackground="#FFD4D3D3" OnBackground="#FF9ED878" PressModule="Invert" Margin="10,0,10,0" HorizontalAlignment="Left" VerticalAlignment="Top" CornerRadius="3" Height="45"/>
+            <!--<ui:UBitButton DataContext="{Binding Source={x:Static ds:PLC1.启动继电器2}}"  FontSize="20" OffContent=" 启动继电器2 " OnContent=" 启动继电器2 " OffBackground="#FFD4D3D3" OnBackground="#FF9ED878" PressModule="Invert" Margin="200,0,10,0" HorizontalAlignment="Left" VerticalAlignment="Top" CornerRadius="3" Height="45"/>
+            <ui:UBitButton DataContext="{Binding Source={x:Static ds:PLC1.启动继电器3}}"  FontSize="20" OffContent=" 启动继电器3 " OnContent=" 启动继电器3 " OffBackground="#FFD4D3D3" OnBackground="#FF9ED878" PressModule="Invert" Margin="400,0,10,0" HorizontalAlignment="Left" VerticalAlignment="Top" CornerRadius="3" Height="45"/>-->
 
         </Grid>
     </Grid>

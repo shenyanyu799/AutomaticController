@@ -182,7 +182,7 @@ namespace AutomaticController.Device
         private Func<double> Get;
         private Action<double> Set;
         public double Value { get => Get(); set => Set(value); }
-        public string Format { get; set; }
+        public string Format;
         public void Parse(string text)
         {
             double d = 0;
@@ -193,9 +193,10 @@ namespace AutomaticController.Device
         }
         public override string ToString()
         {
-            if(Format == null) Value.ToString();
+            if(Format == null) return Value.ToString();
             return Value.ToString(Format);
         }
+
         public override bool Equals(object obj)
         {
             return Value.Equals(obj);
@@ -205,7 +206,29 @@ namespace AutomaticController.Device
             return Value.GetHashCode();
         }
     }
-
+    public class Num_Double : INum
+    {
+        public double Value { get => Get(); set => Set?.Invoke(value); }
+        private Func<double> Get;
+        private Action<double> Set;
+        public Num_Double(Func<double> get, Action<double> set = null)
+        {
+            Get = get;
+            Set = set;
+        }
+        public override string ToString()
+        {
+            return Value.ToString();
+        }
+        public string ToString(string format)
+        {
+            return Value.ToString(format);
+        }
+        public override int GetHashCode()
+        {
+            return Value.GetHashCode();
+        }
+    }
 
 
 

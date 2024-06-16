@@ -36,7 +36,11 @@ namespace AutomaticController.Windows.Demos.测试机通用界面.Datas
         public int PLC1_Databit { get => GetValue("PLC1_Databit", 8); set => SetValue("PLC1_Databit", value); }
         public StopBits PLC1_Stopbit { get => GetValue("PLC1_Stopbit", StopBits.One); set => SetValue("PLC1_Stopbit", value); }
         public string ParametersSelectName { get => GetValue("ParametersSelectName", "Default"); set => SetValue("ParametersSelectName", value); }
-
+        public string Sweep1_Name { get => GetValue("Sweep1_Name", "COM1"); set => SetValue("Sweep1_Name", value); }
+        public int Sweep1_Baud { get => GetValue("Sweep1_Baud", 115200); set => SetValue("Sweep1_Baud", value); }
+        public Parity Sweep1_Parity { get => GetValue("Sweep1_Parity", Parity.None); set => SetValue("Sweep1_Parity", value); }
+        public int Sweep1_Databit { get => GetValue("Sweep1_Databit", 8); set => SetValue("Sweep1_Databit", value); }
+        public StopBits Sweep1_Stopbit { get => GetValue("Sweep1_Stopbit", StopBits.One); set => SetValue("Sweep1_Stopbit", value); }
     }
 
     /// <summary>

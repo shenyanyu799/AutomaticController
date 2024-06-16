@@ -52,6 +52,39 @@
             </Grid>
             <Border Height="1" BorderBrush="#FF969191" Margin="20,10,20,10" BorderThickness="0,1,0,0" />
             <Grid>
+                <TextBlock Text="扫码枪通讯设置" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="30,5,0,0" FontSize="20"/>
+                <TextBlock Text="端口号：" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="30,40,0,0"/>
+                <ui:SerialPort_ComboBox SelectedItem="{Binding Sweep1_Name, Mode=TwoWay, Source={x:Static ds:Setting.Instance}}" HorizontalAlignment="Left" Margin="90,37,0,0" VerticalAlignment="Top" Width="120"/>
+                <TextBlock Text="波特率：" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="255,40,0,0"/>
+                <ComboBox SelectedItem="{Binding Sweep1_Baud, Mode=TwoWay, Source={x:Static ds:Setting.Instance}}" HorizontalAlignment="Left" Margin="315,37,0,0" VerticalAlignment="Top" Width="120" >
+                    <system:Int32 >2400</system:Int32>
+                    <system:Int32 >4800</system:Int32>
+                    <system:Int32 >9600</system:Int32>
+                    <system:Int32 >19200</system:Int32>
+                    <system:Int32 >22800</system:Int32>
+                    <system:Int32 >57600</system:Int32>
+                    <system:Int32 >115200</system:Int32>
+                </ComboBox>
+                <TextBlock Text="奇偶校验："  HorizontalAlignment="Left" VerticalAlignment="Top" Margin="480,40,0,0"/>
+                <ComboBox SelectedItem="{Binding Sweep1_Parity, Mode=TwoWay, Source={x:Static ds:Setting.Instance}}" HorizontalAlignment="Left" Margin="555,37,0,0" VerticalAlignment="Top" Width="120" >
+                    <ports:Parity>None</ports:Parity>
+                    <ports:Parity>Odd</ports:Parity>
+                    <ports:Parity>Even</ports:Parity>
+                </ComboBox>
+                <TextBlock Text="数据位：" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="30,77,0,0"/>
+                <ComboBox SelectedItem="{Binding Sweep1_Databit, Mode=TwoWay, Source={x:Static ds:Setting.Instance}}"  HorizontalAlignment="Left" Margin="90,74,0,0" VerticalAlignment="Top" Width="120" >
+                    <system:Int32 >7</system:Int32>
+                    <system:Int32 >8</system:Int32>
+                </ComboBox>
+                <TextBlock Text="停止位：" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="255,77,0,0"/>
+                <ComboBox SelectedItem="{Binding Sweep1_Stopbit, Mode=TwoWay, Source={x:Static ds:Setting.Instance}}" HorizontalAlignment="Left" Margin="315,74,0,0" VerticalAlignment="Top" Width="120" >
+                    <ports:StopBits >None</ports:StopBits>
+                    <ports:StopBits >One</ports:StopBits>
+                    <ports:StopBits >Two</ports:StopBits>
+                </ComboBox>
+            </Grid>
+            <Border Height="1" BorderBrush="#FF969191" Margin="20,10,20,10" BorderThickness="0,1,0,0" />
+            <Grid>
                 <TextBlock Text="应用设置" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="30,5,0,0" FontSize="20"/>
                 <TextBlock Text="窗口启动状态："  HorizontalAlignment="Left" VerticalAlignment="Top" Margin="30,40,0,0"/>
                 <ComboBox SelectedItem="{Binding WindowStartupState, Mode=TwoWay, Source={x:Static ds:Setting.Instance}}" HorizontalAlignment="Left" Margin="117,37,0,0" VerticalAlignment="Top" Width="120" >

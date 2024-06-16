@@ -7,7 +7,7 @@
       xmlns:local="clr-namespace:AutomaticController.Windows.Demos.测试机通用界面.Pages"
             xmlns:ds="clr-namespace:AutomaticController.Windows.Demos.测试机通用界面.Datas" 
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="600" d:DesignWidth="800"
       Title="参数设置">
     <Page.Resources>
         <ResourceDictionary Source="/Windows/Demos/测试机通用界面/UIDictionary.xaml" />
@@ -25,30 +25,41 @@
                 <StackPanel>
                     <StackPanel Margin="40,40,0,0" HorizontalAlignment="Left" VerticalAlignment="Top">
                         <StackPanel Orientation="Horizontal" Margin="0,5,0,5" VerticalAlignment="Top" HorizontalAlignment="Right">
-                            <TextBlock Text="产品启动时间（s）：" FontSize="25" />
-                            <ui:UTextBox  DataContext="{Binding Source={x:Static ds:PLC1.产品启动时间}}"  Width="120" FontSize="25" TextAlignment="Center"/>
+                            <TextBlock Text="信号检测延时（s）：" FontSize="25" />
+                            <ui:UTextBox  DataContext="{Binding Source={x:Static ds:PLC1.信号检测延时}}"  Width="120" FontSize="25" TextAlignment="Center"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" Margin="0,5,0,5" HorizontalAlignment="Right" VerticalAlignment="Top">
-                            <TextBlock Text="检测时间（s）：" FontSize="25" />
-                            <ui:UTextBox  DataContext="{Binding Source={x:Static ds:PLC1.检测时间}}" Width="120" FontSize="25" TextAlignment="Center"/>
+                            <TextBlock Text="气缸升降时间（s）：" FontSize="25" />
+                            <ui:UTextBox  DataContext="{Binding Source={x:Static ds:PLC1.气缸升降时间}}" Width="120" FontSize="25" TextAlignment="Center"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" Margin="0,5,0,5" HorizontalAlignment="Right" VerticalAlignment="Top">
-                            <TextBlock Text="流量上限（ml/min）：" FontSize="25" />
-                            <ui:UTextBox  DataContext="{Binding Source={x:Static ds:PLC1.流量上限}}" Width="120" FontSize="25" TextAlignment="Center"/>
+                            <TextBlock Text="推料动作时间（s）：" FontSize="25" />
+                            <ui:UTextBox  DataContext="{Binding Source={x:Static ds:PLC1.推料动作时间}}" Width="120" FontSize="25" TextAlignment="Center"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" Margin="0,5,0,5" HorizontalAlignment="Right" VerticalAlignment="Top">
-                            <TextBlock Text="流量下限（ml/min）：" FontSize="25" />
-                            <ui:UTextBox  DataContext="{Binding Source={x:Static ds:PLC1.流量下限}}" Width="120" FontSize="25" TextAlignment="Center"/>
+                            <TextBlock Text="重量上限（g）：" FontSize="25" />
+                            <ui:UTextBox  DataContext="{Binding Source={x:Static ds:PLC1.重量上限}}" Width="120" FontSize="25" TextAlignment="Center"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" Margin="0,5,0,5" HorizontalAlignment="Right" VerticalAlignment="Top">
-                            <TextBlock Text="流量系数：" FontSize="25" />
-                            <ui:UTextBox  DataContext="{Binding Source={x:Static ds:PLC1.流量系数}}" Width="120" FontSize="25" TextAlignment="Center"/>
+                            <TextBlock Text="重量下限（g）：" FontSize="25" />
+                            <ui:UTextBox  DataContext="{Binding Source={x:Static ds:PLC1.重量下限}}" Width="120" FontSize="25" TextAlignment="Center"/>
                         </StackPanel>
+ 
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="40,20,0,5" HorizontalAlignment="Left" VerticalAlignment="Top">
                         <TextBlock Text="CCD程序路径：" FontSize="25" />
                         <TextBox x:Name="VmPathText" Width="300" FontSize="12" IsReadOnly="True" VerticalContentAlignment="Center"/>
                         <Button Content="Open" Margin="5,0,0,0" Click="Button_Click" Template="{DynamicResource ButtonTemplate1}" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="82,10,0,5" HorizontalAlignment="Left" VerticalAlignment="Top">
+                        <TextBlock Text="SN码前缀：" FontSize="25" />
+                        <TextBox x:Name="sncodePrefixText" Width="300" FontSize="12" IsReadOnly="False" VerticalContentAlignment="Center" LostKeyboardFocus="sncodePrefixText_LostKeyboardFocus" />
+                    </StackPanel>
+                    <StackPanel Margin="100,20,0,0" Orientation="Horizontal">
+                        <ui:UBitButton DataContext="{Binding Source={x:Static ds:PLC1.电机方向}}"  FontSize="20" OffContent=" 电机正转 " OnContent=" 电机反转 " OffBackground="#FFD84242" OnBackground="#FF9AE867" PressModule="Invert"  HorizontalAlignment="Left" VerticalAlignment="Top" CornerRadius="3" Height="45" Margin="0,0,20,0"/>
+                        <ui:UBitButton DataContext="{Binding Source={x:Static ds:PLC1.拍照启用}}"  FontSize="20" OffContent=" 拍照禁用 " OnContent=" 拍照启用 " OffBackground="#FFD84242" OnBackground="#FF9AE867" PressModule="Invert"  HorizontalAlignment="Left" VerticalAlignment="Top" CornerRadius="3" Height="45" Margin="0,0,20,0"/>
+                        <ui:UBitButton DataContext="{Binding Source={x:Static ds:PLC1.扫码启用}}"  FontSize="20" OffContent=" 扫码禁用 " OnContent=" 扫码启用 " OffBackground="#FFD84242" OnBackground="#FF9AE867" PressModule="Invert"  HorizontalAlignment="Left" VerticalAlignment="Top" CornerRadius="3" Height="45" Margin="0,0,20,0"/>
+                        <ui:UBitButton x:Name="sncodeDuplicateButton"  FontSize="20" OffContent=" 重码检测禁用 " OnContent=" 重码检测启用 " OffBackground="#FFD84242" OnBackground="#FF9AE867" PressModule="Invert"  HorizontalAlignment="Left" VerticalAlignment="Top" CornerRadius="3" Height="45" Margin="0,0,20,0" Click="sncodeEnabledButton_Click"/>
                     </StackPanel>
                 </StackPanel>
             </ScrollViewer>

@@ -3,6 +3,7 @@ using AutomaticController.Function;
 using AutomaticController.UI;
 using AutomaticController.Windows.Demos.测试机通用界面.Datas;
 using AutomaticController.Windows.Demos.测试机通用界面.Pages;
+using LiteDB;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -20,6 +21,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using VM.Core;
 
 namespace AutomaticController.Windows.Demos.测试机通用界面
 {
@@ -32,11 +34,29 @@ namespace AutomaticController.Windows.Demos.测试机通用界面
 
         public static Grid MainGrid { get; set; }
         public static PageManage Pages { get; set; }
+
         public bool Started;
         public MainWindow()
         {
             InitializeComponent();
             MainGrid = this.mainGrid;
+            //处理窗口中被点击的Uri
+            UserFrame.Navigating += (s, e) =>
+            {
+                if(e.Uri != null)
+                {
+                    e.Cancel = true;
+                    if (e.Uri.IsFile)
+                    {
+                        if(File.Exists(e.Uri.AbsolutePath) == false)
+                        {
+                            MessageBox.Show("文件不存在");
+                            return;
+                        }
+                    }
+                    Process.Start(new ProcessStartInfo(e.Uri.ToString()));
+                }               
+            };
             //WindowStyle = WindowStyle.None;
             //WindowState = WindowState.Maximized;
             //窗口初始状态
@@ -73,6 +93,10 @@ namespace AutomaticController.Windows.Demos.测试机通用界面
             {
                 CCD编辑.CloseCCD();
             };
+            Parameters_XMLFile.Instance.LoadParamEvent += param => {
+                CCD编辑.LoadCCD();
+            };
+            
 #else
             Pages.Add("运行监控", new 运行监控());
 #endif
@@ -95,50 +119,66 @@ namespace AutomaticController.Windows.Demos.测试机通用界面
                 Started = false;
             };
             PLCStart();
-            bool 记录1 = false;
-            bool 记录2 = false;
-            bool 记录3 = false;
-            PLC1.记录1.ReadFinishEvent += u => {
-                bool b = PLC1.记录1.Value;
-                if (b && 记录1 == false)
+            BarcodeOpen();
+            bool 数据记录 = false;
+            PLC1.数据记录.ReadFinishEvent += u =>
+            {
+                if (PLC1.PLC.Connected == false) return;
+                PLC1.检测结果.RequestRead = true;
+                PLC1.检测重量.RequestRead = true;
+                bool r = PLC1.数据记录.Value;
+               
+                if (r && 数据记录 == false)
                 {
-                    Task.Delay(500).ContinueWith(t => {
-                        string rt = "";
-                        if (PLC1.状态1.Value == 1) rt = "OK";
-                        if (PLC1.状态1.Value == 2) rt = "NG";
-                        UserData.Add(new string[] { DateTime.Now.ToString(), "工位1", PLC1.结果流量1.Value.ToString(), rt });
-                        PLC1.记录1.Value = false;
+                    string sn = SNCode;
+                    SNCode = "";
+                    PLC1.扫码完成.Value = false;
+                    Task.Delay(500).ContinueWith(t =>
+                    {
+                        int n = (int)PLC1.检测结果.Value;
+                        string rs = "";
+                        if (n == 1) rs = "OK";
+                        if (n == 2) rs = "扫码超时";
+                        if (n == 3) rs = "重量NG";
+                        if (n == 4) rs = "拍照NG";
+                        测试机通用界面.Pages.UserData.Add(new string[] { DateTime.Now.ToString(), sn, PLC1.检测重量.Value.ToString(), rs, CCD编辑.OutImgPath });
+                        CCD编辑.OutImgPath = "";
+                        PLC1.数据记录.Value = false;
                     });
                 }
-                记录1 = b;
+                  
+                数据记录 = r;
             };
-            PLC1.记录2.ReadFinishEvent += u => {
-                bool b = PLC1.记录2.Value;
-                if (b && 记录2 == false)
+            //扫码完成
+            SNCodeReadEvent += t =>
+            {
+                var par = Parameters_XMLFile.SelectItem;
+                bool ok = true;
+                if (par.SN码前缀?.Length > 0)
                 {
-                    Task.Delay(500).ContinueWith(t => {
-                        string rt = "";
-                        if (PLC1.状态2.Value == 1) rt = "OK";
-                        if (PLC1.状态2.Value == 2) rt = "NG";
-                        UserData.Add(new string[] { DateTime.Now.ToString(), "工位2", PLC1.结果流量2.Value.ToString(), rt }); 
-                        PLC1.记录2.Value = false;
-                    });
+                    if (t.StartsWith(par.SN码前缀) == false)
+                    {
+                        ok = false;
+                        PLC1.检测结果.Value = 5;
+
+                    }
                 }
-                记录2 = b;
-            };
-            PLC1.记录3.ReadFinishEvent += u => {
-                bool b = PLC1.记录3.Value;
-                if (b && 记录3 == false)
+                
+                if (par.重码检测)
                 {
-                    Task.Delay(500).ContinueWith(t => {
-                        string rt = "";
-                        if (PLC1.状态3.Value == 1) rt = "OK";
-                        if (PLC1.状态3.Value == 2) rt = "NG";
-                        UserData.Add(new string[] { DateTime.Now.ToString(), "工位3", PLC1.结果流量3.Value.ToString(), rt });
-                        PLC1.记录3.Value = false;
-                    });
+                    using (LiteDatabase lite = new LiteDatabase(测试机通用界面.Pages.UserData.DBPath))
+                    {
+                        var lst = lite.GetCollection<测试机通用界面.Pages.UserData>(测试机通用界面.Pages.UserData.TableName);
+                        //SN搜索
+                        var list = lst.Find(x => x.SN码 == t);
+                        if (list.Count() > 0)
+                        {
+                            ok = false;
+                            PLC1.检测结果.Value = 6;
+                        }
+                    }
                 }
-                记录3 = b;
+                PLC1.扫码完成.Value = ok;
             };
         }
 
@@ -189,7 +229,83 @@ namespace AutomaticController.Windows.Demos.测试机通用界面
            });
         }
 
+        #region 扫码枪通讯
+        public static string SNCode { get; set; }
 
+        /// <summary>
+        /// SN码读取完成
+        /// </summary>
+        public static event Action<string> SNCodeReadEvent;
+        bool IsBarcodeOpen;
+        System.IO.Ports.SerialPort Barcode = new System.IO.Ports.SerialPort();
+
+        public void BarcodeOpen()
+        {
+            if (IsBarcodeOpen) return;
+            IsBarcodeOpen = true;
+            this.Closed += (s, e) => {
+                BarcodeClose();
+            };
+            Task.Run(async () =>
+            {
+                while (IsBarcodeOpen)
+                {
+                    try
+                    {
+                        if (Barcode.IsOpen == false)
+                        {
+                            Barcode = new System.IO.Ports.SerialPort();
+                            Barcode.PortName = Setting.Instance.Sweep1_Name;
+                            Barcode.Parity = Setting.Instance.Sweep1_Parity;
+                            Barcode.BaudRate = Setting.Instance.Sweep1_Baud;
+                            Barcode.StopBits = Setting.Instance.Sweep1_Stopbit;
+                            Barcode.DataBits = Setting.Instance.Sweep1_Databit;
+                            Barcode.ReadTimeout = 100;
+                            Barcode.Open();
+                            App.Current.Dispatcher.InvokeAsync(() =>
+                            {
+                                sweep1State.Text = "已连接";
+                                sweep1State.Foreground = new SolidColorBrush(Color.FromArgb(0xFF, 0x08, 0xFF, 0x00));
+
+                            });
+                        }
+                        else
+                        {
+                            if (Barcode.BytesToRead > 0)
+                            {
+                                await Task.Delay(50);
+                                SNCode = Barcode.ReadExisting().Trim();
+                                App.Current.Dispatcher.Invoke(() => { SNCodeReadEvent?.Invoke(SNCode); });
+                                
+                            }
+                        }
+
+                    }
+                    catch
+                    {
+                        App.Current.Dispatcher.InvokeAsync(() =>
+                        {
+                            sweep1State.Text = "未连接";
+                            sweep1State.Foreground = new SolidColorBrush(Color.FromArgb(0xFF, 0xFF, 0x00, 0x00));
+
+                        });
+                        Barcode?.Close();
+                        await Task.Delay(500);
+                    }
+                    await Task.Delay(100);
+                }
+            });
+        }
+        public void BarcodeClose()
+        {
+            IsBarcodeOpen = false;
+            try
+            {
+                Barcode.Close();
+            }
+            catch { }
+        }
+        #endregion
 
 
         /// <summary>

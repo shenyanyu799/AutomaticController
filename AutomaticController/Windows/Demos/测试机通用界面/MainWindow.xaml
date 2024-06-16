@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AutomaticController.Windows.Demos.测试机通用界面"
         mc:Ignorable="d"
-        Title="{DynamicResource ProjectName}" Height="750" Width="1024" WindowStartupLocation="CenterScreen" PreviewGotKeyboardFocus="Window_PreviewGotKeyboardFocus"   >
+        Title="{DynamicResource ProjectName}" Height="800" Width="1100" WindowStartupLocation="CenterScreen" PreviewGotKeyboardFocus="Window_PreviewGotKeyboardFocus"   >
     <Window.Resources>
         <ResourceDictionary Source="/Windows/Demos/测试机通用界面/UIDictionary.xaml" />
     </Window.Resources>
@@ -60,7 +60,10 @@
                     <TextBlock Text="{DynamicResource ProjectName}"  FontSize="12"/>
                     <Border Width="1" Background="#FFBDBDBD" Margin="5,0,5,0"/>
                     <TextBlock Text="PLC连接状态："  FontSize="12"/>
-                    <TextBlock x:Name="plcState"  FontSize="12"/>
+                    <TextBlock x:Name="plcState"  FontSize="12" MinWidth="30"/>
+                    <Border Width="1" Background="#FFBDBDBD" Margin="5,0,5,0"/>
+                    <TextBlock Text="扫码枪连接状态："  FontSize="12"/>
+                    <TextBlock x:Name="sweep1State"  FontSize="12" MinWidth="30"/>
                 </StackPanel>
             </Border>
         </Grid>

@@ -16,4 +16,8 @@
   <AI_Parity>None</AI_Parity>
   <AI_Databit>8</AI_Databit>
   <AI_Stopbit>One</AI_Stopbit>
+  <Sweep1_Baud>115200</Sweep1_Baud>
+  <Sweep1_Parity>None</Sweep1_Parity>
+  <Sweep1_Databit>8</Sweep1_Databit>
+  <Sweep1_Stopbit>One</Sweep1_Stopbit>
 </setting>

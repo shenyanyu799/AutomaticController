@@ -30,6 +30,9 @@ namespace AutomaticController.Windows.Demos.测试机通用界面.Pages
         public 运行监控_CCD()
         {
             InitializeComponent();
+            CCD编辑.CCDLoadedEvent += () => {
+                BindVmRenderControl();
+            };
             //MainVmRenderControl = VmRenderControl1;
             this.Loaded += (s, e) =>
             {
@@ -38,21 +41,26 @@ namespace AutomaticController.Windows.Demos.测试机通用界面.Pages
                 {
                     CCD编辑.LoadCCD();
                 }
+                //BindVmRenderControl();
                 CompositionTarget.Rendering += CompositionTarget_Rendering;
-                var pro_list = VmSolution.Instance.GetAllProcedureList().astProcessInfo;
-                vmProcedure = (VmProcedure)VmSolution.Instance[pro_list[0].strProcessName];
-                //加载第一个流程
-                if (pro_list.Length > 0)
-                {
-                    
-                    VmRenderControl1.ModuleSource = null;
-                    VmRenderControl1.ModuleSource = vmProcedure;
-                }
             };
             this.Unloaded += (s, e) =>
             {
                 CompositionTarget.Rendering -= CompositionTarget_Rendering;
+                //VmRenderControl1.ModuleSource = null;
             };
+        }
+
+        public void BindVmRenderControl()
+        {
+            var pro_list = VmSolution.Instance.GetAllProcedureList().astProcessInfo;
+            vmProcedure = (VmProcedure)VmSolution.Instance[pro_list[0].strProcessName];
+            //加载第一个流程
+            if (pro_list.Length > 0)
+            {
+                VmRenderControl1.ModuleSource = null;
+                VmRenderControl1.ModuleSource = vmProcedure;
+            }
         }
         private void CompositionTarget_Rendering(object sender, EventArgs e)
         {
@@ -61,11 +69,7 @@ namespace AutomaticController.Windows.Demos.测试机通用界面.Pages
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            //执行拍照
-            if (VmSolution.Instance.IsReady == true)
-            {
-                vmProcedure.Run();
-            }
+            CCD编辑.ExecuteCCD();
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)

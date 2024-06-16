@@ -11,12 +11,17 @@ namespace AutomaticController.Windows.Demos.测试机通用界面.Datas
    //在这里设定需要备份的参数
     public partial class Parameters
     {
-        public double 启动时间 { get; set; }
-        public double 检测时间 { get; set; }
-        public double 流量上限 { get; set; }
-        public double 流量下限 { get; set; }
-        public double 流量系数 { get; set; }
+        public double 信号检测延时 { get; set; }
+        public double 气缸升降时间 { get; set; }
+        public double 推料动作时间 { get; set; }
+        public double 重量下限 { get; set; }
+        public double 重量上限 { get; set; }
         public string CCDPath { get; set; }
+        public string SN码前缀 {  get; set; }
+        public bool 电机方向 {  get; set; }
+        public bool 扫码启用 {  get; set; }
+        public bool 拍照启用 {  get; set; }
+        public bool 重码检测 {  get; set; }
     }
     public partial class Parameters
     {
@@ -74,12 +79,15 @@ namespace AutomaticController.Windows.Demos.测试机通用界面.Datas
         {
             var param = Parameters_XMLFile.SelectItem;
             if (param == null) return;
-         
-            PLC1.产品启动时间.Value = param.启动时间;
-            PLC1.检测时间.Value = param.检测时间;
-            PLC1.流量上限.Value = param.流量上限;
-            PLC1.流量下限.Value = param.流量下限;
-            PLC1.流量系数.Value = param.流量系数;
+
+            PLC1.信号检测延时.Value = param.信号检测延时;
+            PLC1.气缸升降时间.Value = param.气缸升降时间;
+            PLC1.推料动作时间.Value = param.推料动作时间;
+            PLC1.重量下限.Value = param.重量下限;
+            PLC1.重量上限.Value = param.重量上限;
+            PLC1.电机方向.Value = param.电机方向;
+            PLC1.扫码启用.Value = param.扫码启用;
+            PLC1.拍照启用.Value = param.拍照启用;
 
             LoadParamEvent?.Invoke(param);
         }
@@ -91,11 +99,14 @@ namespace AutomaticController.Windows.Demos.测试机通用界面.Datas
             var param = Parameters_XMLFile.SelectItem;
             if (param == null) return;
             param.CCDPath = param.CCDPath;
-            param.启动时间 = PLC1.产品启动时间.Value;
-            param.检测时间 = PLC1.检测时间.Value;
-            param.流量上限 = PLC1.流量上限.Value;
-            param.流量下限 = PLC1.流量下限.Value;
-            param.流量系数 = PLC1.流量系数.Value;
+            param.信号检测延时 = PLC1.信号检测延时.Value;
+            param.气缸升降时间 = PLC1.气缸升降时间.Value;
+            param.推料动作时间 = PLC1.推料动作时间.Value;
+            param.重量下限 = PLC1.重量下限.Value;
+            param.重量上限 = PLC1.重量上限.Value;
+            param.电机方向 = PLC1.电机方向.Value;
+            param.扫码启用 = PLC1.扫码启用.Value;
+            param.拍照启用 = PLC1.拍照启用.Value;
             SaveParamEvent?.Invoke(param);
             param.Save();
         }
