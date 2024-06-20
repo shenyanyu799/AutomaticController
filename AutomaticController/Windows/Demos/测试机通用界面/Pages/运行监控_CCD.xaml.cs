@@ -36,13 +36,19 @@ namespace AutomaticController.Windows.Demos.测试机通用界面.Pages
             //MainVmRenderControl = VmRenderControl1;
             this.Loaded += (s, e) =>
             {
-                ComboBox_DropDownOpened(null,null);
+                CompositionTarget.Rendering += CompositionTarget_Rendering;
+                ComboBox_DropDownOpened(null,null);//更新参数列表
+
                 if (VmSolution.Instance.SolutionPath == null)
+                {
+                    CCD编辑.LoadCCD(true);
+                }
+                else
                 {
                     CCD编辑.LoadCCD();
                 }
+
                 //BindVmRenderControl();
-                CompositionTarget.Rendering += CompositionTarget_Rendering;
             };
             this.Unloaded += (s, e) =>
             {
@@ -65,17 +71,28 @@ namespace AutomaticController.Windows.Demos.测试机通用界面.Pages
         private void CompositionTarget_Rendering(object sender, EventArgs e)
         {
             DatetimeText.Text = DateTime.Now.ToString();
+            SNCodeTextbox.Text = MainWindow.SNCode;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            CCD编辑.ExecuteCCD();
+            Button button = (Button)sender;
+            string con = button.Content.ToString();
+            if(con == "刷新")
+            {
+                CCD编辑.LoadCCD(true);
+                //BindVmRenderControl();
+            }
+            if (con == "执行")
+            {
+                CCD编辑.ExecuteCCD();
+            }
+            if (con == "编辑")
+            {
+                MainWindow.Pages.Next("CCD编辑");
+            }
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-            MainWindow.Pages.Next("CCD编辑");
-        }
         //打开参数选择列表
         private void ComboBox_DropDownOpened(object sender, EventArgs e)
         {

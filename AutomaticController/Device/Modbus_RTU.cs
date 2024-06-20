@@ -203,45 +203,8 @@ namespace AutomaticController.Device
                         readBits.Sort();
                         writeDatas.Sort();
                         readDatas.Sort();
-                        //读取.............................
-                        //读Bits
-                        try
-                        {
-                            if (readBits.Count > 0)
-                            {
-                                ReadBits(readBits);
-                            }
-                        }
-                        catch
-                        {
-                            await Task.Delay(10);
-                            errorCount++;
-                            continue;
-                        }                        //读取完成
 
-                        foreach (var item in readBits_unit)
-                        {
-                            item.ReadFinish();
-                        }
-                        //读Data
-                        try
-                        {
-                            if (readDatas.Count > 0)
-                            {
-                                ReadData(readDatas);
-                            }
-                        }
-                        catch
-                        {
-                            await Task.Delay(10);
-                            errorCount++;
-                            continue;
-                        }                        //读取完成
 
-                        foreach (var item in readDatas_unit)
-                        {
-                            item.ReadFinish();
-                        }
 
                         //写入。。。。。。。。。。。。。。
                         //写入前再次写入
@@ -292,7 +255,53 @@ namespace AutomaticController.Device
                             item.WriteFinish();
                         }
 
-                        
+
+
+
+
+                        //读取.............................
+                        //读Bits
+                        try
+                        {
+                            if (readBits.Count > 0)
+                            {
+                                ReadBits(readBits);
+                            }
+                        }
+                        catch
+                        {
+                            await Task.Delay(10);
+                            errorCount++;
+                            continue;
+                        }                        //读取完成
+
+                        foreach (var item in readBits_unit)
+                        {
+                            item.ReadFinish();
+                        }
+                        //读Data
+                        try
+                        {
+                            if (readDatas.Count > 0)
+                            {
+                                ReadData(readDatas);
+                            }
+                        }
+                        catch
+                        {
+                            await Task.Delay(10);
+                            errorCount++;
+                            continue;
+                        }                        //读取完成
+
+                        foreach (var item in readDatas_unit)
+                        {
+                            item.ReadFinish();
+                        }
+
+
+
+
 
                         errorCount = 0;
                         Connected = true;
@@ -1216,6 +1225,7 @@ namespace AutomaticController.Device
         /// 小数点位数
         /// </summary>
         public int Digits { get; set; } = 3;
+
         /// <summary>
         /// 缩放倍数
         /// </summary>
@@ -1382,7 +1392,14 @@ namespace AutomaticController.Device
             {
                 double v = Math.Round(value / Scale, Digits);
                 int num = DataAddress * 2;
-                if (v == this.Value) return;
+                if (v == this.Value)
+                {
+                    //如果还没通讯过，则必须写入，否则相等不写入
+                    if((LastTime - DateTime.MinValue).Ticks != 0)
+                    {
+                        return;
+                    }
+                }
                 RequestWrite = true;
                 switch (UnitType)
                 {

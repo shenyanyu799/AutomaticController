@@ -64,7 +64,7 @@ namespace AutomaticController.Windows.Demos.测试机通用界面.Datas
         {
             XMLFilePath = path;
         }
-
+        
         protected internal virtual void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
@@ -134,6 +134,11 @@ namespace AutomaticController.Windows.Demos.测试机通用界面.Datas
                 });
             }
         }
+        /// <summary>
+        /// 重命名
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="newKey"></param>
         public void Rekey(string key,string newKey)
         {
             if (Document == null)
@@ -518,6 +523,10 @@ namespace AutomaticController.Windows.Demos.测试机通用界面.Datas
             {
                 root.Add(new XElement(key) { Value = value.ToString() });
             }
+            SaveFile();
+        }
+        public void SaveFile()
+        {
             Task.Run(() =>
             {
                 if (settingvalue)
@@ -527,8 +536,10 @@ namespace AutomaticController.Windows.Demos.测试机通用界面.Datas
                 settingvalue = true;
                 Task.Delay(100).Wait();
                 settingvalue = false;
-
-                Document.Root.Save(XMLFilePath);
+                lock (Document)
+                {
+                    Document.Save(XMLFilePath);
+                }
             });
         }
     }

@@ -34,7 +34,12 @@ namespace AutomaticController.Windows.Demos.测试机通用界面.Pages
             this.Loaded += (s, e) =>
             {
                 CompositionTarget.Rendering += CompositionTarget_Rendering;
+               
                 if (VmSolution.Instance.SolutionPath == null)
+                {
+                    LoadCCD(true);
+                }
+                else
                 {
                     LoadCCD();
                 }
@@ -57,9 +62,12 @@ namespace AutomaticController.Windows.Demos.测试机通用界面.Pages
             return principal.IsInRole(WindowsBuiltInRole.Administrator);
         }
         public static event Action CCDLoadedEvent;
+        public static event Action CCDExecutedEvent;
         public static string OutImgPath { get; set; }
+        public static int CCDResult { get; set; }
         public static void ExecuteCCD()
         {
+            CCDResult = 0;
             //执行拍照
             if (CCDExecuting == false && 
                 VmSolution.Instance.IsReady == true && VmSolution.Instance.IsRunning == false)
@@ -78,8 +86,12 @@ namespace AutomaticController.Windows.Demos.测试机通用界面.Pages
         static bool CCDExecuting;
         //static bool CCDLoading;
         //static bool CCDSaveing = false;
-
-        public static void LoadCCD()
+        /// <summary>
+        /// 加载CCD程序
+        /// </summary>
+        /// <param name="enforce">是否强制执行</param>
+        /// <exception cref="Exception"></exception>
+        public static void LoadCCD(bool enforce = false)
         {
             var param = Parameters_XMLFile.SelectItem;
             if (param == null) return;
@@ -96,16 +108,24 @@ namespace AutomaticController.Windows.Demos.测试机通用界面.Pages
             {
                 return;
             }
-            if (VmSolution.Instance.SolutionPath == path) return;
+            if(enforce == false)
+            {
+                if (VmSolution.Instance.SolutionPath == path) return;
+            }
             Task.Run(() =>
             {
 
-                VmSolution.Instance.CloseSolution();
+                try
+                {
+                    VmSolution.Instance.CloseSolution();
+                }
+                catch { }
                 VmSolution.Load(path);
                 var pro_list = VmSolution.Instance.GetAllProcedureList().astProcessInfo;
                 if(pro_list.Length > 0)
                 {
                     var vmProcedure = (VmProcedure)VmSolution.Instance[pro_list[0].strProcessName];
+                    //拍照结果
                     vmProcedure.OnWorkEndStatusCallBack += (s, e) => {
                         try
                         {
@@ -113,7 +133,7 @@ namespace AutomaticController.Windows.Demos.测试机通用界面.Pages
                             string p2 = "";
                             foreach (var item in vmProcedure.Outputs)
                             {
-                                if (item.Name.Contains("本地原图保存路径"))
+                                if (item.Name.Contains("本地渲染图保存路径"))
                                 {
                                     foreach (var _item in item.Value)
                                     {
@@ -131,14 +151,28 @@ namespace AutomaticController.Windows.Demos.测试机通用界面.Pages
                                     }
                                     continue;
                                 }
+                                if (item.Name.Contains("检测结果"))
+                                {
+                                    foreach (var _item in item.Value)
+                                    {
+                                        if ((int)_item == 1)
+                                            CCDResult = 1;
+                                        if ((int)_item == 0)
+                                            CCDResult = 2;
+                                        break;
+                                    }
+                                    continue;
+                                }
                             }
                             OutImgPath = System.IO.Path.Combine(p1, p2);
+                            测试机通用界面.Pages.UserData.Add(new string[] { DateTime.Now.ToString(), "", PLC1.检测重量.Value.ToString(),"", CCD编辑.OutImgPath });
+
                         }
                         catch
                         {
 
                         }
-
+                        CCDExecutedEvent?.Invoke();
                     };
                 }
                 App.Current.Dispatcher.Invoke(() => CCDLoadedEvent?.Invoke());
@@ -154,23 +188,30 @@ namespace AutomaticController.Windows.Demos.测试机通用界面.Pages
                     try
                     {
                         VmSolution.Save();
+                        LoadCCD(true);
+
                         //VmSolution.Save();
                         //App.Current.Dispatcher.Invoke(() => CCDLoadedEvent?.Invoke());
                         //LoadCCD();
                     }
-                    catch { }
+                    catch {
+                        MessageBox.Show("VM程序保存失败");
+                    }
                     //CCDSaveing = false;
                 });
             }
         }
-        public static void CloseCCD()
+        public static async void CloseCCD()
         {
-            try
+            await Task.Run(() =>
             {
-                VmSolution.Instance.CloseSolution();
-                VmSolution.Instance.Dispose();
-            }
-            catch { }
+                try
+                {
+                    VmSolution.Instance.CloseSolution();
+                    VmSolution.Instance.Dispose();
+                }
+                catch { }
+            });
         }
     }
 }

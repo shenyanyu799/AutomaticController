@@ -25,39 +25,48 @@ namespace AutomaticController.Windows.Demos.测试机通用界面.Pages
         public 参数设置()
         {
             InitializeComponent();
-            this.Loaded += (s, e) => {
+            
 
+            this.Loaded += (s, e) => {
+                CompositionTarget.Rendering += CompositionTarget_Rendering;
                 LoadParamList();
 
-                CompositionTarget.Rendering += CompositionTarget_Rendering;
             };
             this.Unloaded += (s, e) => {
                 CompositionTarget.Rendering -= CompositionTarget_Rendering;
+                Parameters_XMLFile.Instance.SaveParam();
             };
             //加载参数
             Parameters_XMLFile.Instance.LoadParamEvent += param =>
             {
-                PageTitle.Text = $"参数设置【{param.FileName}】";
-                //初始化显示
-                VmPathText.Text = param.CCDPath;
-                sncodePrefixText.Text = param.SN码前缀;
-                sncodeDuplicateButton.Value = param.重码检测;
-                //更新参数后重置列表选择项
-                for (int i = 0; i < paramListView.Items.Count; i++)
+                App.Current.Dispatcher.Invoke(() =>
                 {
-                    if ((paramListView.Items[i] as ListViewItem).Content.ToString() == param.FileName)
+                    PageTitle.Text = $"参数设置【{param.FileName}】";
+                    //初始化显示
+                    VmPathText.Text = param.CCDPath;
+                    sncodePrefixText.Text = param.SN码前缀;
+                    sncodeDuplicateButton.Value = param.重码检测;
+                    //更新参数后重置列表选择项
+                    for (int i = 0; i < paramListView.Items.Count; i++)
                     {
-                        paramListView.SelectedIndex = i;
-                        paramSelectedIndex = i;
+                        if ((paramListView.Items[i] as ListViewItem).Content.ToString() == param.FileName)
+                        {
+                            paramListView.SelectedIndex = i;
+                            paramSelectedIndex = i;
+                        }
                     }
-                }
+                });
+
             };
             //保存参数
             Parameters_XMLFile.Instance.SaveParamEvent += param =>
             {
-                param.CCDPath = VmPathText.Text;
-                param.SN码前缀 = sncodePrefixText.Text;
-                param.重码检测 = sncodeDuplicateButton.Value;
+                App.Current.Dispatcher.Invoke(() =>
+                {
+                    param.CCDPath = VmPathText.Text;
+                    param.SN码前缀 = sncodePrefixText.Text;
+                    param.重码检测 = sncodeDuplicateButton.Value;
+                });
             };
         }
 
@@ -101,6 +110,7 @@ namespace AutomaticController.Windows.Demos.测试机通用界面.Pages
                 };
                 paramListView.Items.Add(viewitem);
             }
+            
             Parameters_XMLFile.Instance.LoadParam();
         }
         private void CompositionTarget_Rendering(object sender, EventArgs e)
@@ -125,25 +135,9 @@ namespace AutomaticController.Windows.Demos.测试机通用界面.Pages
                 if (par?.CCDPath != openFile.FileName)
                 {
                     par.CCDPath = openFile.FileName;
-
-                    //par.Save();
                 }
             };
             openFile.ShowDialog();
-        }
-        /// <summary>
-        /// SNCode前缀输入框失去焦点自动保存
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void sncodePrefixText_LostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
-        {
-            var par = Parameters_XMLFile.SelectItem;
-            if (sncodePrefixText.Text != par.SN码前缀)
-            {
-                par.SN码前缀 = sncodePrefixText.Text;
-                //par.Save();
-            }
         }
         //参数列表按钮
         private void ParamButton_Click(object sender, RoutedEventArgs e)
@@ -157,7 +151,7 @@ namespace AutomaticController.Windows.Demos.测试机通用界面.Pages
             }
             if (content == "new")
             {
-                Parameters_XMLFile.NewParameters();
+                var parm = Parameters_XMLFile.NewParameters();
                 Parameters_XMLFile.Instance.SaveParam();
                 LoadParamList();
                 return;
@@ -215,11 +209,6 @@ namespace AutomaticController.Windows.Demos.测试机通用界面.Pages
             }
         }
 
-        private void sncodeEnabledButton_Click(object sender, RoutedEventArgs e)
-        {
-            var par = Parameters_XMLFile.SelectItem;
-            par.重码检测 = sncodeDuplicateButton.Value;
-            //sncodeEnabledButton.Value = par.重码检测;
-        }
+       
     }
 }

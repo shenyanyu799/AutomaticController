@@ -18,13 +18,21 @@
         <TextBlock x:Name="DatetimeText" Text="当前时间" FontSize="35" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,5,10,0"/>
         <Border Height="1" BorderBrush="#FF969191" Margin="3,50,3,0" BorderThickness="0,1,0,0" VerticalAlignment="Top" />
         <Grid Margin="20,60,0,0"  VerticalAlignment="Top"  HorizontalAlignment="Left" >
-            <Release:VmRenderControl x:Name="VmRenderControl1" Width="650" Height="550"/>
+            <Release:VmRenderControl x:Name="VmRenderControl1" Width="650" Height="530"/>
+            <Button Content="刷新" HorizontalAlignment="Right" Margin="0,6,320,0" VerticalAlignment="Top" Click="Button_Click" Background="#FF5B5B5B" Width="60" Height="28" Template="{DynamicResource ButtonTemplate2}" Foreground="#FFE0E0E0"/>
             <Button Content="执行" HorizontalAlignment="Right" Margin="0,6,240,0" VerticalAlignment="Top" Click="Button_Click" Background="#FF5B5B5B" Width="60" Height="28" Template="{DynamicResource ButtonTemplate2}" Foreground="#FFE0E0E0"/>
-            <Button Content="编辑" HorizontalAlignment="Right" Margin="0,6,160,0" VerticalAlignment="Top" Click="Button_Click_1" Background="#FF5B5B5B" Width="60" Height="28" Template="{DynamicResource ButtonTemplate2}" Foreground="#FFE0E0E0"/>
+            <Button Content="编辑" HorizontalAlignment="Right" Margin="0,6,160,0" VerticalAlignment="Top" Click="Button_Click" Background="#FF5B5B5B" Width="60" Height="28" Template="{DynamicResource ButtonTemplate2}" Foreground="#FFE0E0E0"/>
         </Grid>
-        <StackPanel VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="35,0,0,25" Orientation="Horizontal">
-            <TextBlock Text="参数选择：" FontSize="25" VerticalAlignment="Center" HorizontalAlignment="Left"/>
-            <ComboBox x:Name="ParamSelest_ComboBox" FontSize="25" HorizontalAlignment="Left" Width="350" DropDownOpened="ComboBox_DropDownOpened" DropDownClosed="ComboBox_DropDownClosed" VerticalAlignment="Center" />
+        
+        <StackPanel VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="35,0,0,10">
+            <StackPanel  Orientation="Horizontal" HorizontalAlignment="Right">
+                <TextBlock Text="SN码：" FontSize="25" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                <TextBox x:Name="SNCodeTextbox" VerticalAlignment="Center"  FontSize="25" Width="350" />
+            </StackPanel>
+            <StackPanel  Orientation="Horizontal">
+                <TextBlock Text="参数选择：" FontSize="25" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                <ComboBox x:Name="ParamSelest_ComboBox" FontSize="25" HorizontalAlignment="Left" Width="350" DropDownOpened="ComboBox_DropDownOpened" DropDownClosed="ComboBox_DropDownClosed" VerticalAlignment="Center" />
+            </StackPanel>   
         </StackPanel>
         <StackPanel HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,60,10,0">
             <Border BorderBrush="Black" Background="#FFEBF589" BorderThickness="1,1,1,1" Height="80">
@@ -64,6 +72,8 @@
         
         </StackPanel>
         <StackPanel   HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,10,25">
+            <ui:UBitButton DataContext="{Binding Source={x:Static ds:PLC1.运行按钮}}"  FontSize="25" Grid.Column="0" Grid.Row="3" OnContent="运行" OffContent="停止" PressModule="Invert" OffBackground="#FFF35A5A" OnBackground="#FF4BE23E"  Value="False" Height="60" BorderThickness="3,3,3,3" />
+
             <TextBlock Text="检测结果" FontSize="25"/>
             <ui:UNumLabel DataContext="{Binding Source={x:Static ds:PLC1.检测结果}}" Width="250" Height="80" FontSize="25" BorderBrush="DarkGray" BorderThickness="1,1,1,1" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" >
                 <ui:UNumLabel.Backgrounds>

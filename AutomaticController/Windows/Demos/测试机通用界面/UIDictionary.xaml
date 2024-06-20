@@ -3,7 +3,7 @@
                     xmlns:System="clr-namespace:System;assembly=mscorlib">
 
 
-    <System:String x:Key="ProjectName">三工位洗地机流量测试</System:String>
+    <System:String x:Key="ProjectName">CCD称重设备</System:String>
 
 
 

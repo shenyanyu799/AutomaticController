@@ -25,7 +25,7 @@ namespace AutomaticController.Windows.Demos.测试机通用界面.Datas
     }
     public partial class Parameters
     {
-        public string FileName {  get; set; }
+        public string FileName;
 
 
         public void Save()
@@ -71,7 +71,10 @@ namespace AutomaticController.Windows.Demos.测试机通用界面.Datas
                 if (par == null) return null;
                 par.FileName = name;
                 return par;
-            } set => SetValue(name, value); }
+            } set {
+                SetValue(name, value);
+            }
+        }
         public event Action<Parameters> LoadParamEvent;
         public event Action<Parameters> SaveParamEvent;
         //载入关联的参数
@@ -79,7 +82,7 @@ namespace AutomaticController.Windows.Demos.测试机通用界面.Datas
         {
             var param = Parameters_XMLFile.SelectItem;
             if (param == null) return;
-
+           
             PLC1.信号检测延时.Value = param.信号检测延时;
             PLC1.气缸升降时间.Value = param.气缸升降时间;
             PLC1.推料动作时间.Value = param.推料动作时间;
@@ -88,8 +91,9 @@ namespace AutomaticController.Windows.Demos.测试机通用界面.Datas
             PLC1.电机方向.Value = param.电机方向;
             PLC1.扫码启用.Value = param.扫码启用;
             PLC1.拍照启用.Value = param.拍照启用;
-
             LoadParamEvent?.Invoke(param);
+
+
         }
         /// <summary>
         /// 保存并关联参数
@@ -120,6 +124,7 @@ namespace AutomaticController.Windows.Demos.测试机通用界面.Datas
             if (param == null)
             {
                 param = new Parameters();
+                param.FileName = name;
                 Instance[name] = param;
             }
             Parameters_XMLFile.Instance.LoadParam();
@@ -135,7 +140,9 @@ namespace AutomaticController.Windows.Demos.测试机通用界面.Datas
             }
             else
             {
-                return NewParameters();
+                var par = NewParameters();
+                Setting.Instance.ParametersSelectName = par.FileName;
+                return par;
             }
 
         }

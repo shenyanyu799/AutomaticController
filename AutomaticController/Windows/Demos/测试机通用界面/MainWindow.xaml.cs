@@ -11,6 +11,7 @@ using System.IO;
 using System.Linq;
 using System.Security.AccessControl;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -45,16 +46,20 @@ namespace AutomaticController.Windows.Demos.测试机通用界面
             {
                 if(e.Uri != null)
                 {
-                    e.Cancel = true;
-                    if (e.Uri.IsFile)
+                    if (e.Uri.IsAbsoluteUri && e.Uri.IsFile)
                     {
-                        if(File.Exists(e.Uri.AbsolutePath) == false)
+                        e.Cancel = true;
+                        if (File.Exists(e.Uri.AbsolutePath) == false)
                         {
                             MessageBox.Show("文件不存在");
                             return;
                         }
+                        try
+                        {
+                            Process.Start(new ProcessStartInfo(e.Uri.ToString()));
+                        }
+                        catch { }
                     }
-                    Process.Start(new ProcessStartInfo(e.Uri.ToString()));
                 }               
             };
             //WindowStyle = WindowStyle.None;
@@ -117,6 +122,7 @@ namespace AutomaticController.Windows.Demos.测试机通用界面
             this.Closed += (s, e) =>
             {
                 Started = false;
+                Process.GetCurrentProcess().WaitForExit(3000);//防止应用卡死
             };
             PLCStart();
             BarcodeOpen();
@@ -179,6 +185,35 @@ namespace AutomaticController.Windows.Demos.测试机通用界面
                     }
                 }
                 PLC1.扫码完成.Value = ok;
+            };
+            bool startCCD = false;
+            //开始拍照
+            PLC1.产品拍照.ReadFinishEvent += t =>
+            {
+                bool r = PLC1.产品拍照.Value;
+
+                if (r == true && startCCD == false) 
+                {
+                    Task.Run(CCD编辑.ExecuteCCD);
+                }
+                if(r == false)
+                {
+                    PLC1.拍照OK.Value = false;
+                    PLC1.拍照NG.Value = false;
+                }
+                startCCD = r;
+            };
+            //拍照完成
+            CCD编辑.CCDExecutedEvent += () =>
+            {
+                if(CCD编辑.CCDResult == 1)
+                {
+                    PLC1.拍照OK.Value = true;
+                }
+                if (CCD编辑.CCDResult == 2)
+                {
+                    PLC1.拍照NG.Value = true;
+                }
             };
         }
 
@@ -307,7 +342,7 @@ namespace AutomaticController.Windows.Demos.测试机通用界面
         }
         #endregion
 
-
+        bool plcConnected;
         /// <summary>
         /// 实时渲染事件
         /// </summary>
@@ -319,8 +354,14 @@ namespace AutomaticController.Windows.Demos.测试机通用界面
             //实时显示PLC通讯状态
             if (PLC1.PLC.Connected)
             {
-                plcState.Text = $"PLC:{PLC1.PLC.CommunicationDelay.ToString("0.00")}ms";
+                //首次连接后自动载入一次参数
+                if (plcConnected == false)
+                {
+                    Task.Delay(1000).ContinueWith(t=> Parameters_XMLFile.Instance.LoadParam());
+                }
+                plcState.Text = $"PLC:{PLC1.PLC.CommunicationDelay.ToString("F2")}ms";
                 plcState.Foreground = new SolidColorBrush(Colors.Green);
+                
             }
             else
             {
@@ -345,6 +386,7 @@ namespace AutomaticController.Windows.Demos.测试机通用界面
                 keyState.SetValue(Border.BackgroundProperty, this.Resources["lockImg"]);
                 keyState.ToolTip = $"口令未登录";
             }
+            plcConnected = PLC1.PLC.Connected;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -357,7 +399,6 @@ namespace AutomaticController.Windows.Demos.测试机通用界面
                 case "退出系统":
                     App.Current.Shutdown();
                     break;
-                case "参数设置":
                 case "系统设置":
                     Pages.NextKey(Setting.Instance.UserKey, name);
                     break;

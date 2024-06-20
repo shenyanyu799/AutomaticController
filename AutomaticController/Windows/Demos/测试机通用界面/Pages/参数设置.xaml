@@ -22,46 +22,49 @@
                 <ColumnDefinition Width="120"/>
             </Grid.ColumnDefinitions>
             <ScrollViewer>
-                <StackPanel>
-                    <StackPanel Margin="40,40,0,0" HorizontalAlignment="Left" VerticalAlignment="Top">
-                        <StackPanel Orientation="Horizontal" Margin="0,5,0,5" VerticalAlignment="Top" HorizontalAlignment="Right">
-                            <TextBlock Text="信号检测延时（s）：" FontSize="25" />
-                            <ui:UTextBox  DataContext="{Binding Source={x:Static ds:PLC1.信号检测延时}}"  Width="120" FontSize="25" TextAlignment="Center"/>
+                <Grid>
+                    <StackPanel>
+                        <StackPanel Margin="40,40,0,0" HorizontalAlignment="Left" VerticalAlignment="Top">
+                            <StackPanel Orientation="Horizontal" Margin="0,5,0,5" VerticalAlignment="Top" HorizontalAlignment="Right">
+                                <TextBlock Text="信号检测延时（s）：" FontSize="25" />
+                                <ui:UTextBox  DataContext="{Binding Source={x:Static ds:PLC1.信号检测延时}}"  Width="120" FontSize="25" TextAlignment="Center"  />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Margin="0,5,0,5" HorizontalAlignment="Right" VerticalAlignment="Top">
+                                <TextBlock Text="气缸升降时间（s）：" FontSize="25" />
+                                <ui:UTextBox  DataContext="{Binding Source={x:Static ds:PLC1.气缸升降时间}}" Width="120" FontSize="25" TextAlignment="Center"  />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Margin="0,5,0,5" HorizontalAlignment="Right" VerticalAlignment="Top">
+                                <TextBlock Text="推料动作时间（s）：" FontSize="25" />
+                                <ui:UTextBox  DataContext="{Binding Source={x:Static ds:PLC1.推料动作时间}}" Width="120" FontSize="25" TextAlignment="Center"  />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Margin="0,5,0,5" HorizontalAlignment="Right" VerticalAlignment="Top">
+                                <TextBlock Text="重量上限（g）：" FontSize="25" />
+                                <ui:UTextBox  DataContext="{Binding Source={x:Static ds:PLC1.重量上限}}" Width="120" FontSize="25" TextAlignment="Center"  />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Margin="0,5,0,5" HorizontalAlignment="Right" VerticalAlignment="Top">
+                                <TextBlock Text="重量下限（g）：" FontSize="25" />
+                                <ui:UTextBox  DataContext="{Binding Source={x:Static ds:PLC1.重量下限}}" Width="120" FontSize="25" TextAlignment="Center"  />
+                            </StackPanel>
+
                         </StackPanel>
-                        <StackPanel Orientation="Horizontal" Margin="0,5,0,5" HorizontalAlignment="Right" VerticalAlignment="Top">
-                            <TextBlock Text="气缸升降时间（s）：" FontSize="25" />
-                            <ui:UTextBox  DataContext="{Binding Source={x:Static ds:PLC1.气缸升降时间}}" Width="120" FontSize="25" TextAlignment="Center"/>
+                        <StackPanel Orientation="Horizontal" Margin="40,20,0,5" HorizontalAlignment="Left" VerticalAlignment="Top">
+                            <TextBlock Text="CCD程序路径：" FontSize="25" />
+                            <TextBox x:Name="VmPathText" Width="300" FontSize="12" IsReadOnly="True" VerticalContentAlignment="Center"/>
+                            <Button Content="Open" Margin="5,0,0,0" Click="Button_Click" Template="{DynamicResource ButtonTemplate1}" />
                         </StackPanel>
-                        <StackPanel Orientation="Horizontal" Margin="0,5,0,5" HorizontalAlignment="Right" VerticalAlignment="Top">
-                            <TextBlock Text="推料动作时间（s）：" FontSize="25" />
-                            <ui:UTextBox  DataContext="{Binding Source={x:Static ds:PLC1.推料动作时间}}" Width="120" FontSize="25" TextAlignment="Center"/>
+                        <StackPanel Orientation="Horizontal" Margin="82,10,0,5" HorizontalAlignment="Left" VerticalAlignment="Top">
+                            <TextBlock Text="SN码前缀：" FontSize="25" />
+                            <TextBox x:Name="sncodePrefixText" Width="300" FontSize="12" IsReadOnly="False" VerticalContentAlignment="Center"  />
                         </StackPanel>
-                        <StackPanel Orientation="Horizontal" Margin="0,5,0,5" HorizontalAlignment="Right" VerticalAlignment="Top">
-                            <TextBlock Text="重量上限（g）：" FontSize="25" />
-                            <ui:UTextBox  DataContext="{Binding Source={x:Static ds:PLC1.重量上限}}" Width="120" FontSize="25" TextAlignment="Center"/>
+                        <StackPanel Margin="100,20,0,0" Orientation="Horizontal">
+                            <ui:UBitButton DataContext="{Binding Source={x:Static ds:PLC1.电机方向}}"  FontSize="20" OffContent=" 电机正转 " OnContent=" 电机反转 " OffBackground="#FFD84242" OnBackground="#FF9AE867" PressModule="Invert"  HorizontalAlignment="Left" VerticalAlignment="Top" CornerRadius="3" Height="45" Margin="0,0,20,0"/>
+                            <ui:UBitButton DataContext="{Binding Source={x:Static ds:PLC1.拍照启用}}"  FontSize="20" OffContent=" 拍照禁用 " OnContent=" 拍照启用 " OffBackground="#FFD84242" OnBackground="#FF9AE867" PressModule="Invert"  HorizontalAlignment="Left" VerticalAlignment="Top" CornerRadius="3" Height="45" Margin="0,0,20,0"/>
+                            <ui:UBitButton DataContext="{Binding Source={x:Static ds:PLC1.扫码启用}}"  FontSize="20" OffContent=" 扫码禁用 " OnContent=" 扫码启用 " OffBackground="#FFD84242" OnBackground="#FF9AE867" PressModule="Invert"  HorizontalAlignment="Left" VerticalAlignment="Top" CornerRadius="3" Height="45" Margin="0,0,20,0"/>
+                            <ui:UBitButton x:Name="sncodeDuplicateButton"  FontSize="20" OffContent=" 重码检测禁用 " OnContent=" 重码检测启用 " OffBackground="#FFD84242" OnBackground="#FF9AE867" PressModule="Invert"  HorizontalAlignment="Left" VerticalAlignment="Top" CornerRadius="3" Height="45" Margin="0,0,20,0"/>
                         </StackPanel>
-                        <StackPanel Orientation="Horizontal" Margin="0,5,0,5" HorizontalAlignment="Right" VerticalAlignment="Top">
-                            <TextBlock Text="重量下限（g）：" FontSize="25" />
-                            <ui:UTextBox  DataContext="{Binding Source={x:Static ds:PLC1.重量下限}}" Width="120" FontSize="25" TextAlignment="Center"/>
-                        </StackPanel>
- 
                     </StackPanel>
-                    <StackPanel Orientation="Horizontal" Margin="40,20,0,5" HorizontalAlignment="Left" VerticalAlignment="Top">
-                        <TextBlock Text="CCD程序路径：" FontSize="25" />
-                        <TextBox x:Name="VmPathText" Width="300" FontSize="12" IsReadOnly="True" VerticalContentAlignment="Center"/>
-                        <Button Content="Open" Margin="5,0,0,0" Click="Button_Click" Template="{DynamicResource ButtonTemplate1}" />
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal" Margin="82,10,0,5" HorizontalAlignment="Left" VerticalAlignment="Top">
-                        <TextBlock Text="SN码前缀：" FontSize="25" />
-                        <TextBox x:Name="sncodePrefixText" Width="300" FontSize="12" IsReadOnly="False" VerticalContentAlignment="Center" LostKeyboardFocus="sncodePrefixText_LostKeyboardFocus" />
-                    </StackPanel>
-                    <StackPanel Margin="100,20,0,0" Orientation="Horizontal">
-                        <ui:UBitButton DataContext="{Binding Source={x:Static ds:PLC1.电机方向}}"  FontSize="20" OffContent=" 电机正转 " OnContent=" 电机反转 " OffBackground="#FFD84242" OnBackground="#FF9AE867" PressModule="Invert"  HorizontalAlignment="Left" VerticalAlignment="Top" CornerRadius="3" Height="45" Margin="0,0,20,0"/>
-                        <ui:UBitButton DataContext="{Binding Source={x:Static ds:PLC1.拍照启用}}"  FontSize="20" OffContent=" 拍照禁用 " OnContent=" 拍照启用 " OffBackground="#FFD84242" OnBackground="#FF9AE867" PressModule="Invert"  HorizontalAlignment="Left" VerticalAlignment="Top" CornerRadius="3" Height="45" Margin="0,0,20,0"/>
-                        <ui:UBitButton DataContext="{Binding Source={x:Static ds:PLC1.扫码启用}}"  FontSize="20" OffContent=" 扫码禁用 " OnContent=" 扫码启用 " OffBackground="#FFD84242" OnBackground="#FF9AE867" PressModule="Invert"  HorizontalAlignment="Left" VerticalAlignment="Top" CornerRadius="3" Height="45" Margin="0,0,20,0"/>
-                        <ui:UBitButton x:Name="sncodeDuplicateButton"  FontSize="20" OffContent=" 重码检测禁用 " OnContent=" 重码检测启用 " OffBackground="#FFD84242" OnBackground="#FF9AE867" PressModule="Invert"  HorizontalAlignment="Left" VerticalAlignment="Top" CornerRadius="3" Height="45" Margin="0,0,20,0" Click="sncodeEnabledButton_Click"/>
-                    </StackPanel>
-                </StackPanel>
+                    <TextBlock Text="离开当前页面后，自动保存修改的参数" VerticalAlignment="Bottom" HorizontalAlignment="Right" FontSize="20"/>
+                </Grid>
             </ScrollViewer>
             <Grid  Grid.Column="1">
                 <Grid.RowDefinitions>
@@ -72,8 +75,8 @@
                     <RowDefinition Height="30"/>
                 </Grid.RowDefinitions>
                 <ListView x:Name="paramListView"/>
-                <Button Grid.Row="1" x:Name="saveParamButton" Content="保存参数" CommandParameter="save" Template="{DynamicResource ButtonTemplate1}" Click="ParamButton_Click" Background="#FFEDEDED" />
-                <Button Grid.Row="2" x:Name="newParamButton" Content="另存新参数" CommandParameter="new" Template="{DynamicResource ButtonTemplate1}" Click="ParamButton_Click" Background="#FFEDEDED" />
+                <Button Grid.Row="1" x:Name="saveParamButton" Content="保存参数" CommandParameter="save" Template="{DynamicResource ButtonTemplate1}" Click="ParamButton_Click" Background="#FF7DEC67" />
+                <Button Grid.Row="2" x:Name="newParamButton" Content="新建参数" CommandParameter="new" Template="{DynamicResource ButtonTemplate1}" Click="ParamButton_Click" Background="#FFEDEDED" />
                 <Button Grid.Row="3" x:Name="renameParamButton" Content="重命名" CommandParameter="rename" Template="{DynamicResource ButtonTemplate1}" IsEnabled="False" Click="ParamButton_Click" Background="#FFEDEDED"/>
                 <Button Grid.Row="4" x:Name="deleteParamButton" Content="删除" CommandParameter="delete" Template="{DynamicResource ButtonTemplate1}" IsEnabled="False" Click="ParamButton_Click" Background="#FFEDEDED"/>
             </Grid>
