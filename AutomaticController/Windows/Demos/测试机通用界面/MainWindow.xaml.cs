@@ -116,12 +116,16 @@ namespace AutomaticController.Windows.Demos.测试机通用界面
             Pages.Add("系统设置", new 系统设置());
 
 
-            Task.Delay(3000).ContinueWith(t => App.Current.Dispatcher.Invoke(() =>
-            {
-                if (Pages.IsNext == false)
-                    Pages.Next("运行监控");
-            }));
             Started = true;
+            //启动后自动跳转页面
+            Task.Delay(3000).ContinueWith(t => {
+                if (Started == false) return;
+                App.Current.Dispatcher.Invoke(() =>
+                {
+                    if (Pages.IsNext == false)
+                        Pages.Next("运行监控");
+                });
+            });
             this.Closed += (s, e) =>
             {
                 Started = false;

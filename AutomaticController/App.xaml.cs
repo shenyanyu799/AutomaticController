@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 using System.Windows;
 using AutomaticController.Function;
 using AutomaticController.Windows;
-using AutomaticController.Windows.Demos.PLC通讯样例;
 using AutomaticController.Windows.Demos.测试机通用界面;
 
 namespace AutomaticController

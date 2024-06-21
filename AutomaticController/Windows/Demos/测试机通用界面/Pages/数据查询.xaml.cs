@@ -1,5 +1,4 @@
-﻿using AutomaticController.Windows.Demos.吸尘器空气性能测试;
-using LiteDB;
+﻿using LiteDB;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
