@@ -1,10 +1,7 @@
 ﻿using LiteDB;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace AutomaticController.Windows.SanSheng.数据库扫码查重项目

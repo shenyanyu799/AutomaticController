@@ -1,16 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
+﻿using AutomaticController.Function;
+using System;
 using System.Diagnostics;
-using System.Linq;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
-using AutomaticController.Function;
-using AutomaticController.Windows;
-using AutomaticController.Windows.Demos.PLC通讯样例;
-using AutomaticController.Windows.Demos.测试机通用界面;
 
 namespace AutomaticController
 {
@@ -34,9 +26,9 @@ namespace AutomaticController
             var ps = Process.GetProcesses();
             foreach (var item in ps)//遍历所有进程，查找重名
             {
-                if(item.ProcessName == name)
+                if (item.ProcessName == name)
                 {
-                    if(item.Id != process.Id)
+                    if (item.Id != process.Id)
                     {
                         MessageBox.Show("程序已启动");
                         process.Kill();

@@ -1,24 +1,11 @@
-﻿using AutomaticController.Function;
-using AutomaticController.Properties;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using Newtonsoft.Json.Schema;
-using Newtonsoft.Json.Serialization;
+﻿using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
-using System.Drawing;
 using System.IO;
 using System.IO.Ports;
 using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.Windows.Input;
 using System.Xml.Linq;
-using static AutomaticController.Windows.FuJia.电机寿命老化测试.Datas.Enums;
 
 namespace AutomaticController.Windows.FuJia.电机寿命老化测试.Datas
 {
@@ -254,7 +241,7 @@ namespace AutomaticController.Windows.FuJia.电机寿命老化测试.Datas
                     return defaultValue;
                 }
             }
-           
+
             try
             {
                 result = JsonConvert.DeserializeObject<T>(t);
@@ -268,7 +255,7 @@ namespace AutomaticController.Windows.FuJia.电机寿命老化测试.Datas
                     return defaultValue;
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Console.WriteLine(ex);
                 _savevalue(key, defaultValue);
@@ -408,7 +395,7 @@ namespace AutomaticController.Windows.FuJia.电机寿命老化测试.Datas
         bool settingvalue;
         public void SetValue(string key, object value)
         {
-            if(value is string)
+            if (value is string)
             {
                 setValue(key, value.ToString());
                 return;
@@ -448,7 +435,7 @@ namespace AutomaticController.Windows.FuJia.电机寿命老化测试.Datas
                     Document = XDocument.Load(Path);
                 }
             }
-            if(value == null)
+            if (value == null)
             {
                 value = "";
             }

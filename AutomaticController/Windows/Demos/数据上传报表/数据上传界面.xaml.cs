@@ -1,28 +1,18 @@
 ﻿using AutomaticController.Device;
 using AutomaticController.Function;
-using AutomaticController.Windows.Demos.测试机通用界面.Pages;
 using LiteDB;
-using Microsoft.Office.Interop.Excel;
 using Microsoft.Win32;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.IO.Ports;
-using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Markup;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace AutomaticController.Windows.Demos.数据上传报表
 {
@@ -50,7 +40,7 @@ namespace AutomaticController.Windows.Demos.数据上传报表
 
         bool DataWrite = false;
         //地址H50
-        short SNCodeLength { get=> Data.GetInt16_HL(160); set=> Data.SetInt16_HL(160, value); }
+        short SNCodeLength { get => Data.GetInt16_HL(160); set => Data.SetInt16_HL(160, value); }
 
 
         //扫码枪状态
@@ -84,12 +74,14 @@ namespace AutomaticController.Windows.Demos.数据上传报表
             {
                 SNCodeLength = (short)snCodeBox.Text.Length;
             };
-            this.Loaded += (s, e) => {
+            this.Loaded += (s, e) =>
+            {
                 CompositionTarget.Rendering += CompositionTarget_Rendering;
                 Task.Run(OpenSweep);
                 Task.Run(OpenModBusServer);
             };
-            this.Unloaded += (s, e) => {
+            this.Unloaded += (s, e) =>
+            {
                 CompositionTarget.Rendering -= CompositionTarget_Rendering;
             };
             this.Closed += (s, e) => { IsClose = true; };
@@ -108,7 +100,7 @@ namespace AutomaticController.Windows.Demos.数据上传报表
         private async void OpenSweep()
         {
             System.IO.Ports.SerialPort serialPort = new SerialPort();
-            while(IsClose == false)
+            while (IsClose == false)
             {
                 try
                 {
@@ -125,7 +117,7 @@ namespace AutomaticController.Windows.Demos.数据上传报表
                     }
                     else
                     {
-                        if(serialPort.PortName != Setting.Example.SweepComName)
+                        if (serialPort.PortName != Setting.Example.SweepComName)
                         {
                             serialPort.Close();
                             IsSweepOpen = false;
@@ -141,7 +133,7 @@ namespace AutomaticController.Windows.Demos.数据上传报表
 
                     }
                 }
-                catch(Exception e)
+                catch (Exception e)
                 {
                     IsSweepOpen = false;
                     Console.WriteLine(e);
@@ -247,7 +239,7 @@ namespace AutomaticController.Windows.Demos.数据上传报表
                                     continue;
                                 }
                                 catch { continue; }
-                                
+
                             }
                             if (bytes[1] == 0x03)//读地址
                             {
@@ -367,7 +359,7 @@ namespace AutomaticController.Windows.Demos.数据上传报表
             }
         }
 
-#region 按钮事件
+        #region 按钮事件
 
         /// <summary>
         /// 设置
@@ -412,7 +404,8 @@ namespace AutomaticController.Windows.Demos.数据上传报表
                 }
                 //转换并显示
                 App.Current.Dispatcher.Invoke(
-                    () => {
+                    () =>
+                    {
                         try
                         {
                             //users.Reverse();//反转序列
@@ -451,7 +444,8 @@ namespace AutomaticController.Windows.Demos.数据上传报表
                 }
                 //转换并显示
                 App.Current.Dispatcher.Invoke(
-                    () => {
+                    () =>
+                    {
                         try
                         {
                             //users.Reverse();//反转序列
@@ -485,7 +479,8 @@ namespace AutomaticController.Windows.Demos.数据上传报表
                 users = UserData.DBFindAll();
                 //转换并显示
                 App.Current.Dispatcher.Invoke(
-                    () => {
+                    () =>
+                    {
                         try
                         {
                             //users.Reverse();//反转序列
@@ -549,12 +544,12 @@ namespace AutomaticController.Windows.Demos.数据上传报表
 
         }
 
-#endregion
+        #endregion
 
     }
     public class Setting
     {
-        public static Setting Example{ get; set; }
+        public static Setting Example { get; set; }
         public string ComName { get; set; } = "Com1";
         public int Baud { get; set; } = 9600;
         public Parity Verify { get; set; } = Parity.None;
@@ -569,7 +564,7 @@ namespace AutomaticController.Windows.Demos.数据上传报表
         public static void Save()
         {
             string json = JsonConvert.SerializeObject(Example, Formatting.Indented);
-            File.WriteAllText("setting.json",json);
+            File.WriteAllText("setting.json", json);
         }
         public static void Load()
         {
@@ -580,7 +575,7 @@ namespace AutomaticController.Windows.Demos.数据上传报表
             }
             string json = File.ReadAllText("setting.json");
             var st = JsonConvert.DeserializeObject<Setting>(json);
-            if(st != null )
+            if (st != null)
             {
                 Example = st;
             }

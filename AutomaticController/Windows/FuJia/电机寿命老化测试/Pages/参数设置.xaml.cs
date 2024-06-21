@@ -1,18 +1,8 @@
 ﻿using AutomaticController.Windows.FuJia.电机寿命老化测试.Datas;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace AutomaticController.Windows.FuJia.电机寿命老化测试.Pages
 {
@@ -24,11 +14,13 @@ namespace AutomaticController.Windows.FuJia.电机寿命老化测试.Pages
         public 参数设置()
         {
             InitializeComponent();
-            this.Loaded += (s, e) => {
+            this.Loaded += (s, e) =>
+            {
                 CompositionTarget.Rendering += CompositionTarget_Rendering;
                 Load();
             };
-            this.Unloaded += (s, e) => {
+            this.Unloaded += (s, e) =>
+            {
                 CompositionTarget.Rendering -= CompositionTarget_Rendering;
             };
         }
@@ -47,14 +39,14 @@ namespace AutomaticController.Windows.FuJia.电机寿命老化测试.Pages
             }
             if (pargm == "Delete")
             {
-                if(parmsList.SelectedItem != null)
+                if (parmsList.SelectedItem != null)
                 {
                     int sindex = parmsList.SelectedIndex;
                     var listitem = (parmsList.SelectedItem as ListBoxItem);
                     if (listitem == null) return;
                     Delete(listitem.Tag.ToString());
                     parmsList.Items.RemoveAt(sindex);
-                    if(parmsList.Items.Count > sindex) 
+                    if (parmsList.Items.Count > sindex)
                     {
                         parmsList.SelectedIndex = sindex;
                     }
@@ -172,8 +164,8 @@ namespace AutomaticController.Windows.FuJia.电机寿命老化测试.Pages
 
             //创建按钮
             StackPanel stackPanel_Button = new StackPanel() { Orientation = Orientation.Horizontal, HorizontalAlignment = HorizontalAlignment.Center, Margin = new Thickness(1, 1, 1, 1) };
-            Button button1 = new Button() { Width = 120 , Height = 60, FontSize = 25, Content = "确定", Margin = new Thickness(10, 10, 10, 10) };
-            Button button2 = new Button() { Width = 120 , Height = 60, FontSize = 25, Content = "取消", Margin = new Thickness(10, 10, 10, 10) };
+            Button button1 = new Button() { Width = 120, Height = 60, FontSize = 25, Content = "确定", Margin = new Thickness(10, 10, 10, 10) };
+            Button button2 = new Button() { Width = 120, Height = 60, FontSize = 25, Content = "取消", Margin = new Thickness(10, 10, 10, 10) };
             button1.Click += (s, e) =>
             {
                 int c = par.TotalCount;
@@ -183,12 +175,12 @@ namespace AutomaticController.Windows.FuJia.电机寿命老化测试.Pages
                 double cu = par.ElectriCurrentUpper;
                 double cl = par.ElectriCurrentLower;
                 //判断并转换
-                if(int.TryParse(textBox2.Text, out c) == false)
+                if (int.TryParse(textBox2.Text, out c) == false)
                 {
                     textBox2.Text = par.TotalCount.ToString();
                     return;
                 }
-                if(double.TryParse(textBox3.Text, out onT) == false)
+                if (double.TryParse(textBox3.Text, out onT) == false)
                 {
                     textBox3.Text = par.PowerOnTime.ToString();
                     return;

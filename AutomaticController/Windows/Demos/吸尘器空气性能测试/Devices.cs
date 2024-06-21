@@ -1,13 +1,7 @@
 ﻿using AutomaticController.Device;
-using AutomaticController.Windows.Demos.测试机通用界面.Datas;
 using System;
-using System.Collections.Generic;
 using System.IO.Ports;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Documents;
 
 namespace AutomaticController.Windows.Demos.吸尘器空气性能测试
 {
@@ -30,7 +24,7 @@ namespace AutomaticController.Windows.Demos.吸尘器空气性能测试
         /// <summary>
         /// 真空度kPa
         /// </summary>
-        public static Modbus_RTU_Num D10 { get; set; } = new Modbus_RTU_Num(PLC, Modbus_EasyAddress.D(10), Modbus_EasyAddress.FloatType) {AutoRead = true};
+        public static Modbus_RTU_Num D10 { get; set; } = new Modbus_RTU_Num(PLC, Modbus_EasyAddress.D(10), Modbus_EasyAddress.FloatType) { AutoRead = true };
 
         public static Modbus_RTU_Num D12 { get; set; } = new Modbus_RTU_Num(PLC, Modbus_EasyAddress.D(12), Modbus_EasyAddress.WordType) { AutoRead = true };
         public static Modbus_RTU_Num D13 { get; set; } = new Modbus_RTU_Num(PLC, Modbus_EasyAddress.D(13), Modbus_EasyAddress.WordType) { AutoRead = true };
@@ -249,7 +243,7 @@ namespace AutomaticController.Windows.Demos.吸尘器空气性能测试
         /// <summary>
         /// 相对湿度%
         /// </summary>
-        public static Modbus_RTU_Num RelativeHidity { get; set; } = new Modbus_RTU_Num(Devices.Temperature, 0x14, Modbus_RTU_Type.Float_LH) {ReadInterval = 1, AutoRead = true };
+        public static Modbus_RTU_Num RelativeHidity { get; set; } = new Modbus_RTU_Num(Devices.Temperature, 0x14, Modbus_RTU_Type.Float_LH) { ReadInterval = 1, AutoRead = true };
         public static TextDouble RelativeHidity1 { get; set; } = new TextDouble(() => Math.Round(RelativeHidity.Value, 2), d => RelativeHidity.Value = d, "0.00");
 
         /// <summary>
@@ -268,7 +262,7 @@ namespace AutomaticController.Windows.Demos.吸尘器空气性能测试
         /// <summary>
         /// 湿球温度℃=> 1.8+32 ℉
         /// </summary>
-        public static Modbus_RTU_Num WetBulbTemperature { get; set; } = new Modbus_RTU_Num(Devices.Temperature, 0x18, Modbus_RTU_Type.Float_LH) {  ReadInterval = 1, AutoRead = true };
+        public static Modbus_RTU_Num WetBulbTemperature { get; set; } = new Modbus_RTU_Num(Devices.Temperature, 0x18, Modbus_RTU_Type.Float_LH) { ReadInterval = 1, AutoRead = true };
         /// <summary>
         /// 湿球温度℃
         /// </summary>
@@ -281,7 +275,7 @@ namespace AutomaticController.Windows.Demos.吸尘器空气性能测试
         /// <summary>
         /// 大气压强kPa;1kPa = 0.295301 in.Hg
         /// </summary>
-        public static Modbus_RTU_Num Atmospheric { get; set; } = new Modbus_RTU_Num(Devices.Temperature, 0x24, Modbus_RTU_Type.Float_LH) {ReadInterval = 1, AutoRead = true };
+        public static Modbus_RTU_Num Atmospheric { get; set; } = new Modbus_RTU_Num(Devices.Temperature, 0x24, Modbus_RTU_Type.Float_LH) { ReadInterval = 1, AutoRead = true };
         /// <summary>
         /// kPa
         /// </summary>
@@ -315,7 +309,7 @@ namespace AutomaticController.Windows.Demos.吸尘器空气性能测试
             if (IsPLCFind) return;
             IsPLCFind = true;
 
-            if(Parameters.Instance.ASName != null)
+            if (Parameters.Instance.ASName != null)
             {
                 using (SerialPort port = new SerialPort(Parameters.Instance.ASName)) //创建串口
                 {
@@ -358,7 +352,7 @@ namespace AutomaticController.Windows.Demos.吸尘器空气性能测试
 
                             if (FindPLC(port) == false)
                             {
-                               FindTemp(port);
+                                FindTemp(port);
                             }
                             n++;
                             port.Close();
@@ -369,7 +363,7 @@ namespace AutomaticController.Windows.Demos.吸尘器空气性能测试
 
 
                 }
-                while(n != names.Length)
+                while (n != names.Length)
                 {
                     await Task.Delay(100);
                 }
@@ -407,7 +401,7 @@ namespace AutomaticController.Windows.Demos.吸尘器空气性能测试
                         cs = true;
                     }
                 }
-                if (cs == false) throw (new TimeoutException(port.PortName+ "读取超时"));
+                if (cs == false) throw (new TimeoutException(port.PortName + "读取超时"));
                 int len = port.Read(readByte, 0, readByte.Length);
 
                 foreach (var item in readByte)
@@ -624,7 +618,7 @@ namespace AutomaticController.Windows.Demos.吸尘器空气性能测试
             PLC1Stop();
             PLC2Stop();
             TemperatureStop();
-            
+
         }
         public static void Test()
         {
@@ -645,11 +639,11 @@ namespace AutomaticController.Windows.Demos.吸尘器空气性能测试
             {
                 while (true)
                 {
-                    Console.WriteLine(DateTime.Now.ToString() + "    "+ID.Value);
+                    Console.WriteLine(DateTime.Now.ToString() + "    " + ID.Value);
                     Task.Delay(100).Wait();
                 }
             });
         }
 
-}
+    }
 }

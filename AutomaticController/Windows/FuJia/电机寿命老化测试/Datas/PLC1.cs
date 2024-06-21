@@ -1,12 +1,5 @@
 ﻿using AutomaticController.Device;
-using AutomaticController.Windows.Demos.测试机通用界面.Datas;
-using Microsoft.Office.Interop.Excel;
-using System;
-using System.Collections.Generic;
 using System.IO.Ports;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AutomaticController.Windows.FuJia.电机寿命老化测试.Datas
 {
@@ -31,7 +24,7 @@ namespace AutomaticController.Windows.FuJia.电机寿命老化测试.Datas
         public static Modbus_RTU_Num 状态1 { get; set; } = new Modbus_RTU_Num(PLC, Modbus_EasyAddress.D(0), Modbus_EasyAddress.WordType) { AutoRead = true };
         public static Modbus_RTU_Num 状态2 { get; set; } = new Modbus_RTU_Num(PLC, Modbus_EasyAddress.D(1), Modbus_EasyAddress.WordType) { AutoRead = true };
         public static Modbus_RTU_Num 状态3 { get; set; } = new Modbus_RTU_Num(PLC, Modbus_EasyAddress.D(2), Modbus_EasyAddress.WordType) { AutoRead = true };
-        public static Modbus_RTU_Num 瞬时流量1 { get; set; } = new Modbus_RTU_Num(PLC, Modbus_EasyAddress.D(10), Modbus_EasyAddress.FloatType) { Digits = 2};
+        public static Modbus_RTU_Num 瞬时流量1 { get; set; } = new Modbus_RTU_Num(PLC, Modbus_EasyAddress.D(10), Modbus_EasyAddress.FloatType) { Digits = 2 };
         public static Modbus_RTU_Num 累计流量1 { get; set; } = new Modbus_RTU_Num(PLC, Modbus_EasyAddress.D(12), Modbus_EasyAddress.FloatType) { Digits = 2 };
         public static Modbus_RTU_Num 测试时间1 { get; set; } = new Modbus_RTU_Num(PLC, Modbus_EasyAddress.D(14), Modbus_EasyAddress.DWordType) { Scale = 0.001 };
         public static Modbus_RTU_Num 结果流量1 { get; set; } = new Modbus_RTU_Num(PLC, Modbus_EasyAddress.D(16), Modbus_EasyAddress.FloatType) { AutoRead = true, Digits = 2 };
@@ -44,7 +37,7 @@ namespace AutomaticController.Windows.FuJia.电机寿命老化测试.Datas
         public static Modbus_RTU_Num 瞬时流量3 { get; set; } = new Modbus_RTU_Num(PLC, Modbus_EasyAddress.D(30), Modbus_EasyAddress.FloatType) { Digits = 2 };
         public static Modbus_RTU_Num 累计流量3 { get; set; } = new Modbus_RTU_Num(PLC, Modbus_EasyAddress.D(32), Modbus_EasyAddress.FloatType) { Digits = 2 };
         public static Modbus_RTU_Num 测试时间3 { get; set; } = new Modbus_RTU_Num(PLC, Modbus_EasyAddress.D(34), Modbus_EasyAddress.DWordType) { Scale = 0.001 };
-        public static Modbus_RTU_Num 结果流量3 { get; set; } = new Modbus_RTU_Num(PLC, Modbus_EasyAddress.D(36), Modbus_EasyAddress.FloatType) { AutoRead = true , Digits = 2 };
+        public static Modbus_RTU_Num 结果流量3 { get; set; } = new Modbus_RTU_Num(PLC, Modbus_EasyAddress.D(36), Modbus_EasyAddress.FloatType) { AutoRead = true, Digits = 2 };
 
 
 
@@ -61,7 +54,7 @@ namespace AutomaticController.Windows.FuJia.电机寿命老化测试.Datas
 
     }
 
-    public class Devices 
+    public class Devices
     {
         public static Modbus_RTU DODevice { get; set; } = new Modbus_RTU(1);
         public static SerialPort AIDevice { get; set; }
@@ -119,7 +112,7 @@ namespace AutomaticController.Windows.FuJia.电机寿命老化测试.Datas
         }
         private static double GetDouble(byte[] bytes)
         {
-           UnitData AIData = new UnitData(255);
+            UnitData AIData = new UnitData(255);
 
             if (bytes.Length > 0)
             {

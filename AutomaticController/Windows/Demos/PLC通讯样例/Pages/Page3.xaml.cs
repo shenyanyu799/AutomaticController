@@ -1,22 +1,12 @@
 ﻿using AutomaticController.Device;
 using AutomaticController.Function;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO.Ports;
-using System.Linq;
-using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace AutomaticController.Windows.Demos.PLC通讯样例.Pages
 {
@@ -28,10 +18,12 @@ namespace AutomaticController.Windows.Demos.PLC通讯样例.Pages
         public Page3()
         {
             InitializeComponent();
-            this.Loaded += (s, e) => {
+            this.Loaded += (s, e) =>
+            {
                 CompositionTarget.Rendering += CompositionTarget_Rendering; ;
             };
-            this.Unloaded += (s, e) => {
+            this.Unloaded += (s, e) =>
+            {
                 CompositionTarget.Rendering -= CompositionTarget_Rendering;
             };
         }
@@ -71,7 +63,7 @@ namespace AutomaticController.Windows.Demos.PLC通讯样例.Pages
                 Debug.Write("Read " + i + ":    ");
 
                 var ws = Modbus_RTU.ReadData_Code((byte)i, 0x20, 1);
-                port.Write(ws,0,ws.Length);
+                port.Write(ws, 0, ws.Length);
                 Task.Delay(100).Wait();
                 byte[] bs = new byte[20];
                 try
@@ -79,10 +71,10 @@ namespace AutomaticController.Windows.Demos.PLC通讯样例.Pages
                     port.Read(bs, 0, bs.Length);
                 }
                 catch { }
-                int len = port.Read(bs,0, bs.Length);
-                Debug.WriteLine(bs?.ToStringH(0,len));
+                int len = port.Read(bs, 0, bs.Length);
+                Debug.WriteLine(bs?.ToStringH(0, len));
             }
-          
+
         }
 
         private void Port_DataReceived(object sender, SerialDataReceivedEventArgs e)

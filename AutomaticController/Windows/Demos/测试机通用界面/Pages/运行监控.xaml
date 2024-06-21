@@ -18,7 +18,7 @@ x:Class="AutomaticController.Windows.Demos.测试机通用界面.Pages.运行监
         <TextBlock Text="运行监控" FontSize="35" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,5,0,0"/>
         <TextBlock x:Name="DatetimeText" Text="当前时间" FontSize="35" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,5,10,0"/>
         <Border Height="1" BorderBrush="#FF969191" Margin="3,50,3,0" BorderThickness="0,1,0,0" VerticalAlignment="Top" />
-        <!--<Grid Margin="5,55,5,5">
+        <Grid Margin="5,55,5,5">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top" >
                 <TextBlock Text="OK数：" FontSize="20" Margin="5,0,0,0" VerticalAlignment="Center"/>
                 <ui:ULabel DataContext="{Binding Source={x:Static ds:PLC1.OK数}}" FontSize="20" BorderBrush="#FF8C8C8C" BorderThickness="1,1,1,1" Width="100"/>
@@ -28,7 +28,11 @@ x:Class="AutomaticController.Windows.Demos.测试机通用界面.Pages.运行监
                 <ui:ULabel DataContext="{Binding Source={x:Static ds:PLC1.生产总数}}" FontSize="20" BorderBrush="#FF8C8C8C" BorderThickness="1,1,1,1" Width="100"/>
                 <ui:UBitButton DataContext="{Binding Source={x:Static ds:PLC1.产量清零}}"  FontSize="20" OffContent=" 产量清零 " OnContent=" 产量清零 " OffBackground="#FFD4D3D3" OnBackground="#FFBFBFBF" PressModule="Set" Margin="10,0,10,0"/>
             </StackPanel>
-            <Grid Height="500" VerticalAlignment="Center" Margin="20,0,20,0">
+            <StackPanel  Orientation="Horizontal" VerticalAlignment="Bottom">
+                <TextBlock Text="参数选择：" FontSize="25" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                <ComboBox x:Name="ParamSelest_ComboBox" FontSize="25" HorizontalAlignment="Left" Width="350" DropDownOpened="ComboBox_DropDownOpened" DropDownClosed="ComboBox_DropDownClosed" VerticalAlignment="Center" />
+            </StackPanel>
+            <!--<Grid Height="500" VerticalAlignment="Center" Margin="20,0,20,0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="*"/>
@@ -179,8 +183,9 @@ x:Class="AutomaticController.Windows.Demos.测试机通用界面.Pages.运行监
                         </x:Array>
                     </ui:UNumLabel.Contents>
                 </ui:UNumLabel>
-            </Grid>
-        </Grid>-->
+            
+            </Grid>-->
+        </Grid>
 
     </Grid>
 </Page>

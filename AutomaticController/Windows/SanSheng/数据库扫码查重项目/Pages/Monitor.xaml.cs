@@ -1,18 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace AutomaticController.Windows.SanSheng.数据库扫码查重项目.Pages
 {
@@ -33,10 +25,12 @@ namespace AutomaticController.Windows.SanSheng.数据库扫码查重项目.Pages
             //添加首行序号
             DataGrid1.LoadingRow += (object sender, DataGridRowEventArgs e) => e.Row.Header = e.Row.GetIndex() + 1;
 
-            this.Loaded += (s, e) => {
+            this.Loaded += (s, e) =>
+            {
                 CompositionTarget.Rendering += CompositionTarget_Rendering;
             };
-            this.Unloaded += (s, e) => {
+            this.Unloaded += (s, e) =>
+            {
                 CompositionTarget.Rendering -= CompositionTarget_Rendering;
             };
         }
@@ -44,7 +38,7 @@ namespace AutomaticController.Windows.SanSheng.数据库扫码查重项目.Pages
         {
 
             patrType.Text = MainWindow1.Module;
-            if(ComboBox1.SelectedIndex != MainWindow1.TestCount - 1)
+            if (ComboBox1.SelectedIndex != MainWindow1.TestCount - 1)
             {
                 ComboBox1.SelectedIndex = MainWindow1.TestCount - 1;
             }
@@ -54,7 +48,7 @@ namespace AutomaticController.Windows.SanSheng.数据库扫码查重项目.Pages
             {
                 case 0:
                     Label1.Content = "未启用";
-                    Label1.Background = new SolidColorBrush(Color.FromArgb(0xFF,0xB5,0xB5,0xB5));
+                    Label1.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0xB5, 0xB5, 0xB5));
                     break;
                 case 1:
                     Label1.Content = "请扫码";
@@ -112,7 +106,7 @@ namespace AutomaticController.Windows.SanSheng.数据库扫码查重项目.Pages
             TextBox2.Text = MainWindow1.Codes[1];
             TextBox3.Text = MainWindow1.Codes[2];
 
-            if(DataGrid1.ItemsSource != MainWindow1.SelectData)
+            if (DataGrid1.ItemsSource != MainWindow1.SelectData)
             {
                 DataGrid1.ItemsSource = MainWindow1.SelectData;
                 (DataGrid1.Columns[1] as DataGridTextColumn).Binding.StringFormat = "yyyy/MM/dd HH:mm:ss";

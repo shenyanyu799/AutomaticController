@@ -1,16 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace AutomaticController.Windows.Demos.吸尘器空气性能测试
 {
@@ -24,7 +14,8 @@ namespace AutomaticController.Windows.Demos.吸尘器空气性能测试
         public StartWindow()
         {
             InitializeComponent();
-            this.Loaded += (s, e) => {
+            this.Loaded += (s, e) =>
+            {
                 CompositionTarget.Rendering += CompositionTarget_Rendering;
                 //Devices.Test();
                 Devices.PLC1Start();
@@ -34,12 +25,13 @@ namespace AutomaticController.Windows.Demos.吸尘器空气性能测试
                 PLC1Data.ID.RequestRead = true;
                 PLC2Data.ID.RequestRead = true;
             };
-            this.Unloaded += (s, e) => {
+            this.Unloaded += (s, e) =>
+            {
                 CompositionTarget.Rendering -= CompositionTarget_Rendering;
             };
 
             this.Closed += (s, e) => Devices.Dispose();
-            
+
         }
         /// <summary>
         /// 循环
@@ -80,7 +72,8 @@ namespace AutomaticController.Windows.Demos.吸尘器空气性能测试
         {
             var win = new AmericanWindow();
             ASOpen = true;
-            win.Closed += (s, _e) => {
+            win.Closed += (s, _e) =>
+            {
                 ASOpen = false;
             };
             win.Show();
@@ -91,7 +84,8 @@ namespace AutomaticController.Windows.Demos.吸尘器空气性能测试
         {
             var win = new EuropeanWindow();
             ENOpen = true;
-            win.Closed += (s, _e) => {
+            win.Closed += (s, _e) =>
+            {
                 ENOpen = false;
             };
             win.Show();

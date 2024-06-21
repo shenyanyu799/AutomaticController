@@ -1,21 +1,14 @@
-﻿using Microsoft.Research.DynamicDataDisplay.DataSources;
-using Microsoft.Research.DynamicDataDisplay;
+﻿using Microsoft.Research.DynamicDataDisplay;
+using Microsoft.Research.DynamicDataDisplay.DataSources;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Reflection;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using System.Diagnostics;
 
 namespace AutomaticController.Windows.Demos.吸尘器空气性能测试
 {
@@ -51,7 +44,8 @@ namespace AutomaticController.Windows.Demos.吸尘器空气性能测试
             plotter.AddLineGraph(effs, Colors.Green, 1, "η");
 
             bool start = true;
-            this.Closed += (s, e) => {
+            this.Closed += (s, e) =>
+            {
                 start = false;
             };
             //循环检测
@@ -65,7 +59,8 @@ namespace AutomaticController.Windows.Demos.吸尘器空气性能测试
             });
 
 
-            this.Loaded += (s, e) => {
+            this.Loaded += (s, e) =>
+            {
                 CompositionTarget.Rendering += CompositionTarget_Rendering; ;
             };
             this.Unloaded += (s, e) => CompositionTarget.Rendering -= CompositionTarget_Rendering;
@@ -91,7 +86,8 @@ namespace AutomaticController.Windows.Demos.吸尘器空气性能测试
             get { return _IsStart; }
             set
             {
-                App.Current.Dispatcher.InvokeAsync(new Action(() => {
+                App.Current.Dispatcher.InvokeAsync(new Action(() =>
+                {
                     if (value)
                     {
                         ManualGroupBox.IsEnabled = false;
@@ -197,7 +193,7 @@ namespace AutomaticController.Windows.Demos.吸尘器空气性能测试
             double pRH = 0.001 * (0.44 - rh * (2.32 + 0.212 * Td + 0.00028 * Td * Td * Td));
             double Dm = ((Bt + pRH) / 101.3) * (293 / (Td + 273));
 
-            double hs = h * Math.Pow(Dm,-0.67);
+            double hs = h * Math.Pow(Dm, -0.67);
             double Ps = p * 1;
 
             //孔径列表
@@ -226,7 +222,7 @@ namespace AutomaticController.Windows.Demos.吸尘器空气性能测试
             TableData data = new TableData()
             {
                 OrificeDiameter = diameters[DN],
-                OrificeDiameter_ = Math.Round(diameters[DN] * 0.03937,2),
+                OrificeDiameter_ = Math.Round(diameters[DN] * 0.03937, 2),
                 InputPower1 = p,
                 Suction1 = Math.Round(h, 2),
                 Suction1_ = Math.Round(h * 4.0147, 2),
@@ -276,7 +272,8 @@ namespace AutomaticController.Windows.Demos.吸尘器空气性能测试
 
         public static void AddData(int DN)
         {
-            App.Current.Dispatcher.InvokeAsync(new Action(() => {
+            App.Current.Dispatcher.InvokeAsync(new Action(() =>
+            {
                 Add(DN);
                 UpdateCurv();
                 instance.DataGrid1.ItemsSource = null;
@@ -410,7 +407,8 @@ namespace AutomaticController.Windows.Demos.吸尘器空气性能测试
 
             progressBar.Maximum = Maximum;
 
-            return (s, i, c) => {
+            return (s, i, c) =>
+            {
                 App.Current.Dispatcher.InvokeAsync(() =>
                 {
                     textBlock.Text = s;

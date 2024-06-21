@@ -1,21 +1,13 @@
-﻿using AutomaticController.Windows.Demos.吸尘器空气性能测试;
-using LiteDB;
+﻿using LiteDB;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace AutomaticController.Windows.FuJia.电机寿命老化测试.Pages
 {
@@ -36,12 +28,14 @@ namespace AutomaticController.Windows.FuJia.电机寿命老化测试.Pages
             DataGrid1.ItemsSource = new List<UserData>();
 
 
-            this.Loaded += (s, e) => {
+            this.Loaded += (s, e) =>
+            {
                 startTimeText.DateTime = DateTime.Now;
                 endTimeText.DateTime = DateTime.Now;
                 CompositionTarget.Rendering += CompositionTarget_Rendering;
             };
-            this.Unloaded += (s, e) => {
+            this.Unloaded += (s, e) =>
+            {
                 CompositionTarget.Rendering -= CompositionTarget_Rendering;
             };
         }
@@ -125,7 +119,8 @@ namespace AutomaticController.Windows.FuJia.电机寿命老化测试.Pages
                 }
                 //转换并显示
                 App.Current.Dispatcher.Invoke(
-                    () => {
+                    () =>
+                    {
                         try
                         {
                             //users.Reverse();//反转序列
@@ -160,7 +155,8 @@ namespace AutomaticController.Windows.FuJia.电机寿命老化测试.Pages
                 users = UserData.DBFindAll();
                 //转换并显示
                 App.Current.Dispatcher.Invoke(
-                    () => {
+                    () =>
+                    {
                         try
                         {
                             //users.Reverse();//反转序列
@@ -246,13 +242,13 @@ namespace AutomaticController.Windows.FuJia.电机寿命老化测试.Pages
     {
         public DateTime 测试时间 { get; set; }
         public DateTime 完成时间 { get; set; }
-        public string 测试工位 { get; set;}
-        public string 运行电压 { get; set;}
-        public string 平均电流 { get; set;}
-        public string 最大电流 { get; set;}
-        public string 最小电流 { get; set;}
-        public string 循环次数 { get; set;}
-        public string 测试结果 { get; set;}
+        public string 测试工位 { get; set; }
+        public string 运行电压 { get; set; }
+        public string 平均电流 { get; set; }
+        public string 最大电流 { get; set; }
+        public string 最小电流 { get; set; }
+        public string 循环次数 { get; set; }
+        public string 测试结果 { get; set; }
     }
     public partial class UserData
     {

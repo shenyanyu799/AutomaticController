@@ -1,26 +1,15 @@
 ﻿using AutomaticController.Windows.SanSheng.数据库扫码查重项目.Pages;
 using LiteDB;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using Newtonsoft.Json.Serialization;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Reflection;
-using System.Security.Policy;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Markup;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using System.Xml.Linq;
 
 namespace AutomaticController.Windows.SanSheng.数据库扫码查重项目
 {
@@ -32,7 +21,10 @@ namespace AutomaticController.Windows.SanSheng.数据库扫码查重项目
         public static string SNCode { get; set; }
         public static string Module { get; set; }//当前选择的型号
         private static int testCount = 3;
-        public static int TestCount { get => testCount; set {
+        public static int TestCount
+        {
+            get => testCount; set
+            {
                 using (LiteDatabase lite = new LiteDatabase(UserData.DBPath))
                 {
                     UserArgument user = new UserArgument();
@@ -43,7 +35,8 @@ namespace AutomaticController.Windows.SanSheng.数据库扫码查重项目
                     testCount = value;
                     WorkState = 0;
                 }
-            } }
+            }
+        }
         /// <summary>
         /// 工作状态机
         /// </summary>
@@ -76,7 +69,7 @@ namespace AutomaticController.Windows.SanSheng.数据库扫码查重项目
 
             //创建并加载页面
             pages.Add(new Monitor());
-            pages.Add(new DataManager()); 
+            pages.Add(new DataManager());
             pages.Add(new UsetSetting());
             UserFrame.Navigate(pages[0]);
             Button1.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0x91, 0xED, 0xF3));
@@ -106,7 +99,8 @@ namespace AutomaticController.Windows.SanSheng.数据库扫码查重项目
         {
             if (IsBarcodeOpen) return;
             IsBarcodeOpen = true;
-            this.Closed += (s, e) => {
+            this.Closed += (s, e) =>
+            {
                 BarcodeClose();
             };
             Task.Run(async () =>
@@ -174,12 +168,12 @@ namespace AutomaticController.Windows.SanSheng.数据库扫码查重项目
         /// <param name="e"></param>
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            Button1.Background = new SolidColorBrush(Color.FromArgb(0xFF,0xDD,0xDD,0xDD));
-            Button2.Background = new SolidColorBrush(Color.FromArgb(0xFF,0xDD,0xDD,0xDD));
-            Button3.Background = new SolidColorBrush(Color.FromArgb(0xFF,0xDD,0xDD,0xDD));
+            Button1.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0xDD, 0xDD, 0xDD));
+            Button2.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0xDD, 0xDD, 0xDD));
+            Button3.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0xDD, 0xDD, 0xDD));
             string name = (sender as Button).Content.ToString();
 
-            switch(name)
+            switch (name)
             {
                 case "运行监控":
                     UserFrame.Navigate(pages[0]);
@@ -191,7 +185,8 @@ namespace AutomaticController.Windows.SanSheng.数据库扫码查重项目
                         Login login = new Login();
                         login.Owner = this;
                         login.Show();
-                        login.Closed += (s, _e) => {
+                        login.Closed += (s, _e) =>
+                        {
                             if (Logined != UserPermissions.Normal)
                             {
                                 UserFrame.Navigate(pages[1]);
@@ -209,7 +204,8 @@ namespace AutomaticController.Windows.SanSheng.数据库扫码查重项目
                         Login login = new Login();
                         login.Owner = this;
                         login.Show();
-                        login.Closed += (s, _e) => {
+                        login.Closed += (s, _e) =>
+                        {
                             if (Logined != UserPermissions.Normal)
                             {
                                 UserFrame.Navigate(pages[2]);
@@ -231,7 +227,7 @@ namespace AutomaticController.Windows.SanSheng.数据库扫码查重项目
         {
 
             DirectoryInfo dir = new DirectoryInfo("data");
-            
+
             ListView1?.Items?.Clear();
             var files = dir.GetFiles();
             Array.Sort(files, (FileInfo x, FileInfo y) => x.CreationTime.CompareTo(y.CreationTime));//时间顺序排序
@@ -294,7 +290,7 @@ namespace AutomaticController.Windows.SanSheng.数据库扫码查重项目
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void MenuItem_Click(object sender, RoutedEventArgs e)
-        {            
+        {
             int i = 1;
             while (true)
             {
@@ -344,15 +340,16 @@ namespace AutomaticController.Windows.SanSheng.数据库扫码查重项目
             };
             textBox.KeyDown += (s, _e) =>
             {
-                if(_e.Key == Key.Enter)
+                if (_e.Key == Key.Enter)
                 {
                     textBox.Focusable = false;
                 }
-                
+
             };
             ListView1.MouseDoubleClick -= ListView1_MouseDoubleClick;
             //延时触发
-            Task.Delay(10).ContinueWith(t => {
+            Task.Delay(10).ContinueWith(t =>
+            {
                 App.Current.Dispatcher.Invoke(() =>
                 {
                     textBox.Focus();
@@ -414,7 +411,7 @@ namespace AutomaticController.Windows.SanSheng.数据库扫码查重项目
                         PartState[1] = 1;
                         PartState[2] = 1;
                     }
-                    if(SNCode?.Length > 0)//扫码完成
+                    if (SNCode?.Length > 0)//扫码完成
                     {
                         WorkState = 1;
                     }
@@ -433,7 +430,7 @@ namespace AutomaticController.Windows.SanSheng.数据库扫码查重项目
                     using (LiteDatabase lite = new LiteDatabase(UserData.DBPath))
                     {
                         var lst = lite.GetCollection<UserData>("生产记录");
-                        
+
                         //SN搜索
                         var list = lst.Find(x => x.SN码 == SNCode);
                         lstCount = lst.Count();

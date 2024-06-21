@@ -1,19 +1,12 @@
-﻿using System;
+﻿using AutomaticController.Windows.Demos.PLC通讯样例.Pages;
+using System;
 using System.Collections.Generic;
 using System.IO.Ports;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using AutomaticController.Device;
-using AutomaticController.Windows.Demos.PLC通讯样例.Pages;
 
 namespace AutomaticController.Windows.Demos.PLC通讯样例
 {
@@ -22,7 +15,7 @@ namespace AutomaticController.Windows.Demos.PLC通讯样例
     /// </summary>
     public partial class PLC通讯样例 : Window
     {
-        Dictionary<string,Page> pages = new Dictionary<string,Page>();
+        Dictionary<string, Page> pages = new Dictionary<string, Page>();
         public PLC通讯样例()
         {
             InitializeComponent();
@@ -66,7 +59,7 @@ namespace AutomaticController.Windows.Demos.PLC通讯样例
         //按下菜单
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
-            if(sender is MenuItem)//如果按下的是菜单选项
+            if (sender is MenuItem)//如果按下的是菜单选项
             {
                 MenuItem item = (MenuItem)sender;//强制转换
                 Page page = null;

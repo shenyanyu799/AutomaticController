@@ -1,17 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO.Ports;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace AutomaticController.Windows.Demos.数据上传报表
 {
@@ -59,7 +49,7 @@ namespace AutomaticController.Windows.Demos.数据上传报表
             Setting.Example.Address = adds;
 
             Parity verify = Setting.Example.Verify;
-            Enum.TryParse(verifyText.Text, out verify); 
+            Enum.TryParse(verifyText.Text, out verify);
             Setting.Example.Verify = verify;
 
             StopBits stopBits = Setting.Example.Stopbit;

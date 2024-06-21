@@ -1,22 +1,8 @@
-﻿using AutomaticController.Device;
-using AutomaticController.Function;
-using AutomaticController.Windows.FuJia.电机寿命老化测试.Datas;
+﻿using AutomaticController.Windows.FuJia.电机寿命老化测试.Datas;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Markup;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace AutomaticController.Windows.FuJia.电机寿命老化测试.Pages
 {
@@ -35,14 +21,16 @@ namespace AutomaticController.Windows.FuJia.电机寿命老化测试.Pages
                 stackPane3.Children.Add(createPart(20 + i));
             }
 
-            this.Loaded += (s, e) => { 
+            this.Loaded += (s, e) =>
+            {
                 CompositionTarget.Rendering += CompositionTarget_Rendering;
-                
+
             };
-            this.Unloaded += (s, e) => { 
-                CompositionTarget.Rendering -= CompositionTarget_Rendering; 
+            this.Unloaded += (s, e) =>
+            {
+                CompositionTarget.Rendering -= CompositionTarget_Rendering;
             };
-            
+
         }
         //画面渲染
         private void CompositionTarget_Rendering(object sender, EventArgs e)
@@ -60,7 +48,7 @@ namespace AutomaticController.Windows.FuJia.电机寿命老化测试.Pages
         private Border createPart(int num)
         {
             StackPanel stack = new StackPanel() { Margin = new Thickness(3) };
-            Border border = new Border() { Background = new SolidColorBrush(Color.FromArgb(0xFF,0xE8,0xE6,0xE6)), BorderThickness = new Thickness(1), BorderBrush = new SolidColorBrush(Color.FromArgb(0xFF, 0xAB, 0xAB, 0xAB)), Child = stack};
+            Border border = new Border() { Background = new SolidColorBrush(Color.FromArgb(0xFF, 0xE8, 0xE6, 0xE6)), BorderThickness = new Thickness(1), BorderBrush = new SolidColorBrush(Color.FromArgb(0xFF, 0xAB, 0xAB, 0xAB)), Child = stack };
             stack.Children.Add(new TextBlock() { Text = $"工位{(num + 1).ToString("D2")}", FontSize = 14 });
 
             StackPanel stack2 = new StackPanel() { Orientation = Orientation.Horizontal };
@@ -79,8 +67,8 @@ namespace AutomaticController.Windows.FuJia.电机寿命老化测试.Pages
 
             TextBlock t3 = new TextBlock() { Text = "当前次数:0", FontSize = 14 };
             TextBlock t4 = new TextBlock() { Text = "目标次数:0", FontSize = 14 };
-            TextBlock t5 = new TextBlock() { Text = "测试状态", FontSize = 14, HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Center};
-            Border border2 = new Border() { Child = t5 ,Height = 26};
+            TextBlock t5 = new TextBlock() { Text = "测试状态", FontSize = 14, HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Center };
+            Border border2 = new Border() { Child = t5, Height = 26 };
             stack.Children.Add(t1);
             stack.Children.Add(t1_1);
             stack.Children.Add(t1_2);
@@ -97,7 +85,7 @@ namespace AutomaticController.Windows.FuJia.电机寿命老化测试.Pages
             cpdatePart += () =>
             {
                 RunningData runningData = RunningData.Get(num);
-                
+
                 t1.Text = $"实时电流:{RunningState.States[num].ElectriCurrent.ToString("F2")}A";
                 t1_1.Text = $"平均电流:{RunningState.States[num].AverageCurrent.ToString("F2")}A";
                 t1_2.Text = $"最大电流:{RunningState.States[num].MaxCurrent.ToString("F2")}A";
@@ -149,9 +137,9 @@ namespace AutomaticController.Windows.FuJia.电机寿命老化测试.Pages
             Grid grid = new Grid() { Height = 28, Margin = new Thickness(0, 2, 0, 2) };
             grid.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(1, GridUnitType.Star) });
             grid.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(1, GridUnitType.Star) });
-            Button button1 = new Button() { Content = "启动", Background = new SolidColorBrush(Color.FromRgb(0x3E, 0xB1, 0x5A))};
-            Button button2 = new Button() { Content = "停止", Background = new SolidColorBrush(Color.FromRgb(0xB1, 0x4E, 0x3E))};
-            Button button3 = new Button() { Height=26, Margin = new Thickness(0, 2, 0, 2) ,Content = "清除记录", Background = new SolidColorBrush(Color.FromRgb(0x9A, 0xA7, 0xB1)) };
+            Button button1 = new Button() { Content = "启动", Background = new SolidColorBrush(Color.FromRgb(0x3E, 0xB1, 0x5A)) };
+            Button button2 = new Button() { Content = "停止", Background = new SolidColorBrush(Color.FromRgb(0xB1, 0x4E, 0x3E)) };
+            Button button3 = new Button() { Height = 26, Margin = new Thickness(0, 2, 0, 2), Content = "清除记录", Background = new SolidColorBrush(Color.FromRgb(0x9A, 0xA7, 0xB1)) };
             grid.Children.Add(button1);
             grid.Children.Add(button2);
             button1.SetValue(Grid.ColumnProperty, 0);
@@ -167,7 +155,7 @@ namespace AutomaticController.Windows.FuJia.电机寿命老化测试.Pages
             {
                 RunningState.States[num].RequestStart = true;
             };
-            button2.Click += (s, e) => 
+            button2.Click += (s, e) =>
             {
                 RunningState.States[num].RequestStop = true;
             };
@@ -242,9 +230,9 @@ namespace AutomaticController.Windows.FuJia.电机寿命老化测试.Pages
         {
             ComboBox_Loading = true;
             ComboBox comboBox = sender as ComboBox;
-          
+
             int n = int.Parse(comboBox.Tag.ToString());
-            var sv = RunningData.Get(n); 
+            var sv = RunningData.Get(n);
             comboBox.Items.Clear();
             comboBox.Items.Add(null);
             string[] names = Parameters_XMLFile.Instance.GetNames();
@@ -254,7 +242,7 @@ namespace AutomaticController.Windows.FuJia.电机寿命老化测试.Pages
                 var p = Parameters_XMLFile.Instance[name];
                 var com = new ComboBoxItem() { Content = p.Name, Tag = name };
                 comboBox.Items.Add(com);
-                if(sv.Name == name)
+                if (sv.Name == name)
                 {
                     selename = com;
                 }
@@ -278,7 +266,7 @@ namespace AutomaticController.Windows.FuJia.电机寿命老化测试.Pages
         {
             if (ComboBox_Loading) return;
             ComboBox comboBox = sender as ComboBox;
-            if(comboBox.SelectedItem is ComboBoxItem)
+            if (comboBox.SelectedItem is ComboBoxItem)
             {
                 var com = comboBox.SelectedItem as ComboBoxItem;
                 int n = int.Parse(comboBox.Tag.ToString());
@@ -288,6 +276,6 @@ namespace AutomaticController.Windows.FuJia.电机寿命老化测试.Pages
             }
         }
 
-    
+
     }
 }

@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using AutomaticController.Device;
 using System.IO.Ports;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AutomaticController.Device;
 
 namespace AutomaticController.Windows.Demos.PLC通讯样例
 {

@@ -1,28 +1,15 @@
-﻿#define CCDEnable
-using AutomaticController.Function;
-using AutomaticController.UI;
-using AutomaticController.Windows.Demos.测试机通用界面.Datas;
+﻿using AutomaticController.Windows.Demos.测试机通用界面.Datas;
 using AutomaticController.Windows.Demos.测试机通用界面.Pages;
 using LiteDB;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Security.AccessControl;
-using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using VM.Core;
 
 namespace AutomaticController.Windows.Demos.测试机通用界面
 {
@@ -44,7 +31,7 @@ namespace AutomaticController.Windows.Demos.测试机通用界面
             //处理窗口中被点击的Uri
             UserFrame.Navigating += (s, e) =>
             {
-                if(e.Uri != null)
+                if (e.Uri != null)
                 {
                     if (e.Uri.IsAbsoluteUri && e.Uri.IsFile)
                     {
@@ -63,7 +50,7 @@ namespace AutomaticController.Windows.Demos.测试机通用界面
                             MessageBox.Show(ex.Message);
                         }
                     }
-                }               
+                }
             };
             //WindowStyle = WindowStyle.None;
             //WindowState = WindowState.Maximized;
@@ -94,20 +81,8 @@ namespace AutomaticController.Windows.Demos.测试机通用界面
             Pages = new PageManage(UserFrame);
             //添加页面
             Pages.SetKeyPage(new 口令验证());
-#if CCDEnable
-            Pages.Add("CCD编辑", new CCD编辑());
-            Pages.Add("运行监控", new 运行监控_CCD());
-            this.Closed += (s, e) =>
-            {
-                CCD编辑.CloseCCD();
-            };
-            Parameters_XMLFile.Instance.LoadParamEvent += param => {
-                CCD编辑.LoadCCD();
-            };
-            
-#else
+
             Pages.Add("运行监控", new 运行监控());
-#endif
             Pages.Add("IO监控", new IO监控());
             Pages.Add("参数设置", new 参数设置());
             Pages.Add("封面", new 封面());
@@ -115,13 +90,17 @@ namespace AutomaticController.Windows.Demos.测试机通用界面
             Pages.Add("数据查询", new 数据查询());
             Pages.Add("系统设置", new 系统设置());
 
-
-            Task.Delay(3000).ContinueWith(t => App.Current.Dispatcher.Invoke(() =>
-            {
-                if (Pages.IsNext == false)
-                    Pages.Next("运行监控");
-            }));
             Started = true;
+            //启动后自动跳转页面
+            Task.Delay(3000).ContinueWith(t =>
+            {
+                if (Started == false) return;
+                App.Current.Dispatcher.Invoke(() =>
+                {
+                    if (Pages.IsNext == false)
+                        Pages.Next("运行监控");
+                });
+            });
             this.Closed += (s, e) =>
             {
                 Started = false;
@@ -136,7 +115,7 @@ namespace AutomaticController.Windows.Demos.测试机通用界面
                 PLC1.检测结果.RequestRead = true;
                 PLC1.检测重量.RequestRead = true;
                 bool r = PLC1.数据记录.Value;
-               
+
                 if (r && 数据记录 == false)
                 {
                     string sn = SNCode;
@@ -150,12 +129,11 @@ namespace AutomaticController.Windows.Demos.测试机通用界面
                         if (n == 2) rs = "扫码超时";
                         if (n == 3) rs = "重量NG";
                         if (n == 4) rs = "拍照NG";
-                        测试机通用界面.Pages.UserData.Add(new string[] { DateTime.Now.ToString(), sn, PLC1.检测重量.Value.ToString(), rs, CCD编辑.OutImgPath });
-                        CCD编辑.OutImgPath = "";
+                        //测试机通用界面.Pages.UserData.Add(new string[] { DateTime.Now.ToString(), sn, PLC1.检测重量.Value.ToString(), rs, CCD编辑.OutImgPath });
                         PLC1.数据记录.Value = false;
                     });
                 }
-                  
+
                 数据记录 = r;
             };
             //扫码完成
@@ -172,7 +150,7 @@ namespace AutomaticController.Windows.Demos.测试机通用界面
 
                     }
                 }
-                
+
                 if (par.重码检测)
                 {
                     using (LiteDatabase lite = new LiteDatabase(测试机通用界面.Pages.UserData.DBPath))
@@ -189,82 +167,55 @@ namespace AutomaticController.Windows.Demos.测试机通用界面
                 }
                 PLC1.扫码完成.Value = ok;
             };
-            bool startCCD = false;
-            //开始拍照
-            PLC1.产品拍照.ReadFinishEvent += t =>
-            {
-                bool r = PLC1.产品拍照.Value;
 
-                if (r == true && startCCD == false) 
-                {
-                    Task.Run(CCD编辑.ExecuteCCD);
-                }
-                if(r == false)
-                {
-                    PLC1.拍照OK.Value = false;
-                    PLC1.拍照NG.Value = false;
-                }
-                startCCD = r;
-            };
-            //拍照完成
-            CCD编辑.CCDExecutedEvent += () =>
-            {
-                if(CCD编辑.CCDResult == 1)
-                {
-                    PLC1.拍照OK.Value = true;
-                }
-                if (CCD编辑.CCDResult == 2)
-                {
-                    PLC1.拍照NG.Value = true;
-                }
-            };
         }
 
         public async void PLCStart()
         {
-           await Task.Run(async () => {
+            await Task.Run(async () =>
+            {
                 while (Started)
                 {
-                   try
-                   {
-                       if (PLC1.PLC.Started == false)
-                       {
-                           PLC1.PLC.Serial = new System.IO.Ports.SerialPort();
-                           PLC1.PLC.Serial.PortName = Setting.Instance.PLC1_Name;
-                           PLC1.PLC.Serial.BaudRate = Setting.Instance.PLC1_Baud;
-                           PLC1.PLC.Serial.Parity = Setting.Instance.PLC1_Parity;
-                           PLC1.PLC.Serial.DataBits = Setting.Instance.PLC1_Databit;
-                           PLC1.PLC.Serial.StopBits = Setting.Instance.PLC1_Stopbit;
-                           PLC1.PLC.Serial.WriteTimeout = 1000;
-                           PLC1.PLC.Serial.ReadTimeout = 1000;
-                           PLC1.PLC.Start();
-                           //等待通讯连接
-                           for (int i = 0; i < 100; i++)
-                           {
-                               if (PLC1.PLC.Connected == true) break;
-                               await Task.Delay(100);
-                           }
-                       }
-                       else
-                       {
-                           //PLC连接正常，PLC参数未曾改变
-                           if(PLC1.PLC.Connected == false || PLC1.PLC.Serial.PortName != Setting.Instance.PLC1_Name || PLC1.PLC.Serial.BaudRate != Setting.Instance.PLC1_Baud ||
-                           PLC1.PLC.Serial.Parity != Setting.Instance.PLC1_Parity || PLC1.PLC.Serial.DataBits != Setting.Instance.PLC1_Databit || PLC1.PLC.Serial.StopBits != Setting.Instance.PLC1_Stopbit)
-                           {
-                               PLC1.PLC.Close();
-                               await Task.Delay(500);
-                           }
-                       }
-                   }
-                   catch
-                   {
-                       PLC1.PLC.Close();
-                       await Task.Delay(500);
-                   }
-                   await Task.Delay(100);
-               }
-               await Task.Delay(100);
-           });
+                    try
+                    {
+                        if (PLC1.PLC.Started == false)
+                        {
+                            PLC1.PLC.Serial = new System.IO.Ports.SerialPort();
+                            PLC1.PLC.Serial.PortName = Setting.Instance.PLC1_Name;
+                            PLC1.PLC.Serial.BaudRate = Setting.Instance.PLC1_Baud;
+                            PLC1.PLC.Serial.Parity = Setting.Instance.PLC1_Parity;
+                            PLC1.PLC.Serial.DataBits = Setting.Instance.PLC1_Databit;
+                            PLC1.PLC.Serial.StopBits = Setting.Instance.PLC1_Stopbit;
+                            PLC1.PLC.Serial.WriteTimeout = 1000;
+                            PLC1.PLC.Serial.ReadTimeout = 1000;
+                            PLC1.PLC.Start();
+                            //等待通讯连接
+                            for (int i = 0; i < 100; i++)
+                            {
+                                if (PLC1.PLC.Connected == true) break;
+                                await Task.Delay(100);
+                            }
+                        }
+                        else
+                        {
+                            //PLC连接正常，PLC参数未曾改变
+                            if (PLC1.PLC.Connected == false || PLC1.PLC.Serial.PortName != Setting.Instance.PLC1_Name || PLC1.PLC.Serial.BaudRate != Setting.Instance.PLC1_Baud ||
+                            PLC1.PLC.Serial.Parity != Setting.Instance.PLC1_Parity || PLC1.PLC.Serial.DataBits != Setting.Instance.PLC1_Databit || PLC1.PLC.Serial.StopBits != Setting.Instance.PLC1_Stopbit)
+                            {
+                                PLC1.PLC.Close();
+                                await Task.Delay(500);
+                            }
+                        }
+                    }
+                    catch
+                    {
+                        PLC1.PLC.Close();
+                        await Task.Delay(500);
+                    }
+                    await Task.Delay(100);
+                }
+                await Task.Delay(100);
+            });
         }
 
         #region 扫码枪通讯
@@ -281,7 +232,8 @@ namespace AutomaticController.Windows.Demos.测试机通用界面
         {
             if (IsBarcodeOpen) return;
             IsBarcodeOpen = true;
-            this.Closed += (s, e) => {
+            this.Closed += (s, e) =>
+            {
                 BarcodeClose();
             };
             Task.Run(async () =>
@@ -314,7 +266,7 @@ namespace AutomaticController.Windows.Demos.测试机通用界面
                                 await Task.Delay(50);
                                 SNCode = Barcode.ReadExisting().Trim();
                                 App.Current.Dispatcher.Invoke(() => { SNCodeReadEvent?.Invoke(SNCode); });
-                                
+
                             }
                         }
 
@@ -360,11 +312,11 @@ namespace AutomaticController.Windows.Demos.测试机通用界面
                 //首次连接后自动载入一次参数
                 if (plcConnected == false)
                 {
-                    Task.Delay(1000).ContinueWith(t=> Parameters_XMLFile.Instance.LoadParam());
+                    Task.Delay(1000).ContinueWith(t => Parameters_XMLFile.Instance.LoadParam());
                 }
                 plcState.Text = $"PLC:{PLC1.PLC.CommunicationDelay.ToString("F2")}ms";
                 plcState.Foreground = new SolidColorBrush(Colors.Green);
-                
+
             }
             else
             {

@@ -1,23 +1,14 @@
 ﻿using Microsoft.Research.DynamicDataDisplay;
 using Microsoft.Research.DynamicDataDisplay.DataSources;
-using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Reflection;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using static System.Collections.Specialized.BitVector32;
 
 namespace AutomaticController.Windows.Demos.吸尘器空气性能测试
 {
@@ -53,13 +44,14 @@ namespace AutomaticController.Windows.Demos.吸尘器空气性能测试
             plotter.AddLineGraph(effs, Colors.Green, 1, "η");
 
             bool start = true;
-            this.Closed += (s, e) => {
+            this.Closed += (s, e) =>
+            {
                 start = false;
             };
             //循环检测
             Task.Run(() =>
             {
-                while(start)
+                while (start)
                 {
                     Loop();
                     Task.Delay(10).Wait();
@@ -67,7 +59,8 @@ namespace AutomaticController.Windows.Demos.吸尘器空气性能测试
             });
 
 
-            this.Loaded += (s, e) => {
+            this.Loaded += (s, e) =>
+            {
                 CompositionTarget.Rendering += CompositionTarget_Rendering; ;
             };
             this.Unloaded += (s, e) => CompositionTarget.Rendering -= CompositionTarget_Rendering;
@@ -88,8 +81,13 @@ namespace AutomaticController.Windows.Demos.吸尘器空气性能测试
 
         int lastState = 0;
         bool _IsStart;
-        bool IsStart { get { return _IsStart; }set {
-                App.Current.Dispatcher.InvokeAsync(new Action(() => {
+        bool IsStart
+        {
+            get { return _IsStart; }
+            set
+            {
+                App.Current.Dispatcher.InvokeAsync(new Action(() =>
+                {
                     if (value)
                     {
                         ManualGroupBox.IsEnabled = false;
@@ -104,7 +102,9 @@ namespace AutomaticController.Windows.Demos.吸尘器空气性能测试
                         stopButton.IsEnabled = false;
                     }
                     _IsStart = value;
-                }));} }
+                }));
+            }
+        }
         bool M20 = false;
         public void Loop()
         {
@@ -117,7 +117,7 @@ namespace AutomaticController.Windows.Demos.吸尘器空气性能测试
                 IsStart = true;
                 DataClear();
             }
-            if(state == 0)
+            if (state == 0)
             {
                 IsStart = false;
             }
@@ -169,7 +169,7 @@ namespace AutomaticController.Windows.Demos.吸尘器空气性能测试
             //设置列名
             int len = DataGrid1.Columns.Count;
             int min = Math.Min(names.Length, len);
-            
+
             for (int i = 0; i < min; i++)
             {
                 DataGrid1.Columns[i].Header = names[i];
@@ -179,7 +179,7 @@ namespace AutomaticController.Windows.Demos.吸尘器空气性能测试
         public static void Add(int DN)
         {
             //(instance.DataGrid1.ItemsSource as List<TableData>).Add(new TableData());
- 
+
             //输入真空度
             double h = PLC1Data.Suction1_inH20.Value;
             //输入功率
@@ -300,7 +300,8 @@ namespace AutomaticController.Windows.Demos.吸尘器空气性能测试
 
         public static void AddData(int DN)
         {
-            App.Current.Dispatcher.InvokeAsync(new Action(() => {
+            App.Current.Dispatcher.InvokeAsync(new Action(() =>
+            {
                 Add(DN);
                 UpdateCurv();
                 instance.DataGrid1.ItemsSource = null;
@@ -350,11 +351,11 @@ namespace AutomaticController.Windows.Demos.吸尘器空气性能测试
                 //选择表格
                 Microsoft.Office.Interop.Excel.Worksheet worksheet = (Microsoft.Office.Interop.Excel.Worksheet)workbook.Worksheets[1];
                 progress("写入表格数据", 3, false);
-                worksheet.Cells[2,3] = c2;
-                worksheet.Cells[3,3] = c3;
-                worksheet.Cells[3,8] = h3;
-                worksheet.Cells[4,3] = c4;
-                worksheet.Cells[4,8] = h4;
+                worksheet.Cells[2, 3] = c2;
+                worksheet.Cells[3, 3] = c3;
+                worksheet.Cells[3, 8] = h3;
+                worksheet.Cells[4, 3] = c4;
+                worksheet.Cells[4, 8] = h4;
                 progress("写入表格数据", 4, false);
 
                 worksheet.Cells[5, 3] = TestVoltage;
@@ -433,8 +434,9 @@ namespace AutomaticController.Windows.Demos.吸尘器空气性能测试
 
 
             progressBar.Maximum = Maximum;
-            
-            return (s, i, c) => {
+
+            return (s, i, c) =>
+            {
                 App.Current.Dispatcher.InvokeAsync(() =>
                 {
                     textBlock.Text = s;
@@ -451,6 +453,6 @@ namespace AutomaticController.Windows.Demos.吸尘器空气性能测试
             };
         }
 
-  
+
     }
 }

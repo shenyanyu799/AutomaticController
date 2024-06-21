@@ -1,22 +1,12 @@
-﻿using System;
+﻿using Microsoft.Office.Interop.Excel;
+using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Reflection;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using System.Windows.Shell;
-using Microsoft.Office.Interop.Excel;
-using static System.Net.WebRequestMethods;
 
 namespace AutomaticController.Windows.Demos.吸尘器空气性能测试
 {
@@ -36,12 +26,12 @@ namespace AutomaticController.Windows.Demos.吸尘器空气性能测试
         {
             //将模板复制到临时文件
             Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("AutomaticController.Windows.Demos.吸尘器空气性能测试.模板.xlsx");
-            if(Directory.Exists("报表") == false)
+            if (Directory.Exists("报表") == false)
             {
                 Directory.CreateDirectory("报表");
             }
             string tempPath = "报表\\" + DateTime.Now.ToString("yyMMdd_HHmmss") + ".xlsx";
-            using(FileStream fs = new FileStream(tempPath, FileMode.Create))
+            using (FileStream fs = new FileStream(tempPath, FileMode.Create))
             {
                 tempPath = fs.Name;
                 stream.CopyTo(fs);
@@ -49,7 +39,7 @@ namespace AutomaticController.Windows.Demos.吸尘器空气性能测试
                 fs.Close();
             }
             var pro = OpenProgressBar(6);
-            Task.Run(()=>Test2(tempPath, pro));
+            Task.Run(() => Test2(tempPath, pro));
 
         }
 
@@ -159,7 +149,7 @@ namespace AutomaticController.Windows.Demos.吸尘器空气性能测试
         /// </summary>
         /// <param name="Maximum"></param>
         /// <returns></returns>
-        Action<string,int,bool> OpenProgressBar(double Maximum)
+        Action<string, int, bool> OpenProgressBar(double Maximum)
         {
             Grid grid = ((Grid)this.Content);
             //添加背景
@@ -177,12 +167,13 @@ namespace AutomaticController.Windows.Demos.吸尘器空气性能测试
             textBlock.HorizontalAlignment = HorizontalAlignment.Center;
             textBlock.VerticalAlignment = VerticalAlignment.Center;
             grid.Children.Add(textBlock);
-            progressBar.Tag= textBlock;
+            progressBar.Tag = textBlock;
 
 
             progressBar.Maximum = Maximum;
 
-            return (s,i,c)=> {
+            return (s, i, c) =>
+            {
                 App.Current.Dispatcher.Invoke(() =>
                 {
                     textBlock.Text = s;

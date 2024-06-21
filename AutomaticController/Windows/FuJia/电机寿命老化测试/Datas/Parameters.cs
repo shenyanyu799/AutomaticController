@@ -1,13 +1,7 @@
-﻿using Newtonsoft.Json.Linq;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.IO;
 using System.Runtime.InteropServices;
-using System.Windows.Shapes;
 
 namespace AutomaticController.Windows.FuJia.电机寿命老化测试.Datas
 {
@@ -66,14 +60,14 @@ namespace AutomaticController.Windows.FuJia.电机寿命老化测试.Datas
     //运行过程中的普通数据
     public struct RunningState
     {
-        public static RunningState[] States {  get; set; } = new RunningState[30];
+        public static RunningState[] States { get; set; } = new RunningState[30];
 
         public double ElectriCurrent { get; set; }
         public double MaxCurrent { get; set; }
         public double MinCurrent { get; set; }
         public double AverageCurrent { get; set; }
         public int Runtime_s { get; set; }
-        
+
         /// <summary>
         /// 0=>待机中; 1=>准备启动; 2=>运行异常; 3=>运行完成; 10=>运行中;
         /// </summary>
@@ -96,15 +90,15 @@ namespace AutomaticController.Windows.FuJia.电机寿命老化测试.Datas
             ElectriCurrentLower = 0;
 
         }
-        public string Name { get; set; } 
+        public string Name { get; set; }
         /// <summary>
         /// 测试总次数
         /// </summary>
-        public int TotalCount { get; set; } 
+        public int TotalCount { get; set; }
         /// <summary>
         /// 开启时间
         /// </summary>
-        public double PowerOnTime { get; set; } 
+        public double PowerOnTime { get; set; }
         /// <summary>
         /// 关闭时间
         /// </summary>
@@ -116,17 +110,17 @@ namespace AutomaticController.Windows.FuJia.电机寿命老化测试.Datas
         /// <summary>
         /// 电流上限
         /// </summary> 
-        public double ElectriCurrentUpper{ get; set; }
+        public double ElectriCurrentUpper { get; set; }
         /// <summary>
         /// 电流下限
         /// </summary> 
         public double ElectriCurrentLower { get; set; }
     }
-    
+
     public class Parameters_XMLFile : XMLFile
     {
         public Parameters this[string name] { get => GetValue(name, new Parameters("default")); set => SetValue(name, value); }
-        
+
         public static Parameters_XMLFile Instance { get; set; } = new Parameters_XMLFile("parameters.xml");
 
         public Parameters_XMLFile(string path) : base(path) { }

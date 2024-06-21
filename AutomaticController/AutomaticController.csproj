@@ -40,7 +40,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <Prefer32Bit>false</Prefer32Bit>
+    <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -51,6 +51,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>Resources\Img\ioc.ico</ApplicationIcon>
@@ -62,7 +63,6 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Apps.Data, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5defd79a1cc9b45b" />
     <Reference Include="DynamicDataDisplay, Version=0.3.0.1, Culture=neutral, PublicKeyToken=5b7d744a7263923f, processorArchitecture=MSIL">
       <HintPath>..\packages\DynamicDataDisplay.0.3.0.1\lib\net45\DynamicDataDisplay.dll</HintPath>
     </Reference>
@@ -89,30 +89,6 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="VM.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=61600122bc9264b9, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Program Files\VisionMaster4.3.0\Development\V4.x\ComControls\Assembly\VM.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="VM.PlatformSDKCS, Version=1.0.0.0, Culture=neutral, PublicKeyToken=c1484a72052ee3d4, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Program Files\VisionMaster4.3.0\Development\V4.x\ComControls\Assembly\VM.PlatformSDKCS.dll</HintPath>
-    </Reference>
-    <Reference Include="VMControls.BaseInterface, Version=1.0.0.0, Culture=neutral, PublicKeyToken=14444b8df74b6e6a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Program Files\VisionMaster4.3.0\Development\V4.x\ComControls\Assembly\VMControls.BaseInterface.dll</HintPath>
-    </Reference>
-    <Reference Include="VMControls.Interface, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cb41614600cf774b, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Program Files\VisionMaster4.3.0\Development\V4.x\ComControls\Assembly\VMControls.Interface.dll</HintPath>
-    </Reference>
-    <Reference Include="VMControls.RenderInterface, Version=1.0.0.0, Culture=neutral, PublicKeyToken=4bcfc50547abbb24, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Program Files\VisionMaster4.3.0\Development\V4.x\ComControls\Assembly\VMControls.RenderInterface.dll</HintPath>
-    </Reference>
-    <Reference Include="VMControls.WPF.Release, Version=1.0.0.0, Culture=neutral, PublicKeyToken=fdd2c8be7291c30c, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Program Files\VisionMaster4.3.0\Development\V4.x\ComControls\Assembly\VMControls.WPF.Release.dll</HintPath>
     </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
@@ -202,9 +178,6 @@
     </Compile>
     <Compile Include="Function\Expands.cs" />
     <Compile Include="Function\LogManager.cs" />
-    <Compile Include="Windows\Demos\测试机通用界面\Pages\CCD编辑.xaml.cs">
-      <DependentUpon>CCD编辑.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Windows\Demos\测试机通用界面\Pages\IO监控.xaml.cs">
       <DependentUpon>IO监控.xaml</DependentUpon>
     </Compile>
@@ -232,9 +205,6 @@
     </Compile>
     <Compile Include="Windows\Demos\测试机通用界面\Datas\PLC1.cs" />
     <Compile Include="Windows\Demos\测试机通用界面\Datas\Setting.cs" />
-    <Compile Include="Windows\Demos\测试机通用界面\Pages\运行监控_CCD.xaml.cs">
-      <DependentUpon>运行监控_CCD.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Windows\FuJia\电机寿命老化测试\Datas\Enums.cs" />
     <Compile Include="Windows\FuJia\电机寿命老化测试\Datas\PLC1.cs" />
     <Compile Include="Windows\FuJia\电机寿命老化测试\Datas\Setting.cs" />
@@ -367,10 +337,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Windows\Demos\测试机通用界面\Pages\CCD编辑.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Windows\Demos\测试机通用界面\Pages\IO监控.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -400,10 +366,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windows\Demos\测试机通用界面\Pages\运行监控.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Windows\Demos\测试机通用界面\Pages\运行监控_CCD.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -1,28 +1,17 @@
 ﻿using AutomaticController.Device;
-using AutomaticController.Function;
-using AutomaticController.UI;
 using AutomaticController.Windows.FuJia.电机寿命老化测试.Datas;
 using AutomaticController.Windows.FuJia.电机寿命老化测试.Pages;
 using System;
-using System.Collections.Generic;
-using System.Data;
 using System.Diagnostics;
 using System.IO;
 using System.IO.Ports;
 using System.Linq;
-using System.Security.AccessControl;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using static System.Windows.Forms.AxHost;
 
 namespace AutomaticController.Windows.FuJia.电机寿命老化测试
 {
@@ -40,7 +29,7 @@ namespace AutomaticController.Windows.FuJia.电机寿命老化测试
             InitializeComponent();
             Window = this;
             MainGrid = this.mainGrid;
-            
+
             //WindowStyle = WindowStyle.None;
             //WindowState = WindowState.Maximized;
             switch (Setting.Instance.WindowStartupState)
@@ -60,7 +49,7 @@ namespace AutomaticController.Windows.FuJia.电机寿命老化测试
 
             CompositionTarget.Rendering += CompositionTarget_Rendering;
 
-            
+
 
             Pages = new PageManage(UserFrame);
             //添加页面
@@ -87,11 +76,13 @@ namespace AutomaticController.Windows.FuJia.电机寿命老化测试
             bool 记录1 = false;
             bool 记录2 = false;
             bool 记录3 = false;
-            PLC1.记录1.ReadFinishEvent += u => {
+            PLC1.记录1.ReadFinishEvent += u =>
+            {
                 bool b = PLC1.记录1.Value;
                 if (b && 记录1 == false)
                 {
-                    Task.Delay(500).ContinueWith(t => {
+                    Task.Delay(500).ContinueWith(t =>
+                    {
                         string rt = "";
                         if (PLC1.状态1.Value == 1) rt = "OK";
                         if (PLC1.状态1.Value == 2) rt = "NG";
@@ -101,25 +92,29 @@ namespace AutomaticController.Windows.FuJia.电机寿命老化测试
                 }
                 记录1 = b;
             };
-            PLC1.记录2.ReadFinishEvent += u => {
+            PLC1.记录2.ReadFinishEvent += u =>
+            {
                 bool b = PLC1.记录2.Value;
                 if (b && 记录2 == false)
                 {
-                    Task.Delay(500).ContinueWith(t => {
+                    Task.Delay(500).ContinueWith(t =>
+                    {
                         string rt = "";
                         if (PLC1.状态2.Value == 1) rt = "OK";
                         if (PLC1.状态2.Value == 2) rt = "NG";
-                        UserData.Add(new string[] { DateTime.Now.ToString(), "工位2", PLC1.结果流量2.Value.ToString(), rt }); 
+                        UserData.Add(new string[] { DateTime.Now.ToString(), "工位2", PLC1.结果流量2.Value.ToString(), rt });
                         PLC1.记录2.Value = false;
                     });
                 }
                 记录2 = b;
             };
-            PLC1.记录3.ReadFinishEvent += u => {
+            PLC1.记录3.ReadFinishEvent += u =>
+            {
                 bool b = PLC1.记录3.Value;
                 if (b && 记录3 == false)
                 {
-                    Task.Delay(500).ContinueWith(t => {
+                    Task.Delay(500).ContinueWith(t =>
+                    {
                         string rt = "";
                         if (PLC1.状态3.Value == 1) rt = "OK";
                         if (PLC1.状态3.Value == 2) rt = "NG";
@@ -143,7 +138,7 @@ namespace AutomaticController.Windows.FuJia.电机寿命老化测试
                 {
                     try
                     {
-                        if((DateTime.Now - date).TotalSeconds >= 1)
+                        if ((DateTime.Now - date).TotalSeconds >= 1)
                         {
                             Loop(true);
                             date = DateTime.Now;
@@ -152,7 +147,7 @@ namespace AutomaticController.Windows.FuJia.电机寿命老化测试
                         {
                             Loop(false);
                         }
-                        
+
                     }
                     catch (Exception ex)
                     {
@@ -255,7 +250,7 @@ namespace AutomaticController.Windows.FuJia.电机寿命老化测试
                             }
                         }
 
-     
+
                         //PLC连接正常，PLC参数未曾改变
                         if (Devices.AIDevice.PortName != Setting.Instance.AI_Name || Devices.AIDevice.BaudRate != Setting.Instance.AI_Baud ||
                         Devices.AIDevice.Parity != Setting.Instance.AI_Parity || Devices.AIDevice.DataBits != Setting.Instance.AI_Databit || Devices.AIDevice.StopBits != Setting.Instance.AI_Stopbit)
@@ -276,16 +271,16 @@ namespace AutomaticController.Windows.FuJia.电机寿命老化测试
                             {
                                 Devices.采集电流[i] = GetModuleCurrent(Devices.AIDevice, (byte)(i + 10));
                             }
-                            
+
                             AIAIDevice_CommunicationDelay = (DateTime.Now - AIAIDevice_LastTime).TotalMilliseconds;
                             AIAIDevice_LastTime = DateTime.Now;
-                            if(AIAIDevice_CommunicationDelay < 5000)
+                            if (AIAIDevice_CommunicationDelay < 5000)
                             {
                                 AIAIDevice_Connected = true;
                             }
                         }
                     }
-                    catch(Exception ex)
+                    catch (Exception ex)
                     {
                         AIAIDevice_Connected = false;
                         AIAIDevice_Started = false;
@@ -333,7 +328,7 @@ namespace AutomaticController.Windows.FuJia.电机寿命老化测试
 
             return result;
         }
- 
+
 
         /// <summary>
         /// 实时渲染事件
@@ -440,7 +435,7 @@ namespace AutomaticController.Windows.FuJia.电机寿命老化测试
         private void Loop(bool secondPulse)
         {
             //延时启动功能
-            if ((DateTime.Now - work_starting_time).TotalMilliseconds >= 1000) 
+            if ((DateTime.Now - work_starting_time).TotalMilliseconds >= 1000)
                 work_starting = false;
             //第一组
             for (int i = 0; i < 30; i++)
@@ -448,10 +443,10 @@ namespace AutomaticController.Windows.FuJia.电机寿命老化测试
                 double current = Devices.采集电流[i];
 
                 RunningData data = RunningData.Get(i);
-                if(data.Name == null)
+                if (data.Name == null)
                 {
                     //提示未设定测试规则
-                    if(RunningState.States[i].State == 1)
+                    if (RunningState.States[i].State == 1)
                     {
                         RunningState.States[i].State = 4;
                     }
@@ -479,7 +474,7 @@ namespace AutomaticController.Windows.FuJia.电机寿命老化测试
                         RunningState.States[i].AverageCurrent = 0;
                         RunningState.States[i].MaxCurrent = 0;
                         RunningState.States[i].MinCurrent = 0;
-                        
+
                         if (data.TestCount >= param.TotalCount)
                         {
                             RunningState.States[i].State = 3;
@@ -593,15 +588,15 @@ namespace AutomaticController.Windows.FuJia.电机寿命老化测试
 
             }
         }
-        private void AddRecord(int index,DateTime startTime, int testCount,string result)
+        private void AddRecord(int index, DateTime startTime, int testCount, string result)
         {
             var rs = RunningState.States[index];
             double v = 0;
-            if(index < 10)
+            if (index < 10)
             {
                 v = Devices.采集电压1;
             }
-            if (index >= 10 && index < 20) 
+            if (index >= 10 && index < 20)
             {
                 v = Devices.采集电压2;
             }
@@ -610,7 +605,7 @@ namespace AutomaticController.Windows.FuJia.电机寿命老化测试
                 v = Devices.采集电压3;
             }
             UserData.Add(new string[] {startTime.ToString(), DateTime.Now.ToString(), (index + 1).ToString("D2"), v.ToString(), rs.AverageCurrent.ToString("F2"),
-            rs.MaxCurrent.ToString("F2"),rs.MinCurrent.ToString("F2"), testCount.ToString(), result}) ;
+            rs.MaxCurrent.ToString("F2"),rs.MinCurrent.ToString("F2"), testCount.ToString(), result});
         }
     }
 }

@@ -1,21 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using AutomaticController.Device;
+using System;
 using System.Windows;
-using System.Windows.Automation.Peers;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using AutomaticController.Device;
 
 namespace AutomaticController.UI
 {
@@ -42,7 +30,8 @@ namespace AutomaticController.UI
         public UTextBox()
         {
             InitializeComponent();
-            this.Loaded += (s, e) => {
+            this.Loaded += (s, e) =>
+            {
                 CompositionTarget.Rendering += CompositionTarget_Rendering;
             };
             this.Unloaded += (s, e) => CompositionTarget.Rendering -= CompositionTarget_Rendering;
@@ -75,7 +64,7 @@ namespace AutomaticController.UI
                 {
                     DataContext = this.Text;
                 }
-                if(DataContext is ITryText)
+                if (DataContext is ITryText)
                 {
                     (DataContext as ITryText).Parse(this.Text); //写入数据
                 }
@@ -93,7 +82,7 @@ namespace AutomaticController.UI
         /// <param name="e"></param>
         private void TextBox_KeyDown(object sender, KeyEventArgs e)
         {
-            if(e.Key == Key.Enter)
+            if (e.Key == Key.Enter)
             {
                 Keyboard.ClearFocus();
             }

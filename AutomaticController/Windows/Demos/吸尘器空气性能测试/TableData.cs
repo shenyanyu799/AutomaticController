@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace AutomaticController.Windows.Demos.吸尘器空气性能测试
+﻿namespace AutomaticController.Windows.Demos.吸尘器空气性能测试
 {
     /// <summary>
     /// 表格数据
@@ -70,13 +64,13 @@ namespace AutomaticController.Windows.Demos.吸尘器空气性能测试
         /// <summary>
         /// 真空度
         /// </summary>
-        public double Suction1 {  get; set; }
-        public double Suction1_ {  get; set; }
+        public double Suction1 { get; set; }
+        public double Suction1_ { get; set; }
         /// <summary>
         /// 修正输入功率
         /// </summary>
 
-        public double InputPower2 { get; set;}
+        public double InputPower2 { get; set; }
 
         /// <summary>
         /// 修正真空度

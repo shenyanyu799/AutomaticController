@@ -1,17 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace AutomaticController.UI
 {
@@ -20,8 +9,10 @@ namespace AutomaticController.UI
     /// </summary>
     public partial class DateTimeSelector : UserControl
     {
-        private DateTime _date; 
-        public DateTime DateTime { get => _date; set
+        private DateTime _date;
+        public DateTime DateTime
+        {
+            get => _date; set
             {
                 _date = value;
                 YearText.Text = _date.Year.ToString("D4");
@@ -42,7 +33,7 @@ namespace AutomaticController.UI
 
         private void Text_KeyDown(object sender, KeyEventArgs e)
         {
-            if(e.Key == Key.Enter)
+            if (e.Key == Key.Enter)
             {
                 Keyboard.ClearFocus();
                 DateTime d = DateTime;
@@ -55,7 +46,7 @@ namespace AutomaticController.UI
                     DateTime = DateTime;
                 }
             }
-            if(e.Key == Key.Up)
+            if (e.Key == Key.Up)
             {
                 if (sender == YearText)
                 {
@@ -140,7 +131,7 @@ namespace AutomaticController.UI
 
         private void YearText_MouseWheel(object sender, MouseWheelEventArgs e)
         {
-            if(e.Delta > 0)
+            if (e.Delta > 0)
             {
                 if (sender == YearText)
                 {
@@ -174,7 +165,7 @@ namespace AutomaticController.UI
                 }
             }
 
-            if(e.Delta < 0)
+            if (e.Delta < 0)
             {
                 if (sender == YearText)
                 {

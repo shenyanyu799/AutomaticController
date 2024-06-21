@@ -1,10 +1,4 @@
 ﻿using AutomaticController.Device;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AutomaticController.Windows.Demos.测试机通用界面.Datas
 {

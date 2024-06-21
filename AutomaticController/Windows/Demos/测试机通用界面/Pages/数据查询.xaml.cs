@@ -1,23 +1,14 @@
-﻿using AutomaticController.Windows.Demos.吸尘器空气性能测试;
-using LiteDB;
+﻿using LiteDB;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Reflection;
-using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace AutomaticController.Windows.Demos.测试机通用界面.Pages
 {
@@ -38,16 +29,18 @@ namespace AutomaticController.Windows.Demos.测试机通用界面.Pages
             {
                 //UpdateColumnName(new string[] { "测试时间", "工位名", "测试流量(ml/min)", "测试结果" });
             };
-            
-            DataGrid1.ItemsSource = new List<UserData>();
-            MainWindow.SNCodeReadEvent += t=> SNCodeText.Text = t;
 
-            this.Loaded += (s, e) => {
+            DataGrid1.ItemsSource = new List<UserData>();
+            MainWindow.SNCodeReadEvent += t => SNCodeText.Text = t;
+
+            this.Loaded += (s, e) =>
+            {
                 startTimeText.DateTime = DateTime.Now;
                 endTimeText.DateTime = DateTime.Now;
                 CompositionTarget.Rendering += CompositionTarget_Rendering;
             };
-            this.Unloaded += (s, e) => {
+            this.Unloaded += (s, e) =>
+            {
                 CompositionTarget.Rendering -= CompositionTarget_Rendering;
             };
         }
@@ -133,7 +126,8 @@ namespace AutomaticController.Windows.Demos.测试机通用界面.Pages
                 }
                 //转换并显示
                 App.Current.Dispatcher.Invoke(
-                    () => {
+                    () =>
+                    {
                         try
                         {
                             users.Reverse();//反转序列
@@ -167,7 +161,8 @@ namespace AutomaticController.Windows.Demos.测试机通用界面.Pages
                 users = UserData.DBFindAll();
                 //转换并显示
                 App.Current.Dispatcher.Invoke(
-                    () => {
+                    () =>
+                    {
                         try
                         {
                             users.Reverse();//反转序列
@@ -277,9 +272,9 @@ namespace AutomaticController.Windows.Demos.测试机通用界面.Pages
                     foreach (var item in DataGrid1.SelectedItems)
                     {
                         string path = System.IO.Path.GetFullPath((item as UserData).图片路径.AbsolutePath);
-                        if(File.Exists(path))
+                        if (File.Exists(path))
                         {
-                            Process.Start("explorer", "/select, " + path );
+                            Process.Start("explorer", "/select, " + path);
                         }
                         else
                         {
@@ -294,10 +289,10 @@ namespace AutomaticController.Windows.Demos.测试机通用界面.Pages
     public partial class UserData
     {
         public DateTime 测试时间 { get; set; }
-        public string SN码 { get; set;}
-        public string 检测重量 { get; set;}
-        public string 测试结果 { get; set;}
-        public System.Uri 图片路径 { get; set;}
+        public string SN码 { get; set; }
+        public string 检测重量 { get; set; }
+        public string 测试结果 { get; set; }
+        public System.Uri 图片路径 { get; set; }
     }
     public partial class UserData
     {
@@ -412,7 +407,7 @@ namespace AutomaticController.Windows.Demos.测试机通用界面.Pages
             string r = "";
             foreach (var item in ps)
             {
-                if(item == null)
+                if (item == null)
                 {
                     r += ",";
                     continue;

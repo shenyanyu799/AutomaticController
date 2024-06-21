@@ -1,20 +1,12 @@
-﻿using AutomaticController.Windows.Demos.数据上传报表;
-using LiteDB;
+﻿using LiteDB;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace AutomaticController.Windows.SanSheng.数据库扫码查重项目.Pages
 {
@@ -30,12 +22,14 @@ namespace AutomaticController.Windows.SanSheng.数据库扫码查重项目.Pages
             DataGrid1.ItemsSource = new List<UserData>();
             //添加首行序号
             DataGrid1.LoadingRow += (object sender, DataGridRowEventArgs e) => e.Row.Header = e.Row.GetIndex() + 1;
-            this.Loaded += (s, e) => {
+            this.Loaded += (s, e) =>
+            {
                 startTimeText.DateTime = DateTime.Now;
                 endTimeText.DateTime = DateTime.Now;
                 CompositionTarget.Rendering += CompositionTarget_Rendering;
             };
-            this.Unloaded += (s, e) => {
+            this.Unloaded += (s, e) =>
+            {
                 CompositionTarget.Rendering -= CompositionTarget_Rendering;
             };
         }
@@ -45,7 +39,7 @@ namespace AutomaticController.Windows.SanSheng.数据库扫码查重项目.Pages
             typetext.Text = MainWindow1.Module;
             bool b = MainWindow1.SNCode?.Length > 0;
 
-            if (b == true && SNCodeChange == false) 
+            if (b == true && SNCodeChange == false)
                 SNCodeText.Text = MainWindow1.SNCode;
             SNCodeChange = b;
 
@@ -88,7 +82,8 @@ namespace AutomaticController.Windows.SanSheng.数据库扫码查重项目.Pages
                 }
                 //转换并显示
                 App.Current.Dispatcher.Invoke(
-                    () => {
+                    () =>
+                    {
                         try
                         {
                             //users.Reverse();//反转序列
@@ -127,7 +122,8 @@ namespace AutomaticController.Windows.SanSheng.数据库扫码查重项目.Pages
                 }
                 //转换并显示
                 App.Current.Dispatcher.Invoke(
-                    () => {
+                    () =>
+                    {
                         try
                         {
                             //users.Reverse();//反转序列
@@ -161,7 +157,8 @@ namespace AutomaticController.Windows.SanSheng.数据库扫码查重项目.Pages
                 users = UserData.DBFindAll();
                 //转换并显示
                 App.Current.Dispatcher.Invoke(
-                    () => {
+                    () =>
+                    {
                         try
                         {
                             //users.Reverse();//反转序列
@@ -232,7 +229,7 @@ namespace AutomaticController.Windows.SanSheng.数据库扫码查重项目.Pages
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             if (DataGrid1.SelectedItems.Count == 0) return;
-            if (MessageBox.Show("删除后将不可恢复，是否删除","删除记录", MessageBoxButton.YesNo) != MessageBoxResult.Yes)
+            if (MessageBox.Show("删除后将不可恢复，是否删除", "删除记录", MessageBoxButton.YesNo) != MessageBoxResult.Yes)
             {
                 return;
             }

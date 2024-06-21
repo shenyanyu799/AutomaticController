@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using AutomaticController.Function;
+using System;
 using System.Security;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Markup;
-using AutomaticController.Function;
 
 namespace AutomaticController.Device
 {
@@ -15,13 +10,13 @@ namespace AutomaticController.Device
         /// <summary>
         /// 存储数据的内存空间
         /// </summary>
-        public byte[] Data {  get; private set; }
+        public byte[] Data { get; private set; }
         public UnitData(int size)
         {
-            
+
             Data = new byte[size];
         }
-        public bool GetBit(int index,int bitIndex)
+        public bool GetBit(int index, int bitIndex)
         {
             int n = (Data[index] >> bitIndex) & 1;
             return n == 1;
@@ -92,7 +87,7 @@ namespace AutomaticController.Device
                 Data[index] = (byte)(Data[index] & (~(1 << bitIndex)));
             }
         }
-        public void SetByte(int index,byte value)
+        public void SetByte(int index, byte value)
         {
             Data[index] = value;
         }
@@ -193,7 +188,7 @@ namespace AutomaticController.Device
         }
         public override string ToString()
         {
-            if(Format == null) return Value.ToString();
+            if (Format == null) return Value.ToString();
             return Value.ToString(Format);
         }
 

@@ -1,18 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO.Ports;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace AutomaticController.Windows.SanSheng.数据库扫码查重项目.Pages
 {
@@ -24,14 +14,15 @@ namespace AutomaticController.Windows.SanSheng.数据库扫码查重项目.Pages
         public UsetSetting()
         {
             InitializeComponent();
-            this.Loaded += (s, e) => {
+            this.Loaded += (s, e) =>
+            {
                 CompositionTarget.Rendering += CompositionTarget_Rendering;
                 //遍历并检测权限
                 foreach (FrameworkElement item in StackPanel1.Children)
                 {
                     int n = 0;
                     int.TryParse(item.Tag.ToString(), out n);
-                    if((int)MainWindow1.Logined < n)
+                    if ((int)MainWindow1.Logined < n)
                     {
                         item.IsEnabled = false;
                     }
@@ -45,7 +36,8 @@ namespace AutomaticController.Windows.SanSheng.数据库扫码查重项目.Pages
                 databitText.Text = Setting.Instance.BarcodeDatabit.ToString();
                 stopbitText.Text = Setting.Instance.BarcodeStopbit.ToString();
             };
-            this.Unloaded += (s, e) => {
+            this.Unloaded += (s, e) =>
+            {
                 CompositionTarget.Rendering -= CompositionTarget_Rendering;
             };
         }

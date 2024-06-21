@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
-using System.IO.Ports;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
@@ -77,7 +73,7 @@ namespace AutomaticController.Windows.Demos.吸尘器空气性能测试
         public string GetValue(string key, string defaultValue)
         {
             string r = GetValue(key);
-            if (r == null || r == "") 
+            if (r == null || r == "")
             {
                 SetValue(key, defaultValue);
                 return defaultValue;
