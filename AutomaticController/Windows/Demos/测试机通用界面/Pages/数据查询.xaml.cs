@@ -246,7 +246,50 @@ namespace AutomaticController.Windows.Demos.测试机通用界面.Pages
             }
         }
         #endregion
-
+        /// <summary>
+        /// 表格菜单按钮点击事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            MenuItem menuItem = sender as MenuItem;
+            string com = menuItem.CommandParameter.ToString();
+            string copyt = "";
+            switch (com)
+            {
+                case "copyC":
+                    foreach (var item in DataGrid1.SelectedItems)
+                    {
+                        copyt += item.ToString() + "\n";
+                    }
+                    Clipboard.SetText(copyt);
+                    break;
+                case "copyL":
+                    foreach (var item in DataGrid1.SelectedItems)
+                    {
+                        copyt = (item as UserData).图片路径.AbsolutePath;
+                        break;
+                    }
+                    Clipboard.SetText(copyt);
+                    break;
+                case "openLD":
+                    foreach (var item in DataGrid1.SelectedItems)
+                    {
+                        string path = System.IO.Path.GetFullPath((item as UserData).图片路径.AbsolutePath);
+                        if(File.Exists(path))
+                        {
+                            Process.Start("explorer", "/select, " + path );
+                        }
+                        else
+                        {
+                            MessageBox.Show("文件不存在");
+                        }
+                        break;
+                    }
+                    break;
+            }
+        }
     }
     public partial class UserData
     {

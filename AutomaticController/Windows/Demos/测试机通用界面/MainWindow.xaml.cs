@@ -58,7 +58,10 @@ namespace AutomaticController.Windows.Demos.测试机通用界面
                         {
                             Process.Start(new ProcessStartInfo(e.Uri.ToString()));
                         }
-                        catch { }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message);
+                        }
                     }
                 }               
             };
