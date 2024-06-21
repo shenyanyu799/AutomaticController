@@ -1,4 +1,5 @@
 ﻿using AutomaticController.Windows.Demos.测试机通用界面.Datas;
+using AutomaticController.Windows.FuJia.电机寿命老化测试.Pages;
 using System;
 using System.Collections.Generic;
 using System.Linq;

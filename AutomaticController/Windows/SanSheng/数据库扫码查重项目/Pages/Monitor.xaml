@@ -1,0 +1,66 @@
+﻿<Page x:Class="AutomaticController.Windows.SanSheng.数据库扫码查重项目.Pages.Monitor"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:AutomaticController.Windows.SanSheng.数据库扫码查重项目.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Monitor">
+    <Page.Resources >
+        <ResourceDictionary Source="/Windows/SanSheng/数据库扫码查重项目/Dictionary1.xaml"/>
+    </Page.Resources>
+
+    <Grid Margin="10,10,0,0">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <TextBlock x:Name="patrType" Text="产品型号" FontSize="30" Margin="0,0,0,10"/>
+            <Grid HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,5,0" >
+                <ComboBox SelectedIndex="0" Width="100"  x:Name="ComboBox1">
+                    <ComboBoxItem Content="扫码次数：1"/>
+                    <ComboBoxItem Content="扫码次数：2"/>
+                    <ComboBoxItem Content="扫码次数：3"/>
+                </ComboBox>
+            </Grid>
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0">
+                    <Grid Margin="5,0,5,0">
+                        <TextBlock Text="第一次扫码" FontSize="20"/>
+                    </Grid>
+                    <Label x:Name="Label1"  Content="完成" Height="200" Width="Auto" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderThickness="2,2,2,2" BorderBrush="#FF888888" Margin="5,5,5,5" FontSize="36" Background="#FFB5B5B5"/>
+                    <TextBox x:Name="TextBox1" Template="{DynamicResource TextBoxTemplate2}" Text="SNCode" IsReadOnly="True" Margin="5,0,5,0"/>
+                </StackPanel>
+                <StackPanel Grid.Column="1">
+                    <TextBlock Text="第二次扫码" FontSize="20"/>
+                    <Label x:Name="Label2"  Content="请扫码" Height="200" Width="Auto" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderThickness="2,2,2,2" BorderBrush="#FF888888" Margin="5,5,5,5" FontSize="36" Background="#FF00D6FF"/>
+                    <TextBox x:Name="TextBox2" Template="{DynamicResource TextBoxTemplate2}" Text="SNCode" IsReadOnly="True" Margin="5,0,5,0"/>
+                </StackPanel>
+                <StackPanel Grid.Column="2">
+                    <TextBlock Text="第三次扫码" FontSize="20"/>
+                    <Label x:Name="Label3"  Content="错码" Height="200" Width="Auto" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderThickness="2,2,2,2" BorderBrush="#FF888888" Margin="5,5,5,5" FontSize="36" Background="Red"/>
+                    <TextBox x:Name="TextBox3" Template="{DynamicResource TextBoxTemplate2}" Text="SNCode" IsReadOnly="True" Margin="5,0,5,0"/>
+                </StackPanel>
+            </Grid>
+
+            <Grid Grid.Row="2" Margin="5,5,5,5">
+                <DataGrid x:Name="DataGrid1"  Grid.Row="1" IsReadOnly="True" CanUserSortColumns="False" CanUserResizeColumns="False" CanUserReorderColumns="False" CanUserResizeRows="False" >
+                    <DataGrid.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="清空" Click="MenuItem_Click"/>
+                            <MenuItem Header="导出" Click="MenuItem_Click_1"/>
+                        </ContextMenu>
+                    </DataGrid.ContextMenu>
+                </DataGrid>
+            </Grid>
+        </Grid>
+    </Grid>
+</Page>

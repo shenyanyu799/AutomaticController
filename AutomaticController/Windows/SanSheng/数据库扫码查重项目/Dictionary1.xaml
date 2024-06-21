@@ -1,0 +1,92 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+    xmlns:theme="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2">
+
+
+    <ControlTemplate x:Key="TextBoxTemplate1" TargetType="{x:Type TextBoxBase}">
+        <Border x:Name="border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="True" CornerRadius="5,5,5,5">
+            <ScrollViewer x:Name="PART_ContentHost" Focusable="false" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
+        </Border>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsEnabled" Value="false">
+                <Setter Property="Opacity" TargetName="border" Value="0.56"/>
+            </Trigger>
+            <Trigger Property="IsMouseOver" Value="true">
+                <!--<Setter Property="BorderBrush" TargetName="border" Value="#FF7EB4EA"/>-->
+            </Trigger>
+            <Trigger Property="IsKeyboardFocused" Value="true">
+                <!--<Setter Property="BorderBrush" TargetName="border" Value="#FF569DE5""/>-->
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+    <ControlTemplate x:Key="TextBoxTemplate2" TargetType="{x:Type TextBoxBase}">
+        <Border x:Name="border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="True">
+            <ScrollViewer x:Name="PART_ContentHost" Focusable="false" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
+        </Border>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsEnabled" Value="false">
+                <Setter Property="Opacity" TargetName="border" Value="0.56"/>
+            </Trigger>
+            <Trigger Property="IsMouseOver" Value="true">
+                <!--<Setter Property="BorderBrush" TargetName="border" Value="#FF7EB4EA"/>-->
+            </Trigger>
+            <Trigger Property="IsKeyboardFocused" Value="true">
+                <!--<Setter Property="BorderBrush" TargetName="border" Value="#FF569DE5""/>-->
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+
+    <ControlTemplate x:Key="ButtonTemplate1" TargetType="{x:Type ButtonBase}">
+        <Border x:Name="border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="true">
+            <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+        </Border>
+        <ControlTemplate.Triggers>
+            <Trigger Property="Button.IsDefaulted" Value="true">
+                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+            </Trigger>
+            <Trigger Property="IsMouseOver" Value="true">
+                <Setter Property="Opacity" TargetName="border" Value="0.8"/>
+                <!--<Setter Property="Background" TargetName="border" Value="#FFBEE6FD"/>-->
+                <Setter Property="BorderBrush" TargetName="border" Value="#FF3C7FB1"/>
+            </Trigger>
+            <Trigger Property="IsPressed" Value="true">
+                <Setter Property="Opacity" TargetName="border" Value="1"/>
+                <!--<Setter Property="Background" TargetName="border" Value="#FFC4E5F6"/>-->
+                <Setter Property="BorderBrush" TargetName="border" Value="#FF2C628B"/>
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="false">
+                <Setter Property="Background" TargetName="border" Value="#FFF4F4F4"/>
+                <Setter Property="BorderBrush" TargetName="border" Value="#FFADB2B5"/>
+                <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="#FF838383"/>
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+    <ControlTemplate x:Key="ButtonTemplate2" TargetType="{x:Type ButtonBase}">
+        <Border x:Name="border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="true" CornerRadius="5,5,5,5">
+            <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+        </Border>
+        <ControlTemplate.Triggers>
+            <Trigger Property="Button.IsDefaulted" Value="true">
+                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+            </Trigger>
+            <Trigger Property="IsMouseOver" Value="true">
+                <Setter Property="Opacity" TargetName="border" Value="0.8"/>
+                <!--<Setter Property="Background" TargetName="border" Value="#FFBEE6FD"/>-->
+                <Setter Property="BorderBrush" TargetName="border" Value="#FF3C7FB1"/>
+            </Trigger>
+            <Trigger Property="IsPressed" Value="true">
+                <Setter Property="Opacity" TargetName="border" Value="1"/>
+                <!--<Setter Property="Background" TargetName="border" Value="#FFC4E5F6"/>-->
+                <Setter Property="BorderBrush" TargetName="border" Value="#FF2C628B"/>
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="false">
+                <Setter Property="Background" TargetName="border" Value="#FFF4F4F4"/>
+                <Setter Property="BorderBrush" TargetName="border" Value="#FFADB2B5"/>
+                <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="#FF838383"/>
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+</ResourceDictionary>

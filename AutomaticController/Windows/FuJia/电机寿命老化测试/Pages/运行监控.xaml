@@ -1,0 +1,68 @@
+﻿<Page
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:AutomaticController.Windows.FuJia.电机寿命老化测试.Pages"
+      xmlns:System="clr-namespace:System;assembly=mscorlib"
+      xmlns:ui="clr-namespace:AutomaticController.UI" 
+      xmlns:root="clr-namespace:AutomaticController.Windows.FuJia.电机寿命老化测试" 
+      xmlns:ds="clr-namespace:AutomaticController.Windows.FuJia.电机寿命老化测试.Datas" 
+xmlns:Linq="clr-namespace:Newtonsoft.Json.Linq;assembly=Newtonsoft.Json" 
+xmlns:LiteDB="clr-namespace:LiteDB;assembly=LiteDB" 
+x:Class="AutomaticController.Windows.FuJia.电机寿命老化测试.Pages.运行监控"
+      mc:Ignorable="d" 
+      d:DesignHeight="1024" d:DesignWidth="1900"
+      Title="运行监控">
+    <Page.Resources>
+        <ResourceDictionary Source="/Windows/FuJia/电机寿命老化测试/UIDictionary.xaml" />
+    </Page.Resources>
+    <Grid>
+        <TextBlock Text="运行监控" FontSize="35" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,5,0,0"/>
+        <TextBlock x:Name="DatetimeText" Text="当前时间" FontSize="35" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,5,10,0"/>
+        <Border Height="1" BorderBrush="#FF969191" Margin="3,50,3,0" BorderThickness="0,1,0,0" VerticalAlignment="Top" />
+        <ScrollViewer Margin="0,55,0,5" >
+            <StackPanel HorizontalAlignment="Center">
+                <Border  VerticalAlignment="Top" Margin="0,10,0,0" Background="#FFD4D4D4" BorderThickness="1,1,1,1" BorderBrush="#FFABABAB" Width="{Binding ActualWidth, ElementName=stackPanel}" HorizontalAlignment="Left" >
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="测试组A"  FontSize="25" Margin="5,0,0,0" VerticalAlignment="Center"/>
+                        <Border Height="1" Width="30" Background="#FF929292" Margin="10,1,10,1"/>
+                        <TextBlock x:Name="V1Text" Text="总电压:123000V"  FontSize="16" VerticalAlignment="Center"/>
+                        <Button CommandParameter="AStart" Width="120" Height="35" FontSize="16" Content="全部启动" Background="#FF3EB15A" Margin="10,2,10,2" Template="{DynamicResource ButtonTemplate2}" Click="Button_Click"/>
+                        <Button CommandParameter="AStop"  Width="120" Height="35" FontSize="16" Content="全部停止" Background="#FFB14E3E" Margin="10,2,10,2" Template="{DynamicResource ButtonTemplate2}" Click="Button_Click"/>
+
+                    </StackPanel>
+                </Border>
+                <StackPanel x:Name="stackPanel" Orientation="Horizontal" Margin="0,0,0,0" HorizontalAlignment="Left"/>
+
+                <Border  VerticalAlignment="Top" Margin="0,10,0,0" Background="#FFD4D4D4" BorderThickness="1,1,1,1" BorderBrush="#FFABABAB" Width="{Binding ActualWidth, ElementName=stackPanel}" HorizontalAlignment="Left" >
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="测试组B"  FontSize="25" Margin="5,0,0,0" VerticalAlignment="Center"/>
+                        <Border Height="1" Width="30" Background="#FF929292" Margin="10,1,10,1"/>
+                        <TextBlock x:Name="V2Text" Text="总电压:123000V"  FontSize="16" VerticalAlignment="Center"/>
+                        <Button CommandParameter="BStart" Width="120" Height="35" FontSize="16" Content="全部启动" Background="#FF3EB15A" Margin="10,2,10,2" Template="{DynamicResource ButtonTemplate2}" Click="Button_Click"/>
+                        <Button CommandParameter="BStop"  Width="120" Height="35" FontSize="16" Content="全部停止" Background="#FFB14E3E" Margin="10,2,10,2" Template="{DynamicResource ButtonTemplate2}" Click="Button_Click"/>
+
+                    </StackPanel>
+                </Border>
+
+                <StackPanel x:Name="stackPane2" Orientation="Horizontal" Margin="0,0,0,0" HorizontalAlignment="Left"/>
+
+                <Border  VerticalAlignment="Top" Margin="0,10,0,0" Background="#FFD4D4D4" BorderThickness="1,1,1,1" BorderBrush="#FFABABAB" Width="{Binding ActualWidth, ElementName=stackPanel}" HorizontalAlignment="Left" >
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="测试组C"  FontSize="25" Margin="5,0,0,0" VerticalAlignment="Center"/>
+                        <Border Height="1" Width="30" Background="#FF929292" Margin="10,1,10,1"/>
+                        <TextBlock x:Name="V3Text" Text="总电压:123000V"  FontSize="16" VerticalAlignment="Center"/>
+                        <Button CommandParameter="CStart" Width="120" Height="35" FontSize="16" Content="全部启动" Background="#FF3EB15A" Margin="10,2,10,2" Template="{DynamicResource ButtonTemplate2}" Click="Button_Click"/>
+                        <Button CommandParameter="CStop"  Width="120" Height="35" FontSize="16" Content="全部停止" Background="#FFB14E3E" Margin="10,2,10,2" Template="{DynamicResource ButtonTemplate2}" Click="Button_Click"/>
+                    </StackPanel>
+                </Border>
+                <StackPanel x:Name="stackPane3" Orientation="Horizontal" Margin="0,0,0,0" HorizontalAlignment="Left"/>
+
+            </StackPanel>
+
+        </ScrollViewer>
+
+
+    </Grid>
+</Page>

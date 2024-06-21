@@ -157,6 +157,40 @@
     <Compile Include="UI\UTextBox.xaml.cs">
       <DependentUpon>UTextBox.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Windows\Demos\PLC通讯样例\Pages\Page3.xaml.cs">
+      <DependentUpon>Page3.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\Demos\PLC通讯样例\Pages\Page2.xaml.cs">
+      <DependentUpon>Page2.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\Demos\PLC通讯样例\DeviceLink.cs" />
+    <Compile Include="Windows\Demos\PLC通讯样例\Pages\Page1.xaml.cs">
+      <DependentUpon>Page1.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\Demos\PLC通讯样例\PLC通讯样例.xaml.cs">
+      <DependentUpon>PLC通讯样例.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\Demos\吸尘器空气性能测试\AmericanWindow.xaml.cs">
+      <DependentUpon>AmericanWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\Demos\吸尘器空气性能测试\Devices.cs" />
+    <Compile Include="Windows\Demos\吸尘器空气性能测试\EuropeanWindow.xaml.cs">
+      <DependentUpon>EuropeanWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\Demos\吸尘器空气性能测试\Parameters.cs" />
+    <Compile Include="Windows\Demos\吸尘器空气性能测试\StartWindow .xaml.cs">
+      <DependentUpon>StartWindow .xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\Demos\吸尘器空气性能测试\TableData.cs" />
+    <Compile Include="Windows\Demos\吸尘器空气性能测试\Window1.xaml.cs">
+      <DependentUpon>Window1.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\Demos\数据上传报表\SettingWindow.xaml.cs">
+      <DependentUpon>SettingWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\Demos\数据上传报表\数据上传界面.xaml.cs">
+      <DependentUpon>数据上传界面.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\Demos\测试机通用界面\Datas\Enums.cs" />
     <Compile Include="Windows\Demos\测试机通用界面\Datas\Parameters.cs" />
     <Compile Include="Windows\Demos\测试机通用界面\MainWindow.xaml.cs">
@@ -201,6 +235,54 @@
     <Compile Include="Windows\Demos\测试机通用界面\Pages\运行监控_CCD.xaml.cs">
       <DependentUpon>运行监控_CCD.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Windows\FuJia\电机寿命老化测试\Datas\Enums.cs" />
+    <Compile Include="Windows\FuJia\电机寿命老化测试\Datas\PLC1.cs" />
+    <Compile Include="Windows\FuJia\电机寿命老化测试\Datas\Setting.cs" />
+    <Compile Include="Windows\FuJia\电机寿命老化测试\Datas\Parameters.cs" />
+    <Compile Include="Windows\FuJia\电机寿命老化测试\MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\FuJia\电机寿命老化测试\Pages\IO监控.xaml.cs">
+      <DependentUpon>IO监控.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\FuJia\电机寿命老化测试\Pages\PageManage.cs" />
+    <Compile Include="Windows\FuJia\电机寿命老化测试\Pages\参数设置.xaml.cs">
+      <DependentUpon>参数设置.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\FuJia\电机寿命老化测试\Pages\口令验证.xaml.cs">
+      <DependentUpon>口令验证.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\FuJia\电机寿命老化测试\Pages\封面.xaml.cs">
+      <DependentUpon>封面.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\FuJia\电机寿命老化测试\Pages\手动界面.xaml.cs">
+      <DependentUpon>手动界面.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\FuJia\电机寿命老化测试\Pages\数据查询.xaml.cs">
+      <DependentUpon>数据查询.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\FuJia\电机寿命老化测试\Pages\系统设置.xaml.cs">
+      <DependentUpon>系统设置.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\FuJia\电机寿命老化测试\Pages\运行监控.xaml.cs">
+      <DependentUpon>运行监控.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\SanSheng\数据库扫码查重项目\Login.xaml.cs">
+      <DependentUpon>Login.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\SanSheng\数据库扫码查重项目\MainWindow1.xaml.cs">
+      <DependentUpon>MainWindow1.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\SanSheng\数据库扫码查重项目\Pages\DataManager.xaml.cs">
+      <DependentUpon>DataManager.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\SanSheng\数据库扫码查重项目\Pages\Monitor.xaml.cs">
+      <DependentUpon>Monitor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\SanSheng\数据库扫码查重项目\Pages\UsetSetting.xaml.cs">
+      <DependentUpon>UsetSetting.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\SanSheng\数据库扫码查重项目\UserData.cs" />
     <Page Include="UI\DateTimeSelector.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -238,6 +320,46 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\UTextBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\Demos\PLC通讯样例\Pages\Page1.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\Demos\PLC通讯样例\Pages\Page3.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\Demos\PLC通讯样例\Pages\Page2.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\Demos\PLC通讯样例\PLC通讯样例.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\Demos\吸尘器空气性能测试\AmericanWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\Demos\吸尘器空气性能测试\EuropeanWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\Demos\吸尘器空气性能测试\StartWindow .xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\Demos\吸尘器空气性能测试\Window1.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\Demos\数据上传报表\SettingWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\Demos\数据上传报表\数据上传界面.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -289,6 +411,70 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Windows\FuJia\电机寿命老化测试\MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\FuJia\电机寿命老化测试\Pages\IO监控.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\FuJia\电机寿命老化测试\Pages\参数设置.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\FuJia\电机寿命老化测试\Pages\口令验证.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\FuJia\电机寿命老化测试\Pages\封面.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\FuJia\电机寿命老化测试\Pages\手动界面.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\FuJia\电机寿命老化测试\Pages\数据查询.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\FuJia\电机寿命老化测试\Pages\系统设置.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\FuJia\电机寿命老化测试\Pages\运行监控.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\FuJia\电机寿命老化测试\UIDictionary.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\SanSheng\数据库扫码查重项目\Dictionary1.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\SanSheng\数据库扫码查重项目\Login.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\SanSheng\数据库扫码查重项目\MainWindow1.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\SanSheng\数据库扫码查重项目\Pages\DataManager.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\SanSheng\数据库扫码查重项目\Pages\Monitor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\SanSheng\数据库扫码查重项目\Pages\UsetSetting.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -314,6 +500,9 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <EmbeddedResource Include="Windows\Demos\吸尘器空气性能测试\模板欧标.xlsx" />
+    <EmbeddedResource Include="Windows\Demos\吸尘器空气性能测试\模板美标.xlsx" />
+    <None Include="Windows\Demos\数据上传报表\README.md" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
