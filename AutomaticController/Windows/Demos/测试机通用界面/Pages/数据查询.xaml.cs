@@ -412,12 +412,28 @@ namespace AutomaticController.Windows.Demos.测试机通用界面.Pages
             string r = "";
             foreach (var item in ps)
             {
-                if(item == null)
+                if (item == null)
                 {
                     r += ",";
                     continue;
                 }
-                r += item.GetValue(this) + ",";
+                object obj = item.GetValue(this);
+                if (obj is Uri)
+                {
+                    Uri uri = (Uri)obj;
+                    if (uri.IsFile)
+                    {
+                        r += uri.LocalPath + ",";
+                    }
+                    else
+                    {
+                        r += obj + ",";
+                    }
+                }
+                else
+                {
+                    r += obj + ",";
+                }
             }
             return r.TrimEnd(',');
         }
@@ -436,10 +452,28 @@ namespace AutomaticController.Windows.Demos.测试机通用界面.Pages
                     r += "\"\",";
                     continue;
                 }
-                r += "\"" + item.GetValue(this) + "\",";
+                object obj = item.GetValue(this);
+                if (obj is Uri)
+                {
+                    Uri uri = (Uri)obj;
+                    if (uri.IsFile)
+                    {
+                        r += "\"" + uri.LocalPath + "\",";
+                    }
+                    else
+                    {
+                        r += "\"" + obj + "\",";
+                    }
+                }
+                else
+                {
+                    r += "\"" + obj + "\",";
+                }
             }
             return r.TrimEnd(',');
         }
+
+
 
 
         /// <summary>

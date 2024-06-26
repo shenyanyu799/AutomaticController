@@ -49,14 +49,14 @@ namespace AutomaticController.Windows.Demos.测试机通用界面
                     if (e.Uri.IsAbsoluteUri && e.Uri.IsFile)
                     {
                         e.Cancel = true;
-                        if (File.Exists(e.Uri.AbsolutePath) == false)
+                        if (File.Exists(e.Uri.LocalPath) == false)
                         {
                             MessageBox.Show("文件不存在");
                             return;
                         }
                         try
                         {
-                            Process.Start(new ProcessStartInfo(e.Uri.ToString()));
+                            Process.Start(new ProcessStartInfo(e.Uri.LocalPath));
                         }
                         catch (Exception ex)
                         {
