@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace AutomaticController.Function
@@ -13,7 +10,7 @@ namespace AutomaticController.Function
         public static string OutPath => "log.txt";
         public static Encoding Encoding { get; set; } = Encoding.Default;
         static FileStream fileStream = new FileStream(OutPath, FileMode.OpenOrCreate, FileAccess.Write, FileShare.ReadWrite);
-        public static void Log(string content, LogLevel level = LogLevel.Message) 
+        public static void Log(string content, LogLevel level = LogLevel.Message)
         {
             lock (fileStream)
             {
@@ -42,7 +39,7 @@ namespace AutomaticController.Function
             //        //fileStream.Close();
             //        //fileStream = null;
             //    }
-                
+
             //    //Task.Delay(500).Wait();
             //    Console.WriteLine(DateTime.Now);
             //    outing = false;

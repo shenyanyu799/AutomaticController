@@ -1,18 +1,9 @@
-﻿using System;
+﻿using AutomaticController.Function;
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Data.SqlTypes;
 using System.IO.Ports;
-using System.Linq;
-using System.Net;
-using System.Reflection;
-using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Documents;
-using System.Windows.Markup;
-using AutomaticController.Function;
-using static System.Collections.Specialized.BitVector32;
 
 namespace AutomaticController.Device
 {
@@ -122,7 +113,7 @@ namespace AutomaticController.Device
                     //await Task.Delay(1000);
                     while (Started)
                     {
-                        
+
                         if (errorCount >= 3)
                         {
                             throw new Exception("ModBUs-RTU通讯异常");
@@ -444,7 +435,7 @@ namespace AutomaticController.Device
         /// <param name="len"></param>
         public void WriteBits(int startAdd, int len)
         {
-            if(len == 1)//如果只有一个位
+            if (len == 1)//如果只有一个位
             {
                 if (Bits[startAdd])
                 {
@@ -457,7 +448,7 @@ namespace AutomaticController.Device
                 return;
             }
             int l = 0;
-            if(len % 8 == 0)
+            if (len % 8 == 0)
             {
                 l = len;
             }
@@ -467,7 +458,7 @@ namespace AutomaticController.Device
             }
             byte[] bs = new byte[l];
             int n = 0;
-            for (int i = 0; i < len; i++) 
+            for (int i = 0; i < len; i++)
             {
                 int c = i % 8;
                 if (Bits[startAdd + i])
@@ -478,7 +469,7 @@ namespace AutomaticController.Device
                 {
                     bs[n] = (byte)(bs[n] & (~(1 << c)));
                 }
-                if (c == 7 )n++;
+                if (c == 7) n++;
             }
             WriteBits(Serial, ModbusAddress, (ushort)startAdd, (ushort)len, bs);
 
@@ -700,7 +691,7 @@ namespace AutomaticController.Device
                 c++;
             }
             //如果字节数大于数据数量
-            if(c > datas.Length)
+            if (c > datas.Length)
             {
                 c = datas.Length;
             }
@@ -874,7 +865,7 @@ namespace AutomaticController.Device
         /// <param name="bytecount"></param>
         /// <param name="byteoffs"></param>
         /// <returns></returns>
-        public static void WriteDatas(SerialPort serialPort, byte Address, ushort dataAddress, byte[] datas ,byte bytecount,int byteoffs)
+        public static void WriteDatas(SerialPort serialPort, byte Address, ushort dataAddress, byte[] datas, byte bytecount, int byteoffs)
         {
             serialPort.ReadExisting();
 
@@ -1182,7 +1173,7 @@ namespace AutomaticController.Device
         public void ExecuteRead()
         {
             var rv = Modbus_RTU.ReadBit(RTU.Serial, RTU.ModbusAddress, (ushort)DataAddress, 1);
-            RTU.Bits[DataAddress ] = rv[0].GetBit(0);
+            RTU.Bits[DataAddress] = rv[0].GetBit(0);
             LastTime = DateTime.Now;
             RequestRead = false;
         }
@@ -1358,7 +1349,7 @@ namespace AutomaticController.Device
                         break;
                 }
 
-                RTU.Data1.SetBit(num + n, i, value); 
+                RTU.Data1.SetBit(num + n, i, value);
 
                 SetRemoteValue = () => this[index] = value;
             }
@@ -1377,7 +1368,7 @@ namespace AutomaticController.Device
                     case Modbus_RTU_Type.Word_LH:
                         r = RTU.Data1.GetInt16_LH(num); break;
                     case Modbus_RTU_Type.DWord:
-                        r = RTU.Data1.GetInt32_HLhl(num); 
+                        r = RTU.Data1.GetInt32_HLhl(num);
                         break;
                     case Modbus_RTU_Type.DWord_LH:
                         r = RTU.Data1.GetInt32_hlHL(num); break;
@@ -1395,7 +1386,7 @@ namespace AutomaticController.Device
                 if (v == this.Value)
                 {
                     //如果还没通讯过，则必须写入，否则相等不写入
-                    if((LastTime - DateTime.MinValue).Ticks != 0)
+                    if ((LastTime - DateTime.MinValue).Ticks != 0)
                     {
                         return;
                     }
@@ -1505,7 +1496,7 @@ namespace AutomaticController.Device
         public void Parse(string text)
         {
             double d = 0;
-            if(double.TryParse(text, out d))
+            if (double.TryParse(text, out d))
             {
                 Value = d;
             }
@@ -1518,7 +1509,7 @@ namespace AutomaticController.Device
         public Modbus_RTU_Num Num { get; set; }
         public int Index { get; set; }
         public bool Value { get => Num[Index]; set => Num[Index] = value; }
-        public Modbus_RTU_NumBit(Modbus_RTU_Num num,int index)
+        public Modbus_RTU_NumBit(Modbus_RTU_Num num, int index)
         {
             Num = num;
             Index = index;

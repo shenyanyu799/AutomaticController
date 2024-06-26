@@ -1,24 +1,12 @@
 ﻿using AutomaticController.Windows.Demos.测试机通用界面.Datas;
-using Newtonsoft.Json.Linq;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Security.Principal;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using VM.Core;
-using VMControls.Interface;
-using VMControls.WPF.Release;
 
 namespace AutomaticController.Windows.Demos.测试机通用界面.Pages
 {
@@ -27,14 +15,14 @@ namespace AutomaticController.Windows.Demos.测试机通用界面.Pages
     /// </summary>
     public partial class CCD编辑 : Page
     {
-         
+
         public CCD编辑()
         {
             InitializeComponent();
             this.Loaded += (s, e) =>
             {
                 CompositionTarget.Rendering += CompositionTarget_Rendering;
-               
+
                 if (VmSolution.Instance.SolutionPath == null)
                 {
                     LoadCCD(true);
@@ -69,7 +57,7 @@ namespace AutomaticController.Windows.Demos.测试机通用界面.Pages
         {
             CCDResult = 0;
             //执行拍照
-            if (CCDExecuting == false && 
+            if (CCDExecuting == false &&
                 VmSolution.Instance.IsReady == true && VmSolution.Instance.IsRunning == false)
             {
                 var pro_list = VmSolution.Instance.GetAllProcedureList().astProcessInfo;
@@ -108,25 +96,28 @@ namespace AutomaticController.Windows.Demos.测试机通用界面.Pages
             {
                 return;
             }
-            if(enforce == false)
+            if (enforce == false)
             {
                 if (VmSolution.Instance.SolutionPath == path) return;
             }
-            Task.Run(() =>
+            Task.Run(async () =>
             {
 
                 try
                 {
                     VmSolution.Instance.CloseSolution();
+                    await Task.Delay(500);
                 }
                 catch { }
+
                 VmSolution.Load(path);
                 var pro_list = VmSolution.Instance.GetAllProcedureList().astProcessInfo;
-                if(pro_list.Length > 0)
+                if (pro_list.Length > 0)
                 {
                     var vmProcedure = (VmProcedure)VmSolution.Instance[pro_list[0].strProcessName];
                     //拍照结果
-                    vmProcedure.OnWorkEndStatusCallBack += (s, e) => {
+                    vmProcedure.OnWorkEndStatusCallBack += (s, e) =>
+                    {
                         try
                         {
                             string p1 = "";
@@ -165,8 +156,6 @@ namespace AutomaticController.Windows.Demos.测试机通用界面.Pages
                                 }
                             }
                             OutImgPath = System.IO.Path.Combine(p1, p2);
-                            测试机通用界面.Pages.UserData.Add(new string[] { DateTime.Now.ToString(), "", PLC1.检测重量.Value.ToString(),"", CCD编辑.OutImgPath });
-
                         }
                         catch
                         {
@@ -176,7 +165,7 @@ namespace AutomaticController.Windows.Demos.测试机通用界面.Pages
                     };
                 }
                 App.Current.Dispatcher.Invoke(() => CCDLoadedEvent?.Invoke());
-                
+
             });
 
         }
@@ -184,7 +173,8 @@ namespace AutomaticController.Windows.Demos.测试机通用界面.Pages
         {
             if (File.Exists(VmSolution.Instance.ModuleFilePath))
             {
-                Task.Run(() => {
+                Task.Run(() =>
+                {
                     try
                     {
                         VmSolution.Save();
@@ -194,7 +184,8 @@ namespace AutomaticController.Windows.Demos.测试机通用界面.Pages
                         //App.Current.Dispatcher.Invoke(() => CCDLoadedEvent?.Invoke());
                         //LoadCCD();
                     }
-                    catch {
+                    catch
+                    {
                         MessageBox.Show("VM程序保存失败");
                     }
                     //CCDSaveing = false;

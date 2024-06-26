@@ -2,11 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Security;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Media;
 using System.Windows;
-using AutomaticController.Windows.Demos.测试机通用界面;
+using System.Windows.Media;
 
 namespace AutomaticController.Function
 {
@@ -17,7 +14,7 @@ namespace AutomaticController.Function
     {
         #region 位操作
 
-        
+
         public static bool GetBit(this byte value, int bitIndex)
         {
             int n = (value >> bitIndex) & 1;
@@ -141,7 +138,7 @@ namespace AutomaticController.Function
         [SecuritySafeCritical]
         public unsafe static float SwapHL(this float value)
         {
-            int n = SwapHL(* (int*)&value);
+            int n = SwapHL(*(int*)&value);
             return *(float*)&n;
         }
         /// <summary>
@@ -167,13 +164,13 @@ namespace AutomaticController.Function
         /// <typeparam name="T"></typeparam>
         /// <param name="obj"></param>
         /// <returns></returns>
-        public static IEnumerable<T> GetIEnumerable<T>(T obj)where T : struct
+        public static IEnumerable<T> GetIEnumerable<T>(T obj) where T : struct
         {
             return Enum.GetValues(typeof(T)).OfType<T>();
         }
-        public static string ToStringH(this byte[] data,string separator =" ")
+        public static string ToStringH(this byte[] data, string separator = " ")
         {
-            
+
             string t = "";
             int len = data.Length;
             for (int i = 0; i < len; i++)

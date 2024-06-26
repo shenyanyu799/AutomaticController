@@ -1,19 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using AutomaticController.Device;
+using System;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using AutomaticController.Device;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.TrayNotify;
 
 namespace AutomaticController.UI
 {
@@ -82,7 +70,8 @@ namespace AutomaticController.UI
         public UNumLabel()
         {
             InitializeComponent();
-            this.Loaded += (s, e) => {
+            this.Loaded += (s, e) =>
+            {
                 CompositionTarget.Rendering += CompositionTarget_Rendering;
                 int i = Index;
             };
@@ -109,7 +98,7 @@ namespace AutomaticController.UI
                 n = (int)(DataContext as INum).Value;
             }
             if (n < 0) return;
-            if(n != index)
+            if (n != index)
             {
                 index = n;
                 if (Backgrounds?.Length > index)

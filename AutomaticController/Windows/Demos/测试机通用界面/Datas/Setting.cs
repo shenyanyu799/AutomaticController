@@ -1,20 +1,11 @@
-﻿using AutomaticController.Function;
-using AutomaticController.Properties;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using Newtonsoft.Json.Serialization;
+﻿using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
 using System.IO;
 using System.IO.Ports;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Input;
 using System.Xml.Linq;
-using static AutomaticController.Windows.Demos.测试机通用界面.Datas.Enums;
 
 namespace AutomaticController.Windows.Demos.测试机通用界面.Datas
 {
@@ -64,7 +55,7 @@ namespace AutomaticController.Windows.Demos.测试机通用界面.Datas
         {
             XMLFilePath = path;
         }
-        
+
         protected internal virtual void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
@@ -113,13 +104,13 @@ namespace AutomaticController.Windows.Demos.测试机通用界面.Datas
 
             //获取根节点
             XElement root = Document.Root;
-           
+
             //查找数据
             var v = root.Element(key);
             if (v != null)
             {
                 v.Remove();
-                
+
                 Task.Run(() =>
                 {
                     if (settingvalue)
@@ -139,7 +130,7 @@ namespace AutomaticController.Windows.Demos.测试机通用界面.Datas
         /// </summary>
         /// <param name="key"></param>
         /// <param name="newKey"></param>
-        public void Rekey(string key,string newKey)
+        public void Rekey(string key, string newKey)
         {
             if (Document == null)
             {

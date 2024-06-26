@@ -25,13 +25,14 @@
         </Grid>
         
         <StackPanel VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="35,0,0,10">
-            <StackPanel  Orientation="Horizontal" HorizontalAlignment="Right">
-                <TextBlock Text="SN码：" FontSize="25" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+            <StackPanel  Orientation="Horizontal" Margin="0,0,0,2">
+                <TextBlock Text="SN码：" FontSize="25" VerticalAlignment="Center" HorizontalAlignment="Left" Width="130" TextAlignment="Right"/>
                 <TextBox x:Name="SNCodeTextbox" VerticalAlignment="Center"  FontSize="25" Width="350" />
+                <Label x:Name="SNCodeStateLabel" Content="通过" Width="35" VerticalContentAlignment="Center" BorderBrush="#FFABADB3" BorderThickness="1,1,1,1"/>
             </StackPanel>
             <StackPanel  Orientation="Horizontal">
-                <TextBlock Text="参数选择：" FontSize="25" VerticalAlignment="Center" HorizontalAlignment="Left"/>
-                <ComboBox x:Name="ParamSelest_ComboBox" FontSize="25" HorizontalAlignment="Left" Width="350" DropDownOpened="ComboBox_DropDownOpened" DropDownClosed="ComboBox_DropDownClosed" VerticalAlignment="Center" />
+                <TextBlock Text="参数选择：" FontSize="25" VerticalAlignment="Center" HorizontalAlignment="Left" Width="130" TextAlignment="Right"/>
+                <ComboBox x:Name="ParamSelest_ComboBox" FontSize="25" HorizontalAlignment="Left" Width="385" DropDownOpened="ComboBox_DropDownOpened" DropDownClosed="ComboBox_DropDownClosed" VerticalAlignment="Center" />
             </StackPanel>   
         </StackPanel>
         <StackPanel HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,60,10,0">
@@ -72,14 +73,16 @@
         
         </StackPanel>
         <StackPanel   HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,10,25">
-            <ui:UBitButton DataContext="{Binding Source={x:Static ds:PLC1.运行按钮}}"  FontSize="25" Grid.Column="0" Grid.Row="3" OnContent="运行" OffContent="停止" PressModule="Invert" OffBackground="#FFF35A5A" OnBackground="#FF4BE23E"  Value="False" Height="60" BorderThickness="3,3,3,3" />
+            <ui:UBitButton DataContext="{Binding Source={x:Static ds:PLC1.运行按钮}}"  FontSize="25" Grid.Column="0" Grid.Row="3" OnContent="运行按钮" OffContent="停止按钮" PressModule="Invert" OffBackground="#FFF35A5A" OnBackground="#FF4BE23E"  Value="False" Height="60" BorderThickness="3,3,3,3" />
 
             <TextBlock Text="检测结果" FontSize="25"/>
             <ui:UNumLabel DataContext="{Binding Source={x:Static ds:PLC1.检测结果}}" Width="250" Height="80" FontSize="25" BorderBrush="DarkGray" BorderThickness="1,1,1,1" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" >
                 <ui:UNumLabel.Backgrounds>
                     <x:Array Type="{x:Type Brush}">
                         <SolidColorBrush Color="#FF8ECDF5"/>
+                        <SolidColorBrush Color="#FFEBF58E"/>
                         <SolidColorBrush Color="#FF74FD1A"/>
+                        <SolidColorBrush Color="#FFF53131"/>
                         <SolidColorBrush Color="#FFF53131"/>
                         <SolidColorBrush Color="#FFF53131"/>
                         <SolidColorBrush Color="#FFF53131"/>
@@ -90,11 +93,13 @@
                 <ui:UNumLabel.Contents>
                     <x:Array Type="{x:Type System:Object}">
                         <System:String>未检测</System:String>
+                        <System:String>检测中</System:String>
                         <System:String>检测OK</System:String>
-                        <System:String>扫码超时</System:String>
-                        <System:String>重量NG</System:String>
+                        <System:String>称重NG</System:String>
                         <System:String>拍照NG</System:String>
-                        <System:String>条码前缀NG</System:String>
+                        <System:String>拍照超时NG</System:String>
+                        <System:String>扫码超时NG</System:String>
+                        <System:String>条码格式NG</System:String>
                         <System:String>重码NG</System:String>
                     </x:Array>
                 </ui:UNumLabel.Contents>

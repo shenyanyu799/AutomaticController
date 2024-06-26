@@ -1,18 +1,8 @@
 ﻿using AutomaticController.Device;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace AutomaticController.UI
 {
@@ -38,7 +28,8 @@ namespace AutomaticController.UI
         public ULabel()
         {
             InitializeComponent();
-            this.Loaded += (s, e) => {
+            this.Loaded += (s, e) =>
+            {
                 CompositionTarget.Rendering += CompositionTarget_Rendering;
             };
             this.Unloaded += (s, e) => CompositionTarget.Rendering -= CompositionTarget_Rendering;
@@ -51,7 +42,7 @@ namespace AutomaticController.UI
         private void CompositionTarget_Rendering(object sender, EventArgs e)
         {
             if (this.IsVisible == false) return;
-            
+
 
             if (DataContext is IModbus_RTU_Unit)//读取PLC数据
             {

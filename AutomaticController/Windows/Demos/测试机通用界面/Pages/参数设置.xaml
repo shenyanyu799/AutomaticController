@@ -55,13 +55,19 @@
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" Margin="82,10,0,5" HorizontalAlignment="Left" VerticalAlignment="Top">
                             <TextBlock Text="SN码前缀：" FontSize="25" />
-                            <TextBox x:Name="sncodePrefixText" Width="300" FontSize="12" IsReadOnly="False" VerticalContentAlignment="Center"  />
+                            <TextBox x:Name="sncodePrefixText" Width="300" FontSize="12" IsReadOnly="False" VerticalContentAlignment="Center"/>
                         </StackPanel>
-                        <StackPanel Margin="100,20,0,0" Orientation="Horizontal">
-                            <ui:UBitButton DataContext="{Binding Source={x:Static ds:PLC1.电机方向}}"  FontSize="20" OffContent=" 电机正转 " OnContent=" 电机反转 " OffBackground="#FFD84242" OnBackground="#FF9AE867" PressModule="Invert"  HorizontalAlignment="Left" VerticalAlignment="Top" CornerRadius="3" Height="45" Margin="0,0,20,0"/>
+                        <StackPanel Orientation="Horizontal" Margin="82,10,0,5" HorizontalAlignment="Left" VerticalAlignment="Top">
+                            <TextBlock Text="SN码长度：" FontSize="25" VerticalAlignment="Center" />
+                            <TextBox x:Name="sncodeLengthText" Width="102" FontSize="25" IsReadOnly="False" VerticalContentAlignment="Center" VerticalAlignment="Center"  />
+                            <ui:UBitButton x:Name="sncodeLengthButton"  FontSize="20" OffContent=" 长度检测禁用 " OnContent=" 长度检测启用 " OffBackground="#FFD84242" OnBackground="#FF9AE867" PressModule="Invert"  HorizontalAlignment="Left" VerticalAlignment="Top" CornerRadius="3" Height="45" Margin="5,0,0,0"/>
+                            <ui:UBitButton x:Name="sncodeDuplicateButton"  FontSize="20" OffContent=" 重码检测禁用 " OnContent=" 重码检测启用 " OffBackground="#FFD84242" OnBackground="#FF9AE867" PressModule="Invert"  HorizontalAlignment="Left" VerticalAlignment="Top" CornerRadius="3" Height="45" Margin="5,0,20,0"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <ui:UBitButton DataContext="{Binding Source={x:Static ds:PLC1.电机方向}}"  FontSize="20" OffContent=" 电机正转 " OnContent=" 电机反转 " OffBackground="#FFD7D842" OnBackground="#FF67C2E8" PressModule="Invert"  HorizontalAlignment="Left" VerticalAlignment="Top" CornerRadius="3" Height="45" Margin="0,0,20,0"/>
                             <ui:UBitButton DataContext="{Binding Source={x:Static ds:PLC1.拍照启用}}"  FontSize="20" OffContent=" 拍照禁用 " OnContent=" 拍照启用 " OffBackground="#FFD84242" OnBackground="#FF9AE867" PressModule="Invert"  HorizontalAlignment="Left" VerticalAlignment="Top" CornerRadius="3" Height="45" Margin="0,0,20,0"/>
                             <ui:UBitButton DataContext="{Binding Source={x:Static ds:PLC1.扫码启用}}"  FontSize="20" OffContent=" 扫码禁用 " OnContent=" 扫码启用 " OffBackground="#FFD84242" OnBackground="#FF9AE867" PressModule="Invert"  HorizontalAlignment="Left" VerticalAlignment="Top" CornerRadius="3" Height="45" Margin="0,0,20,0"/>
-                            <ui:UBitButton x:Name="sncodeDuplicateButton"  FontSize="20" OffContent=" 重码检测禁用 " OnContent=" 重码检测启用 " OffBackground="#FFD84242" OnBackground="#FF9AE867" PressModule="Invert"  HorizontalAlignment="Left" VerticalAlignment="Top" CornerRadius="3" Height="45" Margin="0,0,20,0"/>
+                            <ui:UBitButton DataContext="{Binding Source={x:Static ds:PLC1.扫码模式}}"  FontSize="20" OffContent=" 人工扫码 " OnContent=" 自动扫码 " OffBackground="#FFD84242" OnBackground="#FF9AE867" PressModule="Invert"  HorizontalAlignment="Left" VerticalAlignment="Top" CornerRadius="3" Height="45" Margin="0,0,20,0"/>
                         </StackPanel>
                     </StackPanel>
                     <TextBlock Text="离开当前页面后，自动保存修改的参数" VerticalAlignment="Bottom" HorizontalAlignment="Right" FontSize="20"/>

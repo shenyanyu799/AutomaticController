@@ -1,17 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace AutomaticController.UI
 {
@@ -23,7 +12,7 @@ namespace AutomaticController.UI
         private DateTime _date;
         public DateTime DateTime
         {
-            get 
+            get
             {
                 DateTime dt = DateTime.Now;
                 return new DateTime(dt.Year, dt.Month, dt.Day, _date.Hour, _date.Minute, 0);
@@ -86,7 +75,7 @@ namespace AutomaticController.UI
                 }
 
             }
-            if(sender == HourText)
+            if (sender == HourText)
             {
                 if (e.Key == Key.OemSemicolon || e.Key == Key.OemPeriod)
                 {

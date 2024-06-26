@@ -1,22 +1,9 @@
 ﻿using AutomaticController.Windows.Demos.测试机通用界面.Datas;
-using AutomaticController.Windows.FuJia.电机寿命老化测试.Pages;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using VM.Core;
-using VMControls.Interface;
-using VMControls.WPF.Release;
 
 namespace AutomaticController.Windows.Demos.测试机通用界面.Pages
 {
@@ -30,14 +17,15 @@ namespace AutomaticController.Windows.Demos.测试机通用界面.Pages
         public 运行监控_CCD()
         {
             InitializeComponent();
-            CCD编辑.CCDLoadedEvent += () => {
+            CCD编辑.CCDLoadedEvent += () =>
+            {
                 BindVmRenderControl();
             };
             //MainVmRenderControl = VmRenderControl1;
             this.Loaded += (s, e) =>
             {
                 CompositionTarget.Rendering += CompositionTarget_Rendering;
-                ComboBox_DropDownOpened(null,null);//更新参数列表
+                ComboBox_DropDownOpened(null, null);//更新参数列表
 
                 if (VmSolution.Instance.SolutionPath == null)
                 {
@@ -72,13 +60,33 @@ namespace AutomaticController.Windows.Demos.测试机通用界面.Pages
         {
             DatetimeText.Text = DateTime.Now.ToString();
             SNCodeTextbox.Text = MainWindow.SNCode;
+            switch (MainWindow.SNCodeResult)
+            {
+                case SNCodeState.None:
+                    SNCodeStateLabel.Content = "";
+                    SNCodeStateLabel.Background = null;
+                    break;
+                case SNCodeState.Pass:
+                    SNCodeStateLabel.Content = "通过";
+                    SNCodeStateLabel.Background = new SolidColorBrush(Color.FromRgb(0x51, 0xd7, 0x2b));
+                    break;
+                case SNCodeState.Error:
+                    SNCodeStateLabel.Content = "错码";
+                    SNCodeStateLabel.Background = new SolidColorBrush(Color.FromRgb(0xd7, 0x2b, 0x51));
+                    break;
+                case SNCodeState.Repetition:
+                    SNCodeStateLabel.Content = "重码";
+                    SNCodeStateLabel.Background = new SolidColorBrush(Color.FromRgb(0xd7, 0x2b, 0x51));
+                    break;
+            }
+            
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             Button button = (Button)sender;
             string con = button.Content.ToString();
-            if(con == "刷新")
+            if (con == "刷新")
             {
                 CCD编辑.LoadCCD(true);
                 //BindVmRenderControl();
@@ -112,4 +120,5 @@ namespace AutomaticController.Windows.Demos.测试机通用界面.Pages
             Parameters_XMLFile.Select(sele);
         }
     }
+
 }

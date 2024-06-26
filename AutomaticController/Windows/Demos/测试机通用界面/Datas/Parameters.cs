@@ -1,14 +1,9 @@
-﻿using Apps.Data.ShapeDefine;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls.Primitives;
 
 namespace AutomaticController.Windows.Demos.测试机通用界面.Datas
 {
-   //在这里设定需要备份的参数
+    //在这里设定需要备份的参数
     public partial class Parameters
     {
         public double 信号检测延时 { get; set; }
@@ -17,11 +12,16 @@ namespace AutomaticController.Windows.Demos.测试机通用界面.Datas
         public double 重量下限 { get; set; }
         public double 重量上限 { get; set; }
         public string CCDPath { get; set; }
-        public string SN码前缀 {  get; set; }
-        public bool 电机方向 {  get; set; }
-        public bool 扫码启用 {  get; set; }
-        public bool 拍照启用 {  get; set; }
-        public bool 重码检测 {  get; set; }
+        public string SN码前缀 { get; set; }
+        public bool 电机方向 { get; set; }
+        public bool 扫码启用 { get; set; }
+        public bool 拍照启用 { get; set; }
+        public bool 扫码模式 { get; set; }
+
+
+        public int SN码长度 { get; set; }
+        public bool 长度检测 { get; set; }
+        public bool 重码检测 { get; set; }
     }
     public partial class Parameters
     {
@@ -44,9 +44,9 @@ namespace AutomaticController.Windows.Demos.测试机通用界面.Datas
         /// <returns></returns>
         public bool Rename(string newName)
         {
-            if(newName == FileName) return false;
+            if (newName == FileName) return false;
             var names = Parameters_XMLFile.Instance.GetNames();
-            if(names.Contains(newName)) return false;
+            if (names.Contains(newName)) return false;
             //Parameters_XMLFile.Instance.Remove(FileName);
             //Parameters_XMLFile.Instance[newName] = this;
             //FileName = newName;
@@ -66,12 +66,17 @@ namespace AutomaticController.Windows.Demos.测试机通用界面.Datas
     /// </summary>
     public class Parameters_XMLFile : XMLFile
     {
-        public Parameters this[string name] { get {
-                var par =  GetValue<Parameters>(name);
+        public Parameters this[string name]
+        {
+            get
+            {
+                var par = GetValue<Parameters>(name);
                 if (par == null) return null;
                 par.FileName = name;
                 return par;
-            } set {
+            }
+            set
+            {
                 SetValue(name, value);
             }
         }
@@ -82,7 +87,7 @@ namespace AutomaticController.Windows.Demos.测试机通用界面.Datas
         {
             var param = Parameters_XMLFile.SelectItem;
             if (param == null) return;
-           
+
             PLC1.信号检测延时.Value = param.信号检测延时;
             PLC1.气缸升降时间.Value = param.气缸升降时间;
             PLC1.推料动作时间.Value = param.推料动作时间;
@@ -91,9 +96,8 @@ namespace AutomaticController.Windows.Demos.测试机通用界面.Datas
             PLC1.电机方向.Value = param.电机方向;
             PLC1.扫码启用.Value = param.扫码启用;
             PLC1.拍照启用.Value = param.拍照启用;
+            PLC1.扫码模式.Value = param.扫码模式;
             LoadParamEvent?.Invoke(param);
-
-
         }
         /// <summary>
         /// 保存并关联参数
@@ -111,6 +115,7 @@ namespace AutomaticController.Windows.Demos.测试机通用界面.Datas
             param.电机方向 = PLC1.电机方向.Value;
             param.扫码启用 = PLC1.扫码启用.Value;
             param.拍照启用 = PLC1.拍照启用.Value;
+            param.扫码模式 = PLC1.扫码模式.Value;
             SaveParamEvent?.Invoke(param);
             param.Save();
         }
@@ -133,7 +138,7 @@ namespace AutomaticController.Windows.Demos.测试机通用界面.Datas
         public static Parameters SelectFirst()
         {
             var names = Instance.GetNames();
-            if(names.Length > 0)
+            if (names.Length > 0)
             {
                 Setting.Instance.ParametersSelectName = names[0];
                 return SelectItem;

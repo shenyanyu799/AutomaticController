@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace AutomaticController.Device
+﻿namespace AutomaticController.Device
 {
     public class Modbus_XD3Address
     {

@@ -1,19 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
+﻿using AutomaticController.Device;
+using System;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using AutomaticController.Device;
 
 namespace AutomaticController.UI
 {
@@ -25,7 +15,7 @@ namespace AutomaticController.UI
         public CornerRadius CornerRadius
         {
             get =>
-                (CornerRadius)Resources["BorderCornerRadius"]; 
+                (CornerRadius)Resources["BorderCornerRadius"];
             set =>
                 Resources["BorderCornerRadius"] = value;
         }
@@ -78,7 +68,8 @@ namespace AutomaticController.UI
         public UBitButton()
         {
             InitializeComponent();
-            this.Loaded += (s, e) => {
+            this.Loaded += (s, e) =>
+            {
                 CompositionTarget.Rendering += CompositionTarget_Rendering;
                 bool b = Value;
             };
@@ -91,7 +82,7 @@ namespace AutomaticController.UI
         /// <param name="e"></param>
         private void CompositionTarget_Rendering(object sender, EventArgs e)
         {
-            if(isDown && this.IsMouseOver == false)//鼠标离开后算抬起
+            if (isDown && this.IsMouseOver == false)//鼠标离开后算抬起
             {
                 Up();
             }
@@ -100,12 +91,12 @@ namespace AutomaticController.UI
                 var obj = (DataContext as IModbus_RTU_Unit);
                 obj.RequestRead = true;
             }
-            bool b = bit; 
+            bool b = bit;
             if (DataContext is IBit)
             {
                 b = (DataContext as IBit).Value;
             }
-            if(b != bit)
+            if (b != bit)
             {
                 bit = b;
                 if (bit)
@@ -136,7 +127,7 @@ namespace AutomaticController.UI
                 case PressModule.PressOff:
                     Value = false; break;
                 case PressModule.Invert:
-                    Value = !Value; 
+                    Value = !Value;
                     break;
             }
 
@@ -159,7 +150,7 @@ namespace AutomaticController.UI
                 Down();
             }
         }
-       
+
         private void Button_MouseUp(object sender, MouseButtonEventArgs e)
         {
             if (e.LeftButton == MouseButtonState.Released)
